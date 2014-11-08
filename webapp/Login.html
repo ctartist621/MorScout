@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="main1.css">
+	<title>Login Page</title>
+	<script>
+	function validateForm() {
+    		var x = document.forms["myForm"]["username"].value;
+    		if (x == null || x == "") {
+      			alert("username must contain something");
+			console.log("x is blank");
+      	 		return false;
+		}
+		console.log("x is not blank");
+		var y = document.forms["myForm"]["password"].value;
+    		if (y == null || y == "") {
+      			alert("Password must contain something");
+			console.log("y is blank");
+      	 		return false;
+		}
+		console.log("y is not blank");
+		return true;
+    	}
+	</script>
+</head>
+
+<body>
+
+	<div class="nav">
+	 <div class="container">
+	  <div class = "pull-left">
+	   <ul class="nav nav-pills">
+	    <li><a href="#">MorScout</a></li>
+       </ul>
+	  </div>
+     </div>
+    </div>
+
+    <div class="main">
+      <div class="container">
+	   <div class="row">
+	    <div class="col-md-4">
+	    </div>
+        <div class="col-md-4">
+		 <div class="1login">
+		  <form id="myForm" action="javascript:alert('success');" method="get" onsubmit="return validateForm()">
+		  <br>
+		  <p id = "usertext">Username</p>
+		  <input type="text" id="username">
+		  <p id = "usertext">Password</p>
+		  <input type="password" id="password">
+		  <br>
+		  <br>
+		  </form>
+		  <div class="login">
+		  <input type="submit" value="Login">
+		</div>
+		 </div>
+		</div>
+		<div class="col-md-4">
+	    </div>	
+	   </div>
+	  </div>
+	</div>
+	</body>
+</html>
