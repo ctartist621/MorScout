@@ -54,12 +54,10 @@ body {
 	padding-left: 150px;
 }
 
-#loginbutton {
+.login {
 	padding-left:20px;
 	padding-right: 20px;
-	margin-left:90px;
-	
-	
+	margin-left:100px;
 }
 
 #usertext {
