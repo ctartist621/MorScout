@@ -1,0 +1,50 @@
+.nav a {
+  color: black;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 14px 10px;
+  text-transform: uppercase;
+}
+
+.Main {
+	background-color:black;
+	color: orange;
+	font-size: 28px
+}
+
+.Main h1 {
+	font-size: 80px;
+	padding-left: 200px;
+	padding-top: 50px;
+}
+
+.Main p {
+	padding-left: 200px;
+	padding-bottom:50px;
+}
+
+.nav li {
+  display: inline;
+}
+
+.nav {
+  background-color: orange;
+}
+
+.jumbotron {
+  background-color: black;
+}
+
+.jumbotron h1 {
+  color: orange;
+}
+
+.jumbotron p {
+  color: orange;
+}
+
+.all {
+  background-color: black;
+}
+
+
