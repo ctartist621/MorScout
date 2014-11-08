@@ -2,9 +2,9 @@
 <html>
 
   <head>
-    <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
-    <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css" rel="stylesheet">
-    
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
     
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -16,28 +16,41 @@
   </head>
 
   <body>
-  <div class="hidden">
-    <div class="nav">
+   <div class="hidden">
+     <div class="nav">
       <div class="container">
-        <ul class="pull-left">
+       <div class = "pull-left">
+        <ul class="nav nav-pills">
+	  <li><a href="MorScout.html">MorScout</a></li>
           <li><a href="#">All Matches</a></li>
-          <li><a href="#">Team List</a></li>
+          <li><a href="MorScoutAllTeams.html">Team List</a></li>
           <li><a href="#">Sync</a></li>
-		  <li><a href="#">Settings</a></li>
+	  <li><a href="#">Settings</a></li>
         </ul>
-		<ul class="pull-right">
-          <li><a href="#">Help</a></li
-		  <li><a href="#">Feedback</a></li>
+       </div>
+       <div class = "pull-right">
+	<ul class="nav nav-pills">
+          <li><a href="#">Help</a></li>
+          <li><a href="#">Feedback</a></li>
         </ul>
+       </div>
       </div>
     </div>
 
-    <div class="Main">
+    <div class="main">
       <div class="container">
-        <h1>MorScout</h1>
-        <p>Welcome to MorScout!</p>
+       <div class="row">
+	<div class="col-md-4">
+	</div>
+	<div class="col-md-4">
+	 <h1>MorScout</h1>
+	 <h3 id="welcomemessage">Welcome to MorScout!</h3>
+	</div>
+	<div class="col-md-4">
+	</div>
+       </div>
       </div>
-    </div> 
-  </div>
+    </div>  
+   </div>
   </body>
 </html>
