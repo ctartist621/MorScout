@@ -7,9 +7,16 @@
     
     <link rel="stylesheet" href="index.css">
     
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+    $(document).ready(function () {
+    $('div.hidden').fadeIn(1000).removeClass('hidden');
+    });
+    </script>
   </head>
 
   <body>
+  <div class="hidden">
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
@@ -31,5 +38,6 @@
         <p>Welcome to MorScout!</p>
       </div>
     </div> 
+  </div>
   </body>
 </html>
