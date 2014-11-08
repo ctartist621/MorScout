@@ -1,3 +1,9 @@
+
+div.hidden
+{
+    display: none
+}
+
 .nav a {
   color: black;
   font-size: 11px;
