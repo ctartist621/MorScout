@@ -20,7 +20,7 @@ public class LoginActivity extends Activity {
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
         if (username.equals("username") && password.equals("password")) {
-            Intent intent = new Intent(this, MatchActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
         }

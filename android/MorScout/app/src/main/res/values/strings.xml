@@ -19,8 +19,13 @@
     <string name="password_textbox">Password</string>
     <string name="login_button">Login</string>
 
-    <!-- Match Activity -->
-    <string name="title_activity_match">Matches</string>
+    <!-- Main Activity -->
+    <string name="title_activity_main">Main</string>
 
+    <!-- Matches Fragment -->
+    <string name="title_fragment_matches">Matches</string>
+
+    <!-- Teams Fragment -->
+    <string name="title_fragment_teams">Teams</string>
 
 </resources>
