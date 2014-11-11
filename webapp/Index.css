@@ -1,10 +1,11 @@
-.hidden {
+.hidden  {
     display: none
 }
 
 *{
 	margin: 0px;
 	padding:0px;
+	border: 0px;
 }
 
 body {
@@ -33,14 +34,15 @@ body {
 }
 
 .main {
-	/*margin-left: 15px;*/
-	margin-right: 0 auto;
 	margin-top: 120px;
 	font-family: 'Exo 2', sans-serif;
 }
 
 .main input {
 	font-weight: bold;
+	color: orange;
+	background-color: black;
+	border: 2px solid rgb(229 , 148 , 0);
 }
 
 .main h1 {
@@ -62,7 +64,7 @@ body {
 
 #username-box {
 	margin:5px;
-	margin-top:25%;
+	margin-top:120px;
 }
 #password-box {
 	margin:5px;
@@ -70,13 +72,15 @@ body {
 #login_button {
 	height:42px;
 	width: 246px;
+	color: black;
 	text-align: center;
 	font-size: 22px;
+	background-color: rgb(229 , 148 , 0);
 }
 
 #username{
 	height:42px;
-	width:70%;
+	width:246px;
 	text-align: center;
 	font-size: 22px;
 	
@@ -84,7 +88,7 @@ body {
 
 #password{
 	height:42px;
-	width:70%;
+	width:246px;
 	text-align: center;
 	font-size: 22px;
 }
@@ -93,6 +97,27 @@ body {
   text-align:center;
   color: orange;
 } 
+
+::-webkit-input-placeholder { 
+    color: rgb(229 , 148 , 0);
+	opacity:0.8;
+}
+:-moz-placeholder {
+   color: rgb(229 , 148 , 0);
+   opacity:0.8;
+}
+::-moz-placeholder { 
+   color: rgb(229 , 148 , 0);
+   opacity:0.8;
+}
+:-ms-input-placeholder {
+   color: rgb(229 , 148 , 0);
+   opacity:0.8;
+}
+
+input:focus {
+    outline-width: 0;
+}
 
 
 

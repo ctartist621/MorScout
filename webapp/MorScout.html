@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
     $(document).ready(function () {
-    $('.hidden').fadeIn(1500).removeClass('hidden');
+      $('.hidden').fadeIn(1500).removeClass('hidden');
     });
     </script>
   </head>
@@ -22,19 +22,23 @@
      <div class="nav">
       <div class="container">
        <div class = "pull-left">
-        <ul class="nav nav-pills">
-	      <li><a href="MorScout.html">MorScout</a></li>
-          <li><a href="MorScoutAllMatches.html">All Matches</a></li>
-          <li><a href="MorScoutAllTeams.html">Team List</a></li>
-          <li><a href="#">Sync</a></li>
-	      <li><a href="#">Settings</a></li>
+	    <div class ="hidden">
+        <ul class="nav nav-pills"> 
+		  <li><a href="MorScout.html" title="Main page">MorScout</a></li>		
+          <li><a href="MorScoutAllMatches.html"title="List of all matches">All Matches</a></li>
+          <li><a href="MorScoutAllTeams.html"title="List of all teams">Team List</a></li>
+          <li><a href="#"title="Sync with the server" >Sync </a></li>
+	      <li><a href="#" title="Configure the settings">Settings</a></li>
         </ul>
+		</div>
        </div>
        <div class = "pull-right">
+	    <div class="hidden">
 	    <ul class="nav nav-pills">
-          <li><a href="#">Help</a></li>
-          <li><a href="#">Feedback</a></li>
+          <li><a href="#" title="Need help?">Help</a></li>
+          <li><a href="#" title="Give us your opinion!">Feedback</a></li>
         </ul>
+		</div>
        </div>
       </div>
     </div>

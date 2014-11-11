@@ -10,14 +10,14 @@
 	function validateForm() {
     		var x = document.forms["myForm"]["username"].value;
     		if (x == null || x == "") {
-      			alert("username must contain something");
+      			alert("Username can't be empty");
 			console.log("x is blank");
       	 		return false;
 		}
 		console.log("x is not blank");
 		var y = document.forms["myForm"]["password"].value;
     		if (y == null || y == "") {
-      			alert("Password must contain something");
+      			alert("Password can't be empty");
 			console.log("y is blank");
       	 		return false;
 		}
@@ -33,7 +33,7 @@
      <div class="container">
       <div class = "pull-left">
        <ul class="nav nav-pills">
-		<li><a href="#">MorScout</a></li>
+		<li><a href="#">MorScout Login</a></li>
        </ul>
       </div>
      </div>
@@ -46,12 +46,12 @@
 	    </div>
         <div class="col-md-4">
 		 <div class="1login">
-		  <form id="myForm" action="javascript:alert('success');" method="get" onsubmit="return validateForm()">
+		  <form id="myForm" action="MorScout.html" method="get" onsubmit="return validateForm()">
 			  <div id="username-box">
-				<input type="text" id="username" placeholder="Username">
+				<input type="text" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
 			  </div>
 			  <div id="password-box">
-				<input type="password" id="password" placeholder="Password">
+				<input type="password" id="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 			  </div>
 			  <div class="login">
 			   <input type="submit" id ="login_button" value="Login" >
