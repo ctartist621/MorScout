@@ -20,6 +20,10 @@ body {
   font-family: 'Roboto', sans-serif;
   position: fixed;
 }
+.check {
+	font-size: 17px;
+	color: orange;
+}
 
 .nav a {
   color: black;
