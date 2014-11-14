@@ -9,7 +9,6 @@
     <string name="navigation_frame3">Sync</string>
     <string name="navigation_drawer_open">Open Drawer</string>
     <string name="navigation_drawer_close">Close Drawer</string>
-
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -27,5 +26,6 @@
 
     <!-- Teams Fragment -->
     <string name="title_fragment_teams">Teams</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
