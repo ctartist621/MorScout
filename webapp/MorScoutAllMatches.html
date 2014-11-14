@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Index.css">
+<head>
+	<meta charset="utf-8" />
+    <title>MorScout</title>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="Index.css">
     
-  </head>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+    $(document).ready(function () {
+      $('.hidden').fadeIn(1500).removeClass('hidden');
+    });
+    </script>
+</head>
 
-  <body>
-    <div class="nav">
-      <div class="container">
-	   <div class = "pull-left">
-        <ul class="nav nav-pills">
-		  <li><a href="MorScout.html">MorScout</a></li>
-          <li class = "active"><a href="MorScoutAllMatches.html">All Matches</a></li>
-          <li><a href="MorScoutAllTeams.html">Team List</a></li>
-          <li><a href="#">Sync</a></li>
-		  <li><a href="#">Settings</a></li>
-        </ul>
-	   </div>
-	   <div class = "pull-right">
-	    <ul class="nav nav-pills">
-          <li><a href="#">Help</a></li>
-		  <li><a href="#">Feedback</a></li>
-        </ul>
-	   </div>
-      </div>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	  <a class="navbar-brand" href="MorScout.html">MorScout</a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MorScoutNav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
     </div>
+    <div class="collapse navbar-collapse" id="MorScoutNav">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="MorScoutAllMatches.html"title="List of all matches">All Matches</a></li>
+        <li><a href="MorScoutAllTeams.html"title="List of all teams">Team List</a></li>
+        <li><a href="#"title="Sync with the server" >Sync </a></li>
+	    <li><a href="#" title="Configure the settings">Settings</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class = "rightlinks" href="#" title="Need help?">Help</a></li>
+        <li><a class = "rightlinks" href="#" title="Give us your opinion!">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
     <div class="firstbar">
       <div class="container">
@@ -80,5 +94,9 @@
 	   
       </div>
     </div> 
-  </body>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+</body>
 </html>
