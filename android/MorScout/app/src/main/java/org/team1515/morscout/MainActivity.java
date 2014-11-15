@@ -1,18 +1,18 @@
 package org.team1515.morscout;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
-public class MainActivity extends Activity
+public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, TeamsFragment.OnFragmentInteractionListener, MatchesFragment.OnFragmentInteractionListener {
 
     //Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -45,20 +45,20 @@ public class MainActivity extends Activity
         //Select correct fragment based on item selected
         switch (position) {
             case 0:
-                fragment = new TeamsFragment();
+                fragment = new MatchesFragment();
                 break;
             case 1:
                 fragment = new TeamsFragment();
                 break;
             case 2:
-                fragment = new TeamsFragment();
+                fragment = new MatchesFragment();
                 break;
             default:
-                fragment = new TeamsFragment();
+                fragment = new MatchesFragment();
         }
 
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
 //                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .replace(R.id.container, fragment)
