@@ -1,0 +1,15 @@
+{
+	"1" : {
+		"red" : [
+			1515,
+			1516,
+			1517
+		],
+		"blue" : [
+			1717,
+			1718,
+			1719
+		],
+		"time" : "2:00 AM" // what should the format for time be?
+	}
+}

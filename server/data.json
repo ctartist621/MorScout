@@ -1,0 +1,20 @@
+{
+	"1515" : {
+		"1" : {
+			"BenH" : [
+				{
+					"meta" : {
+						"team" : "1515",
+						"match" : "1",
+						"scout" : "BenH",
+						"checksum" : "42"
+					},
+					"data" : {
+						"highGoals" : "2",
+						"lowGoals" : "4"
+					}
+				}
+			]
+		}
+	}
+}
