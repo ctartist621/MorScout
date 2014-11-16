@@ -7,7 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
 
+import org.team1515.server.Match;
+import org.team1515.server.Report;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -30,6 +37,9 @@ public class MatchesFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    //Match data
+    private ArrayList<Match> matches;
 
     /**
      * Use this factory method to create a new instance of
@@ -59,13 +69,31 @@ public class MatchesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_matches, container, false);
+        View view = inflater.inflate(R.layout.fragment_matches, container, false);
+        //Create interface for matches
+        getMatchData();
+        ExpandableListView listView = (ExpandableListView)view.findViewById(R.id.expandableListView);
+        for(int i = 0; i < matches.size(); i++) {
+            Match match = matches.get(i);
+
+            TextView numberText = new TextView(listView.getContext());
+            numberText.setText(Integer.toString(match.getNumber()));
+
+            TextView dateText = new TextView(listView.getContext());
+            dateText.setText(match.getDate().toString());
+
+//            listView.addView(numberText, i);
+//            listView.addView(dateText, i);
+        }
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,6 +119,14 @@ public class MatchesFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    //Retrieve all match data from JSON file
+    //TODO: incorporate JSON
+    private void getMatchData() {
+        matches = new ArrayList<Match>();
+        matches.add(new Match(0, new Date(), new ArrayList<Report>()));
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
