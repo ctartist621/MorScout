@@ -246,13 +246,17 @@ input:focus {
 	}
 }
 
-#match_2{
+.current_match{
 	background-color: orange;
 	color: black;
 }
 
-#match_2 a{
+.current_match a{
 	color: black;
+}
+
+.current_match:hover {
+	background-color: darkOrange;
 }
 
 	
