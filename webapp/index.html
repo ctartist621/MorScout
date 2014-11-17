@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login Page</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -22,13 +23,9 @@
   </div>
 </nav>
 
-    <div class="main">
+    <div class="login_wrapper">
       <div class="container">
-	   <div class="row">
-	    <div class="col-md-4">
-	    </div>
-        <div class="col-md-4">
-		  <form id="myForm" action="MorScout.html" method="get" onsubmit= "return validateForm()">
+		  <form id="login_form" action="MorScout.html" method="get" onsubmit= "return validateForm()">
 			  <div id="username-box">
 				<input type="text" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
 			  </div>
@@ -36,16 +33,12 @@
 				<input type="password" id="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 			  </div>
 			  <div class="check">
-				<input type="checkbox" id="check"> Remember me</input>
+				<input type="checkbox" id="check_box"> Remember me</input>
 			  </div>
 			  <div class="login">
 			   <input type="submit" id ="login_button" value="Login" >
 			  </div>
 		  </form>
-	    </div>
-	    <div class="col-md-4">
-	    </div>	
-	   </div>
       </div>
     </div>
 
