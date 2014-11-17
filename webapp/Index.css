@@ -13,14 +13,18 @@ body {
 	font-size: 100%
 }
 
+/* NAVIGATION BAR STYLES */
+
 .navbar-default .container-fluid {
   background-color: orange;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
   width: 100%;
 }
 
 .navbar-default{
 	border:0;
+	min-height: 50px;
 }
 
 .navbar-default a {
@@ -42,21 +46,48 @@ color: black;
 background-color: #EE7600;
 }
 
-.main {
-	margin-top: 13em;
+.navbar-default div.navbar-collapse {
+    border-top:0;
+}
+
+.navbar-nav li{
+	text-align:center;
+}
+
+#toggle_button{
+	background-color: orange;
+	border:0;
+	border-radius: 0;
+}
+
+#toggle_button:hover{
+	background-color: #EE7600;
+	border:0;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: black;
+}
+
+/* END OF NAVIGATION BAR STYLES */
+
+/* MAIN PAGE STYLES */
+
+.main  {
+	margin-top: 20vh;
 	font-family: 'Exo 2', sans-serif;
 }
 
-.main input {
-	font-weight: bold;
+.main :not(.check) > input {
 	color: orange;
 	background-color: black;
-	border: 2px solid rgb(229 , 148 , 0);
+	border: .1em solid rgb(229 , 148 , 0);
 }
 
-.main: form {
-	text-align: center;
+input {
+	-webkit-border-radius:0px;
 }
+
 
 .main h1 {
 	color: orange;
@@ -64,46 +95,83 @@ background-color: #EE7600;
 	text-align: center;
 }
 
+#welcomemessage {
+  text-align:center;
+  color: orange;
+} 
+
+
+/* END OF MAIN SECTION STYLES */
+
+/* FIRST HEADER STYLES */
+
 .firstbar {
-	font-family: 'Exo 2', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	color: orange;
-	text-align: center;
-	margin-top: 4em;
+	margin-top: 5em;
 }
 
-#myForm {
+.firstbar h1 {
+	text-align: center;
+	font-family: 'Exo 2', sans-serif;
+}
+
+.firstbar table, th, td {
+    border: 1px solid white;
+	border-collapse: collapse;
+	font-size: 1.4em;
+	
+}
+
+.firstbar a {
+	color: orange;
+}
+
+.firstbar table{
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.firstbar th,td {
+    padding: .3em;
+}
+
+/* END OF FIRST HEADER STYLES */
+
+/* LOGIN PAGE STYLES */
+
+#login_form {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
 	text-align:center;
 }
 
-#username-box {
-	margin:.5em;
-	margin-top:6em;
-}
-#password-box {
-	margin:.5em;
-}
 #login_button {
 	height:2.2em;
 	width: 12.3em;
 	color: black;
 	text-align: center;
 	font-size: 2em;
-	background-color: rgb(229 , 148 , 0);
-	position: relative;
-	top: 0.3em;
+	background-color: orange;
+	margin-top:.3em;
 }
 
 .check {
 	font-size: 2em;
 	font-weight: bold;
-	color: rgb(229 , 148 , 0);
-	margin-left:-72px;
+	color: orange;
+	font-weight: 300;
+	margin-top: .3em;
+	margin-left: auto;
+	margin-right: auto;
+	width: 12.3em;
+	text-align: left;
 }
 
-#check{
-	height:1.5em;
-	width: 1.5em;
-	margin-left: -.4em;
+#check_box{
+	height:1.2em;
+	width: 1.2em;
+	border:none;
 }
 
 
@@ -112,6 +180,7 @@ background-color: #EE7600;
 	width: 11.1em;
 	text-align: center;
 	font-size: 2.2em;
+	border-bottom:none;
 	
 }
 
@@ -121,11 +190,6 @@ background-color: #EE7600;
 	text-align: center;
 	font-size: 2.2em;
 }
-
- #welcomemessage {
-  text-align:center;
-  color: orange;
-} 
 
 ::-webkit-input-placeholder { 
     color: rgb(229 , 148 , 0);
@@ -148,6 +212,47 @@ input:focus {
     outline-width: 0;
 }
 
+.login_wrapper{
+	margin-top: 30vh;
+	-webkit-border-radius:0px;
+	color: orange;
+	background-color: black;
+}
+
+.login_wrapper  input{
+	border: .1em solid orange;
+	background-color:black;
+}
+
+/* END OF LOGIN PAGE STYLES */
 
 
 
+ 
+
+
+@media screen and (max-width: 420px){
+	.main h1 {
+		font-size: 19vw;
+	}
+	#welcomemessage {
+		font-size: 6vw;
+	} 
+}
+
+@media screen and (max-width: 460px){
+	.firstbar table, th, td {
+		font-size: 4vw
+	}
+}
+
+#match_2{
+	background-color: orange;
+	color: black;
+}
+
+#match_2 a{
+	color: black;
+}
+
+	
