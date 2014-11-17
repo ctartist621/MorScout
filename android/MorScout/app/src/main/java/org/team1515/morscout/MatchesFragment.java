@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import org.team1515.server.Report;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -40,6 +44,8 @@ public class MatchesFragment extends Fragment {
 
     //Match data
     private ArrayList<Match> matches;
+    private ArrayList<Integer> keys;
+    private SparseArray<ArrayList<String>> children;
 
     /**
      * Use this factory method to create a new instance of
@@ -91,6 +97,7 @@ public class MatchesFragment extends Fragment {
 
 //            listView.addView(numberText, i);
 //            listView.addView(dateText, i);
+            listView.setAdapter(new ExpandableListAdapter(view.getContext(), keys, children));
         }
 
         return view;
@@ -124,7 +131,52 @@ public class MatchesFragment extends Fragment {
     //TODO: incorporate JSON
     private void getMatchData() {
         matches = new ArrayList<Match>();
-        matches.add(new Match(0, new Date(), new ArrayList<Report>()));
+
+        //Test data
+        ArrayList<Report> reports = new ArrayList<Report>();
+        reports.add(new Report("First Author"));
+        reports.add(new Report("Second Author"));
+        matches.add(new Match(1, new Date(2014, 11, 16), reports));
+        matches.add(new Match(2, new Date(2014, 11, 17), reports));
+        matches.add(new Match(3, new Date(2014, 11, 17), reports));
+        matches.add(new Match(4, new Date(2014, 11, 17), reports));
+        matches.add(new Match(5, new Date(2014, 11, 17), reports));
+        matches.add(new Match(6, new Date(2014, 11, 17), reports));
+        matches.add(new Match(7, new Date(2014, 11, 17), reports));
+        matches.add(new Match(8, new Date(2014, 11, 17), reports));
+        matches.add(new Match(9, new Date(2014, 11, 17), reports));
+        matches.add(new Match(10, new Date(2014, 11, 17), reports));
+        matches.add(new Match(11, new Date(2014, 11, 17), reports));
+        matches.add(new Match(12, new Date(2014, 11, 17), reports));
+        matches.add(new Match(13, new Date(2014, 11, 17), reports));
+        matches.add(new Match(14, new Date(2014, 11, 17), reports));
+        matches.add(new Match(15, new Date(2014, 11, 17), reports));
+        matches.add(new Match(16, new Date(2014, 11, 17), reports));
+        matches.add(new Match(17, new Date(2014, 11, 17), reports));
+        matches.add(new Match(18, new Date(2014, 11, 17), reports));
+        matches.add(new Match(19, new Date(2014, 11, 17), reports));
+        matches.add(new Match(20, new Date(2014, 11, 17), reports));
+        matches.add(new Match(21, new Date(2014, 11, 17), reports));
+        matches.add(new Match(22, new Date(2014, 11, 17), reports));
+        matches.add(new Match(23, new Date(2014, 11, 17), reports));
+        matches.add(new Match(24, new Date(2014, 11, 17), reports));
+        matches.add(new Match(25, new Date(2014, 11, 17), reports));
+        matches.add(new Match(26, new Date(2014, 11, 17), reports));
+
+        keys = new ArrayList<Integer>();
+        children = new SparseArray<ArrayList<String>>();
+        ArrayList<String> values;
+
+        for(int i = 0; i < matches.size(); i++) {
+            Match match = matches.get(i);
+            keys.add(match.getNumber());
+            values = new ArrayList<String>();
+            values.add(match.getDate().toString());
+            for(Report report : match.getReports()) {
+                values.add("Report: " + report.getAuthor());
+            }
+            children.put(match.getNumber(), values);
+        }
     }
 
 
