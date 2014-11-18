@@ -240,15 +240,16 @@ input:focus {
 	} 
 }
 
-@media screen and (max-width: 460px){
+@media screen and (max-width: 568px){
 	.firstbar table, th, td {
-		font-size: 4vw
+		font-size: 3vw
 	}
 }
 
 .current_match{
 	background-color: orange;
 	color: black;
+	line-height: 9vh;
 }
 
 .current_match a{
