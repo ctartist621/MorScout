@@ -1,4 +1,4 @@
-package org.team1515.server;
+package org.team1515.data;
 
 import java.util.ArrayList;
 import java.util.Date;

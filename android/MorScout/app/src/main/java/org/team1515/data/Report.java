@@ -1,4 +1,4 @@
-package org.team1515.server;
+package org.team1515.data;
 
 public class Report {
     private String author;

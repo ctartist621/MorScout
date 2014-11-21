@@ -5,20 +5,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import org.team1515.server.Match;
-import org.team1515.server.Report;
+import org.team1515.data.Match;
+import org.team1515.data.Report;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 
 /**
@@ -86,19 +83,8 @@ public class MatchesFragment extends Fragment {
         //Create interface for matches
         getMatchData();
         ExpandableListView listView = (ExpandableListView)view.findViewById(R.id.expandableListView);
-        for(int i = 0; i < matches.size(); i++) {
-            Match match = matches.get(i);
 
-            TextView numberText = new TextView(listView.getContext());
-            numberText.setText(Integer.toString(match.getNumber()));
-
-            TextView dateText = new TextView(listView.getContext());
-            dateText.setText(match.getDate().toString());
-
-//            listView.addView(numberText, i);
-//            listView.addView(dateText, i);
-            listView.setAdapter(new ExpandableListAdapter(view.getContext(), keys, children));
-        }
+        listView.setAdapter(new MatchListAdapter(view.getContext(), keys, children));
 
         return view;
     }

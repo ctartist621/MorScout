@@ -14,14 +14,14 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class MatchListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<Integer> keys; // header titles
     // child data in format of header title, child title
     private SparseArray<ArrayList<String>> children;
 
-    public ExpandableListAdapter(Context context, ArrayList<Integer> keys, SparseArray<ArrayList<String>> children) {
+    public MatchListAdapter(Context context, ArrayList<Integer> keys, SparseArray<ArrayList<String>> children) {
         this.context = context;
         this.keys = keys;
         this.children = children;
