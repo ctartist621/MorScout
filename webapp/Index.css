@@ -116,27 +116,62 @@ input {
 	font-family: 'Exo 2', sans-serif;
 }
 
-.firstbar table, th, td {
-    border: 1px solid white;
-	border-collapse: collapse;
-	font-size: 1.4em;
-	
-}
+
 
 .firstbar a {
 	color: orange;
 }
 
-.firstbar table{
+table{
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
 
-.firstbar th,td {
+th,td {
     padding: .3em;
 }
 
 /* END OF FIRST HEADER STYLES */
+
+/* TABLE STYLES */
+
+table, th, td {
+    border: 1px solid white;
+	border-collapse: collapse;
+	font-size: 1.4em;
+	text-align: center;
+	
+}
+
+table{
+	margin-top: 2em;
+	margin-bottom: 2em;
+	width:90%;
+	
+}
+
+th,td {
+    padding: .3em;
+}
+
+.current_match{
+	background-color: orange;
+	color: black;
+	line-height: 9vh;
+}
+
+.current_match a{
+	color: black;
+}
+
+.current_match:hover {
+	background-color: #EE7600;
+}
+
+
+
+/* END OF TABLE STYLES */
+
 
 /* LOGIN PAGE STYLES */
 
@@ -227,10 +262,6 @@ input:focus {
 /* END OF LOGIN PAGE STYLES */
 
 
-
- 
-
-
 @media screen and (max-width: 420px){
 	.main h1 {
 		font-size: 19vw;
@@ -240,24 +271,11 @@ input:focus {
 	} 
 }
 
-@media screen and (max-width: 568px){
+@media screen and (max-width: 623px){
 	.firstbar table, th, td {
 		font-size: 3vw
 	}
 }
 
-.current_match{
-	background-color: orange;
-	color: black;
-	line-height: 9vh;
-}
-
-.current_match a{
-	color: black;
-}
-
-.current_match:hover {
-	background-color: #EE7600;
-}
 
 	
