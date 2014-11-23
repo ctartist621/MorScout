@@ -1,6 +1,9 @@
 package org.team1515.morscout;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -68,7 +71,22 @@ public class SyncFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sync, container, false);
+        View view = inflater.inflate(R.layout.fragment_sync, container, false);
+
+        EditText hostTextBox = (EditText)view.findViewById(R.id.hostnameTextbox);
+        EditText portTextBox = (EditText)view.findViewById(R.id.portTextbox);
+        EditText pathTextBox = (EditText)view.findViewById(R.id.pathTextbox);
+        try {
+            SharedPreferences preferences = getActivity().getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+            hostTextBox.setText(preferences.getString("host", ""));
+            portTextBox.setText(preferences.getString("port", ""));
+            pathTextBox.setText(preferences.getString("path", ""));
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

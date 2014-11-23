@@ -1,5 +1,7 @@
 package org.team1515.morscout;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -108,6 +110,12 @@ public class MainActivity extends FragmentActivity
 
         TextView reponseTextView = (TextView)findViewById(R.id.responseTextView);
         reponseTextView.setText(response);
+
+        //Store values in storage for later use
+        SharedPreferences preferences = this.getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+        preferences.edit().putString("host", host).apply();
+        preferences.edit().putString("port", Integer.toString(port)).apply();
+        preferences.edit().putString("path", path).apply();
     }
 
     @Override
