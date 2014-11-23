@@ -1,6 +1,9 @@
-MorScout
-========
+#MorScout
 
-Team 1515 MorTorq FRC Scouting Application
+*Team 1515 MorTorq FRC Scouting Application*
 
-Includes: Server, Web Client, Android Client, iOS Client
+####Includes:
+- [X] Server
+- [X] Web Client
+- [X] Android Client
+- [ ] iOS Client
