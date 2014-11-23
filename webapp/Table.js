@@ -87,7 +87,10 @@
 	
 	
 	var match_number = 1;
+
 	for (match in jsonfile.matches) {
+			var match_index = match_number - 1;
+	
 			var tr = document.createElement('tr');
 			  /*	
 				if(match time is equal to current time){
