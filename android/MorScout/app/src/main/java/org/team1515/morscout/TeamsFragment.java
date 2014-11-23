@@ -9,14 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 
-import org.team1515.data.Match;
-import org.team1515.data.Report;
-import org.team1515.data.Team;
+import org.team1515.client.Report;
+import org.team1515.client.Team;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 /**

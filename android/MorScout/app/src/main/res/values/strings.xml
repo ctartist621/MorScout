@@ -26,5 +26,9 @@
 
     <!-- Sync Fragment -->
     <string name="title_fragment_sync">Sync</string>
+    <string name="host_textbox">Hostname</string>
+    <string name="port_textbox">Port</string>
+    <string name="path_textbox">Path</string>
+    <string name="sync_button">Sync</string>
 
 </resources>

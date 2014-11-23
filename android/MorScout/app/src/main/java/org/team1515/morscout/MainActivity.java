@@ -6,6 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import org.team1515.client.Sync;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends FragmentActivity
@@ -69,6 +78,36 @@ public class MainActivity extends FragmentActivity
             case 3:
                 break;
         }
+    }
+
+    public void syncButton(View view) {
+        EditText hostTextBox = (EditText)findViewById(R.id.hostnameTextbox);
+        EditText portTextBox = (EditText)findViewById(R.id.portTextbox);
+        EditText pathTextBox = (EditText)findViewById(R.id.pathTextbox);
+        String host = hostTextBox.getText().toString();
+        int port;
+        try {
+            port = Integer.parseInt(portTextBox.getText().toString());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            port = 0;
+        }
+        String path = pathTextBox.getText().toString();
+
+        String response = "";
+        try {
+            response = new Sync().execute(new URL("http", host, port, path)).get();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            response = "error";
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        TextView reponseTextView = (TextView)findViewById(R.id.responseTextView);
+        reponseTextView.setText(response);
     }
 
     @Override
