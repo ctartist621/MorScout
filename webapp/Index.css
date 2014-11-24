@@ -15,6 +15,10 @@ body {
 
 /* NAVIGATION BAR STYLES */
 
+.navbar .container-fluid{
+	
+}
+
 .navbar-default .container-fluid {
   background-color: orange;
   font-family: 'Open Sans', sans-serif;
@@ -68,6 +72,10 @@ background-color: #EE7600;
 .navbar-default .navbar-toggle .icon-bar {
     background-color: black;
 }
+
+@media only screen (height: 736px) and (width: 414px) {
+	
+ }
 
 /* END OF NAVIGATION BAR STYLES */
 
@@ -269,6 +277,8 @@ input:focus {
 	#welcomemessage {
 		font-size: 6vw;
 	} 
+	.navbar-default .container-fluid {
+	}
 }
 
 @media screen and (max-width: 623px){

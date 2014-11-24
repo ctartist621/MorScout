@@ -8,13 +8,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <title>MorScout</title>
-	<link rel="apple-touch-icon" href="Untitled.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="MorIcon.png">
+	<link rel="apple-touch-startup-image" href="MorStartup.png" media="(device-width: 414px)">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="Index.css">
-    
+    <link rel="stylesheet" type="text/css" href="addtohomescreen.css">
+	<script src="addtohomescreen.min.js"></script>
+	<script>
+		addToHomescreen({
+            maxDisplayCount: 0,
+            displayPace: 0
+        });
+	</script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	
     <script>
@@ -67,7 +75,14 @@
   </div>
  </div>  
 </div>
-
+<script>
+if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
+}
+</script>
+<script type='application/javascript' src='fastclick.js'></script>
 <script type="text/javascript" src="links.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
