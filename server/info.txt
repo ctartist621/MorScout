@@ -1,0 +1,7 @@
+login statuses:
+
+	0	success
+	1	already logged in
+	2	invalid password
+	3	invalid username
+	4	malformed request
