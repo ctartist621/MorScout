@@ -64,7 +64,8 @@ function logOut(user) {
 
 function webFormat(result, query) {
 	if(query.webCb) {
-		return "(" + query.webCb + ")(" + JSON.stringify(result) + ");"
+		return "(" + query.webCb + ")(" + JSON.stringify(result) + ");";
+    }
 	else {
 		return JSON.stringify(result);
 	}
@@ -73,10 +74,15 @@ function webFormat(result, query) {
 http.createServer(function(req, res) {
 	var path = url.parse(req.url, true).pathname;
 	var query = qs.parse(url.parse(req.url, true).query);
+    console.log("server start");
 	if(req.method == "POST") {
+        console.log("POST entered");
 		req.on("data", function(data) {
-			var post = qs.parse(String(data));
+			console.log("function data");
+            var post = qs.parse(String(data));
+            console.log(path);
 			if(path == "/login") {
+                console.log("Login code");
 				logIn(post.username, post.password, function(result) {
 					res.end(qs.stringify(result));
 				});
@@ -90,8 +96,8 @@ http.createServer(function(req, res) {
 		});
 	}
 	else if(path == "/allMatches") {
-		readFile("matches.json", "utf-8", function(data) {
+		fs.readFile("matches.json", "utf-8", function(data) {
 			res.end(webFormat({"code" : 0, "data" : JSON.parse(data)}));
 		});
 	}
-}).listen(8080, "127.0.0.1");
+}).listen(8080, "0.0.0.0");

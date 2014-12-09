@@ -1,4 +1,4 @@
-<html><body><form action="http://localhost:8080/login" method="POST">
+<html><body><form action="http://localhost:8080/" method="POST">
 	<input type="text" name="username" /><br>
 	<input type="password" name="password" /><br>
 	<input type="submit" value="Submit" />
