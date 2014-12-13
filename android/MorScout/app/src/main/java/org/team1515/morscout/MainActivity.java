@@ -12,10 +12,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.team1515.client.Sync;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.team1515.client.Post;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
@@ -25,18 +29,18 @@ public class MainActivity extends FragmentActivity
     //Fragment managing the behaviors, interactions and presentation of the navigation drawer.
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
+    //Token given by login server
+    private String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-    mNavigationDrawerFragment=(NavigationDrawerFragment)
-
-    getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mNavigationDrawerFragment=(NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         // Set up the drawer.
-    mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout));
+        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout));
     }
 
     @Override
@@ -70,23 +74,14 @@ public class MainActivity extends FragmentActivity
                 .commit();
     }
 
-
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-        }
-    }
-
     public void syncButton(View view) {
         EditText hostTextBox = (EditText)findViewById(R.id.hostnameTextbox);
         EditText portTextBox = (EditText)findViewById(R.id.portTextbox);
         EditText pathTextBox = (EditText)findViewById(R.id.pathTextbox);
+
+        //Get hostname, port, and path
         String host = hostTextBox.getText().toString();
+        String path = pathTextBox.getText().toString();
         int port;
         try {
             port = Integer.parseInt(portTextBox.getText().toString());
@@ -94,11 +89,14 @@ public class MainActivity extends FragmentActivity
             e.printStackTrace();
             port = 0;
         }
-        String path = pathTextBox.getText().toString();
 
+        //Send Post request to server
         String response = "";
         try {
-            response = new Sync().execute(new URL("http", host, port, path)).get();
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("username", "BenH"));
+            nameValuePairs.add(new BasicNameValuePair("password", "pigeon"));
+            response = new Post(nameValuePairs).execute(new URL("http", host, port, path)).get();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             response = "error";
@@ -108,8 +106,20 @@ public class MainActivity extends FragmentActivity
             e.printStackTrace();
         }
 
+        //Set textview to display reponse from server
         TextView reponseTextView = (TextView)findViewById(R.id.responseTextView);
         reponseTextView.setText(response);
+
+        //Get token from querystring
+        Uri query = Uri.parse("?" + response);
+        String code = query.getQueryParameter("code").trim();
+        if(code.equals("0")) {
+            token = query.getQueryParameter("token").trim();
+            System.out.println("Logged in");
+        } else if (code.equals("1")) {
+            System.out.println("Already logged in");
+        }
+
 
         //Store values in storage for later use
         SharedPreferences preferences = this.getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);

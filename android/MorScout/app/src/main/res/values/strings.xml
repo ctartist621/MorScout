@@ -24,7 +24,7 @@
     <!-- Teams Fragment -->
     <string name="title_fragment_teams">Teams</string>
 
-    <!-- Sync Fragment -->
+    <!-- Post Fragment -->
     <string name="title_fragment_sync">Sync</string>
     <string name="host_textbox">Hostname</string>
     <string name="port_textbox">Port</string>
