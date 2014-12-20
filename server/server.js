@@ -96,8 +96,8 @@ http.createServer(function(req, res) {
 		});
 	}
 	else if(path == "/allMatches") {
-		fs.readFile("matches.json", "utf-8", function(data) {
-			res.end(webFormat({"code" : 0, "data" : JSON.parse(data)}));
+		fs.readFile("matches.json", "utf-8", function(err, data) {
+			res.end(webFormat({"code" : 0, "data" : JSON.parse(data)}, query));
 		});
 	}
 }).listen(8080, "0.0.0.0");
