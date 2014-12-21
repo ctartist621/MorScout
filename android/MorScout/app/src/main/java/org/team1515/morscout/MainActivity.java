@@ -1,6 +1,8 @@
 package org.team1515.morscout;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +43,14 @@ public class MainActivity extends FragmentActivity
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout));
+
+        //Display welcome message
+        Intent intent = getIntent();
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage("Welcome, " + intent.getStringExtra("username") + "!");
+        alert.setPositiveButton("OK", null);
+        alert.setCancelable(false);
+        alert.create().show();
     }
 
     @Override
@@ -67,7 +77,7 @@ public class MainActivity extends FragmentActivity
                 setTitle(R.string.title_fragment_matches);
         }
 
-        // update the main content by replacing fragments
+        //Update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
@@ -75,6 +85,7 @@ public class MainActivity extends FragmentActivity
     }
 
     public void syncButton(View view) {
+        //Text boxes from fragment
         EditText hostTextBox = (EditText)findViewById(R.id.hostnameTextbox);
         EditText portTextBox = (EditText)findViewById(R.id.portTextbox);
         EditText pathTextBox = (EditText)findViewById(R.id.pathTextbox);

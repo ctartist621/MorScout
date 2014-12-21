@@ -15,7 +15,6 @@ public class TeamListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<Integer> keys; // header titles
-    // child data in format of header title, child title
     private SparseArray<ArrayList<String>> children;
 
     public TeamListAdapter(Context context, ArrayList<Integer> keys, SparseArray<ArrayList<String>> children) {

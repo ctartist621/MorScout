@@ -2,6 +2,7 @@ package org.team1515.client;
 
 import android.os.AsyncTask;
 
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -10,6 +11,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,14 +35,17 @@ public class Post extends AsyncTask<URL, Void, String> {
 
     @Override
     protected String doInBackground(URL ... urls) {
-        // Create a new HttpClient and Post Header
-        HttpClient httpclient = new DefaultHttpClient();
+        // Create a new HttpClient and Post Header, set timeout values
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpParams httpParams = httpClient.getParams();
+        HttpConnectionParams.setConnectionTimeout(httpParams, 3000);
+        HttpConnectionParams.setConnectionTimeout(httpParams, 3000);
         HttpPost httppost;
         try {
             httppost = new HttpPost(urls[0].toURI());
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            return "URI Syntax Exception";
+            return "code=-1";
         }
 
         try {
@@ -46,15 +53,15 @@ public class Post extends AsyncTask<URL, Void, String> {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             // Execute HTTP Post Request
-            HttpResponse response = httpclient.execute(httppost);
+            HttpResponse response = httpClient.execute(httppost);
             return readInputStream(response.getEntity().getContent(), STREAM_LENGTH);
 
         } catch (ClientProtocolException e) {
             e.printStackTrace();
-            return "Client Protocol Exception";
+            return "code=-1";
         } catch (IOException e) {
             e.printStackTrace();
-            return "IO Exception";
+            return "code=-1";
         }
     }
 

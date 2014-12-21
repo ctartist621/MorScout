@@ -26,14 +26,6 @@ import java.util.ArrayList;
  *
  */
 public class TeamsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,22 +34,10 @@ public class TeamsFragment extends Fragment {
     private ArrayList<Integer> keys;
     private SparseArray<ArrayList<String>> children;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TeamsFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static TeamsFragment newInstance(String param1, String param2) {
-        TeamsFragment fragment = new TeamsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        return new TeamsFragment();
     }
     public TeamsFragment() {
         // Required empty public constructor
@@ -66,10 +46,6 @@ public class TeamsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -78,21 +54,13 @@ public class TeamsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_teams, container, false);
 
+        //Inflate list view with team data
         getTeamData();
 
         ExpandableListView listView = (ExpandableListView)view.findViewById(R.id.expandableListViewTeams);
         listView.setAdapter(new TeamListAdapter(view.getContext(), keys, children));
 
-        // Inflate the layout for this fragment
-
         return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -127,6 +95,7 @@ public class TeamsFragment extends Fragment {
         children = new SparseArray<ArrayList<String>>();
         ArrayList<String> values;
 
+        //Apply data to list view
         for(int i = 0; i < teams.size(); i++) {
             Team team = teams.get(i);
             keys.add(team.getNumber());
