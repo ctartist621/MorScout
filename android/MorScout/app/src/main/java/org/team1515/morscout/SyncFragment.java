@@ -49,14 +49,11 @@ public class SyncFragment extends Fragment {
         EditText hostTextBox = (EditText)view.findViewById(R.id.hostnameTextbox);
         EditText portTextBox = (EditText)view.findViewById(R.id.portTextbox);
         EditText pathTextBox = (EditText)view.findViewById(R.id.pathTextbox);
-        try {
-            SharedPreferences preferences = getActivity().getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
-            hostTextBox.setText(preferences.getString("host", ""));
-            portTextBox.setText(preferences.getString("port", ""));
-            pathTextBox.setText(preferences.getString("path", ""));
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
-        }
+
+        SharedPreferences preferences = getActivity().getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+        hostTextBox.setText(preferences.getString("host", ""));
+        portTextBox.setText(preferences.getString("port", ""));
+        pathTextBox.setText(preferences.getString("path", ""));
 
         return view;
     }

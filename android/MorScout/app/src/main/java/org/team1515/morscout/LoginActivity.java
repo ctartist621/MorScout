@@ -15,6 +15,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.team1515.client.Post;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,25 @@ import java.util.concurrent.ExecutionException;
 public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //If already logged in, bypass login screen
+        //TODO: If already logged in, bypass login screen
         SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
-
+        String token = preferences.getString("token", "");
+        if (!token.equals("")) {
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+            String response = "";
+            nameValuePairs.add(new BasicNameValuePair("token", token));
+            try {
+                response = new Post(nameValuePairs).execute(new URL("http", "192.168.1. 101", "/login")).get();
+                Uri query = Uri.parse("?" + response);
+                //TODO: finish
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -46,7 +63,7 @@ public class LoginActivity extends Activity {
         Post post = new Post(nameValuePairs);
         String response = "";
         try {
-            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "/login")).get();
+            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.101", 8080, "/login")).get();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return;

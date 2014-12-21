@@ -44,6 +44,10 @@ public class MainActivity extends FragmentActivity
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout));
 
+        //Grab user token from storage
+        SharedPreferences sharedPreferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+        sharedPreferences.getString("token", "");
+
         //Display welcome message
         Intent intent = getIntent();
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
