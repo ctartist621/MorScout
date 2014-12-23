@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import org.team1515.client.Report;
-import org.team1515.client.Team;
+import org.team1515.communication.Report;
+import org.team1515.communication.Team;
 
 import java.util.ArrayList;
 

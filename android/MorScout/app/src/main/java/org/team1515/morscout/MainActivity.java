@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.team1515.client.Post;
+import org.team1515.communication.Post;
 
 import java.net.MalformedURLException;
 import java.net.URL;

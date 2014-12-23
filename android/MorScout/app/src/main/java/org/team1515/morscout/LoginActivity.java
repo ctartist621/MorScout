@@ -12,10 +12,9 @@ import android.widget.EditText;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.team1515.client.Post;
+import org.team1515.communication.Post;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class LoginActivity extends Activity {
             String response = "";
             nameValuePairs.add(new BasicNameValuePair("token", token));
             try {
-                response = new Post(nameValuePairs).execute(new URL("http", "192.168.1. 101", "/login")).get();
+                response = new Post(nameValuePairs).execute(new URL("http", "192.168.1. 132", "/login")).get();
                 Uri query = Uri.parse("?" + response);
                 //TODO: finish
             } catch (MalformedURLException e) {
@@ -63,7 +62,7 @@ public class LoginActivity extends Activity {
         Post post = new Post(nameValuePairs);
         String response = "";
         try {
-            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.101", 8080, "/login")).get();
+            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "/login")).get();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return;
