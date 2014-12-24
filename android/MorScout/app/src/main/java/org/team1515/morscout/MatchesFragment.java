@@ -4,17 +4,26 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import org.team1515.client.Match;
-import org.team1515.client.Report;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.team1515.communication.Get;
+import org.team1515.communication.Match;
+import org.team1515.communication.Report;
+import org.team1515.communication.Team;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -91,51 +100,43 @@ public class MatchesFragment extends Fragment {
     private void getMatchData() {
         matches = new ArrayList<Match>();
 
-        //Test data
-        ArrayList<Report> reports = new ArrayList<Report>();
-        reports.add(new Report("First Author"));
-        reports.add(new Report("Second Author"));
-        matches.add(new Match(1, new Date(2014, 11, 16), reports));
-        matches.add(new Match(2, new Date(2014, 11, 17), reports));
-        matches.add(new Match(3, new Date(2014, 11, 17), reports));
-        matches.add(new Match(4, new Date(2014, 11, 17), reports));
-        matches.add(new Match(5, new Date(2014, 11, 17), reports));
-        matches.add(new Match(6, new Date(2014, 11, 17), reports));
-        matches.add(new Match(7, new Date(2014, 11, 17), reports));
-        matches.add(new Match(8, new Date(2014, 11, 17), reports));
-        matches.add(new Match(9, new Date(2014, 11, 17), reports));
-        matches.add(new Match(10, new Date(2014, 11, 17), reports));
-        matches.add(new Match(11, new Date(2014, 11, 17), reports));
-        matches.add(new Match(12, new Date(2014, 11, 17), reports));
-        matches.add(new Match(13, new Date(2014, 11, 17), reports));
-        matches.add(new Match(14, new Date(2014, 11, 17), reports));
-        matches.add(new Match(15, new Date(2014, 11, 17), reports));
-        matches.add(new Match(16, new Date(2014, 11, 17), reports));
-        matches.add(new Match(17, new Date(2014, 11, 17), reports));
-        matches.add(new Match(18, new Date(2014, 11, 17), reports));
-        matches.add(new Match(19, new Date(2014, 11, 17), reports));
-        matches.add(new Match(20, new Date(2014, 11, 17), reports));
-        matches.add(new Match(21, new Date(2014, 11, 17), reports));
-        matches.add(new Match(22, new Date(2014, 11, 17), reports));
-        matches.add(new Match(23, new Date(2014, 11, 17), reports));
-        matches.add(new Match(24, new Date(2014, 11, 17), reports));
-        matches.add(new Match(25, new Date(2014, 11, 17), reports));
-        matches.add(new Match(26, new Date(2014, 11, 17), reports));
+        //Pull data from server and add to list view
+        String response = "";
+        try {
+            //Get JSON from server
+            response = new Get().execute(new URL("http", "192.168.1.132", 8080, "/allMatches")).get().trim();
 
-        keys = new ArrayList<Integer>();
-        children = new SparseArray<ArrayList<String>>();
-        ArrayList<String> values;
+            //Values for expandable list view
+            keys = new ArrayList<Integer>();
+            children = new SparseArray<ArrayList<String>>();
 
-        //Apply data to list view
-        for(int i = 0; i < matches.size(); i++) {
-            Match match = matches.get(i);
-            keys.add(match.getNumber());
-            values = new ArrayList<String>();
-            values.add(match.getDate().toString());
-            for(Report report : match.getReports()) {
-                values.add("Report: " + report.getAuthor());
+            //Parse JSON
+            JSONObject json = new JSONObject(response).getJSONObject("data");
+            ArrayList<String> values;
+            for(int i = 1; i <= json.length(); i++) {
+                keys.add(i);
+                JSONObject match = json.getJSONObject(Integer.toString(i));
+                values = new ArrayList<String>();
+                values.add(match.getString("time"));
+                //Blue teams
+                JSONArray blueTeams = match.getJSONArray("blue");
+                for(int x = 0; x < 3; x++) {
+                    values.add("Team " + blueTeams.getInt(x));
+                }
+                JSONArray redTeams = match.getJSONArray("red");
+                for(int x = 0; x < 3; x++) {
+                    values.add("Team " + redTeams.getInt(x));
+                }
+                children.put(i, values);
             }
-            children.put(match.getNumber(), values);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

@@ -2,6 +2,7 @@ package org.team1515.morscout;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -16,9 +17,10 @@ import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.team1515.client.Post;
+import org.team1515.communication.Post;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +33,11 @@ public class MainActivity extends FragmentActivity
     //Fragment managing the behaviors, interactions and presentation of the navigation drawer.
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    //Token given by login server
+    //Data received from server after logging in
     private String token;
+    private String username;
+    private String password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +49,11 @@ public class MainActivity extends FragmentActivity
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout));
 
-        //Grab user token from storage
+        //Grab user data from storage
         SharedPreferences sharedPreferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
-        sharedPreferences.getString("token", "");
+        token = sharedPreferences.getString("token", "");
+        username = sharedPreferences.getString("username", "");
+        password = sharedPreferences.getString("password", "");
 
         //Display welcome message
         Intent intent = getIntent();
@@ -76,6 +83,9 @@ public class MainActivity extends FragmentActivity
                 fragment = new SyncFragment();
                 setTitle(R.string.title_fragment_sync);
                 break;
+            case 3:
+                logout();
+                return;
             default:
                 fragment = new MatchesFragment();
                 setTitle(R.string.title_fragment_matches);
@@ -141,6 +151,41 @@ public class MainActivity extends FragmentActivity
         preferences.edit().putString("host", host).apply();
         preferences.edit().putString("port", Integer.toString(port)).apply();
         preferences.edit().putString("path", path).apply();
+    }
+
+    public void logout() {
+        try {
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("username", username));
+            nameValuePairs.add(new BasicNameValuePair("password", password));
+            String response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "logout")).get().trim();
+            if (response.equals("success")) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        try {
+                            finish();
+                        } catch (Throwable throwable) {
+                            throwable.printStackTrace();
+                        }
+                    }
+                });
+                alert.setCancelable(false);
+                alert.setMessage("Logged out");
+                alert.create().show();
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void logoutListener() {
+
     }
 
     @Override

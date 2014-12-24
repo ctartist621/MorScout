@@ -7,6 +7,7 @@
     <string name="navigation_frame1">Matches</string>
     <string name="navigation_frame2">Teams</string>
     <string name="navigation_frame3">Sync</string>
+    <string name="navigation_frame4">Log Out</string>
     <string name="navigation_drawer_open">Open Drawer</string>
     <string name="navigation_drawer_close">Close Drawer</string>
 

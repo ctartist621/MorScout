@@ -8,13 +8,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <title>MorScout</title>
-	<link rel="apple-touch-icon" sizes="180x180" href="MorIcon.png">
-	<link rel="apple-touch-startup-image" href="MorStartup.png" media="(device-width: 414px)">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/MorIcon.png">
+	<link rel="apple-touch-startup-image" href="img/MorStartup.png" media="(device-width: 414px)">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="Index.css">
+    <link rel="stylesheet" type="text/css" href="css/Index.css">
     
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	
@@ -57,7 +57,7 @@
 	  <h1>All matches</h1>
       </div>
     </div>
-	<script src="Table.js"></script>
+	<script src="js/MatchesTable.js"></script>
 	
 <script>
 	function message(){
@@ -71,8 +71,13 @@ if ('addEventListener' in document) {
     }, false);
 }
 </script>
-<script type='application/javascript' src='fastclick.js'></script>
-<script type="text/javascript" src="links.js"></script>
+<script>
+	$(document).ready(function(){
+	   $("tr:odd").addClass("odd_row");
+	});	
+</script>
+<script type='application/javascript' src='js/fastclick.js'></script>
+<script type="text/javascript" src="js/links.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 

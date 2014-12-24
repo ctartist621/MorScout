@@ -1,16 +1,15 @@
-package org.team1515.client;
+package org.team1515.communication;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Match {
+public class Team {
     private int number;
-    private Date date;
+    private String name;
     private ArrayList<Report> reports;
 
-    public Match(int number, Date time, ArrayList<Report> reports) {
+    public Team(int number, String name, ArrayList<Report> reports) {
         this.number = number;
-        this.date = time;
+        this.name = name;
         this.reports = reports;
     }
 
@@ -18,8 +17,8 @@ public class Match {
         return number;
     }
 
-    public Date getDate() {
-        return date;
+    public String getName() {
+        return name;
     }
 
     public ArrayList<Report> getReports() {
