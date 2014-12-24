@@ -1,7 +1,13 @@
 login statuses:
 
+
 	0	success
-	1	already logged in
-	2	invalid password
-	3	invalid username
-	4	malformed request
+
+	1	invalid username or password
+	2	malformed request
+
+in general:
+	0	success
+	1	invalid session token
+	2	malformed request
+	3	other error, invalid entry

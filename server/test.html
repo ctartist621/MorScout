@@ -1,5 +1,51 @@
-<html><body><form action="http://localhost:8080/login" method="POST">
-	<input type="text" name="username" /><br>
-	<input type="password" name="password" /><br>
-	<input type="submit" value="Submit" />
-</form></body></html>
+<html><head><script>
+
+function queryString(obj) {
+	var arr = Object.keys(obj);
+	for(var i = 0; i < arr.length; i++) {
+		arr[i] = escape(arr[i]) + "=" + escape(obj[arr[i]]);
+	}
+	return arr.join("&");
+}
+
+function ajax(url, get, post, cb) {
+	if(get != {}) {
+		url += "?";
+	}
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4) {
+			if(xhr.status == 200) {
+				if(cb) {
+					cb(JSON.parse(xhr.responseText));
+				}
+			}
+			else {
+				// error connecting to server, do what you want here
+			}
+		}
+	};
+	xhr.open(post == {} ? "get" : "post", url + queryString(get), true);
+	xhr.send(queryString(post));
+}
+
+window.onload = function() {
+	ajax("/login", {}, {"user" : "BenH", "pass" : "pigeon"}, function(result) {
+		if(result.code == 0) {
+			var user = result.user;
+			var token = result.token;
+			ajax("/sendEntry", {}, {"user" : user, "token" : token, "data" : JSON.stringify({
+				"meta" : {
+					"team" : "1818",
+					"match" : "15",
+					"scout" : "george"
+				},
+				"data" : {}
+			})}, function(){
+				ajax("/logout", {}, {"user" : user, "token" : token});
+			});
+		}
+	});
+}
+
+</script></head></html>

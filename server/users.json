@@ -1,15 +1,1 @@
-[
-	{
-		"user" : "BenH",
-		"pass" : "pigeon"
-	}, {
-		"user" : "BenD",
-		"pass" : "ben"
-	}, {
-		"user" : "FarbodR",
-		"pass" : "hello"
-	}, {
-		"user" : "DaPasta",
-		"pass" : "greetings"
-	}
-]
+{"BenH":{"pass":"pigeon","tokens":[]},"BenD":{"pass":"ben","tokens":[]},"FarbodR":{"pass":"hello","tokens":[]},"DavidB":{"pass":"greetings","tokens":[]}}

@@ -2,102 +2,165 @@ var http = require("http");
 var url = require("url");
 var fs = require("fs");
 var qs = require("querystring");
+var crypto = require("crypto");
 
 function getToken(size) {
 	var token = "";
 	for(var i = 0; i < size; i++) {
 		var rand = Math.floor(Math.random() * 62);
-		if(rand < 26) {
-			token += String.fromCharCode(rand + 97);
-		}
-		else if(rand < 52) {
-			token += String.fromCharCode(rand + 39);
-		}
-		else {
-			token += String.fromCharCode(rand - 4);
-		}
+		token += String.fromCharCode(rand + ((rand < 26) ? 97 : ((rand < 52) ? 39 : -4)));
 	}
 	return token;
 }
 
-var loggedIn = {}
-
-function validate(user, token) {
-	return loggedIn[user] && loggedIn[user].token == token;
+function equalArrays(a, b) {
+	if(a.length != b.length) {
+		return false;
+	}
+	for(var i = 0; i < a.length; i++) {
+		if(!~b.indexOf(a[i])) {
+			return false;
+		}
+	}
+	return true;
 }
 
-function logIn(user, pass, cb) {
-	if(user && pass) {
-		fs.readFile("users.json", "utf-8", function(err, data) {
-			data = JSON.parse(data);
-			for(var i = 0; i < data.length; i++) {
-				if(data[i].user == user) {
-					if(data[i].pass == pass) {
-						if(loggedIn[user]) {
-							cb({"code" : 1});
-						}
-						else {
-							var token = getToken(32);
-							loggedIn[user] = {
-								"token" : token,
-								"loginTime" : Date.now()
-							}
-							cb({"code" : 0, "token" : token});
-						}
-					}
-					else {
-						cb({"code" : 2});
-					}
-				}
+function validToken(user, token) {
+	var users = readJSON("users.json");
+	return users[user] && users[user].tokens && ~users[user].tokens.indexOf(token);
+}
+
+function validEntry(entry) {
+	if(!entry.meta || !entry.meta.team || !entry.meta.match || !entry.meta.scout || !entry.data) {
+		return false;
+	}
+	var data = readJSON("dataPoints.json");
+	if(!equalArrays(Object.keys(entry.data).sort(), [].concat(data.string, data.number, data.boolean).sort())) {
+		return false;
+	}
+	for(var key in data) {
+		for(var i = 0; i < data[key].length; i++) {
+			if(typeof(entry.data[data[key][i]]) != key) {
+				return false;
 			}
-			cb({"code" : 3});
-		});
+		}
 	}
-	else {
-		cb({"code" : 4});
-	}
+	return true;
 }
 
-function logOut(user) {
-	delete loggedIn[user];
+function sortJSON(obj) {
+	if(typeof(obj) != "object") {
+		return obj;
+	}
+	var arr = Object.keys(obj).sort();
+	var result = {};
+	for(var i = 0; i < arr.length; i++) {
+		result[arr[i]] = sortJSON(obj[arr[i]]);
+	}
+	return result;
 }
 
-function webFormat(result, query) {
-	if(query.webCb) {
-		return "(" + query.webCb + ")(" + JSON.stringify(result) + ");";
-    }
-	else {
-		return JSON.stringify(result);
-	}
+function getChecksum(data) {
+	return crypto.createHash("md5").update(JSON.stringify(sortJSON(data))).digest("hex");
+}
+
+function sendJSON(res, json) {
+	res.end(JSON.stringify(json));
+}
+
+function readJSON(file) {
+	return JSON.parse(fs.readFileSync(file));
+}
+
+function writeJSON(file, json) {
+	fs.writeFile(file, JSON.stringify(json));
 }
 
 http.createServer(function(req, res) {
 	var path = url.parse(req.url, true).pathname;
-	var query = qs.parse(url.parse(req.url, true).query);
-    console.log("server start");
+	var get = url.parse(req.url, true).query;
 	if(req.method == "POST") {
-        console.log("POST entered");
 		req.on("data", function(data) {
-			console.log("function data");
             var post = qs.parse(String(data));
-            console.log(path);
 			if(path == "/login") {
-                console.log("Login code");
-				logIn(post.username, post.password, function(result) {
-					res.end(qs.stringify(result));
-				});
+				var user = post.user;
+				var pass = post.pass;
+                if(!user || !pass) {
+	                sendJSON(res, {"code" : 2});
+                }
+                else {
+	                var users = readJSON("users.json");
+	                if(users[user] && users[user].pass == pass) {
+		                var token = getToken(32);
+		                if(!users[user].tokens) {
+			                users[user].tokens = [];
+		                }
+		                users[user].tokens.push(token);
+		                writeJSON("users.json", users);
+		                sendJSON(res, {"code" : 0, "user" : user, "token" : token});
+	                }
+	                else {
+		                sendJSON(res, {"code" : 1});
+	                }
+                }
 			}
-			else if(path == "/logout") {
-				if(validate(post.username, post.password)) {
-					logout(post.username);
+			else if(validToken(post.user, post.token)) {
+				if(path == "/logout") {
+					var users = readJSON("users.json");
+					var user = post.user;
+					var token = post.token;
+					users[user].tokens.splice(users[user].tokens.indexOf(token), 1);
+					writeJSON("users.json", users);
+					sendJSON(res, {"code" : 0});
 				}
-				res.end("success");
+				else if(path == "/allData") {
+					sendJSON(res, {"code" : 0, "data" : readJSON("data.json")});
+				}
+				else if(path == "/allMatches") {
+					sendJSON(res, {"code" : 0, "data" : readJSON("matches.json")});
+				}
+				else if(path == "/sendEntry") {
+					var entry = JSON.parse(post.data);
+					if(entry) {
+						if(validEntry(entry)) {
+							entry.meta.checksum = getChecksum(entry.data);
+							var data = readJSON("data.json");
+							var team = entry.meta.team;
+							var match = entry.meta.match;
+							var scout = entry.meta.scout;
+							data[team] = data[team] || {};
+							data[team][match] = data[team][match] || {};
+							data[team][match][scout] = data[team][match][scout] || [];
+							var any = false;
+							for(var i = 0; i < data[team][match][scout].length; i++) {
+								if(data[team][match][scout][i].meta.checksum == entry.meta.checksum) {
+									any = true;
+									break;
+								}
+							}
+							if(!any) {
+								data[team][match][scout].push(entry);
+								writeJSON("data.json", data);
+							}
+							sendJSON(res, {"code" : 0});
+						}
+						else {
+							sendJSON(res, {"code" : 3});
+						}
+					}
+					else {
+						sendJSON(res, {"code" : 2});
+					}
+				}
+			}
+			else {
+				sendJSON(res, {"code" : 1});
 			}
 		});
 	}
-	else if(path == "/allMatches") {
-		fs.readFile("matches.json", "utf-8", function(err, data) {
-			res.end(webFormat({"code" : 0, "data" : JSON.parse(data)}, query));
+	else {
+		fs.readFile("test.html", function(err, data) {
+			res.end(data);
 		});
 	}
 }).listen(8080, "0.0.0.0");
