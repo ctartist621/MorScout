@@ -99,6 +99,7 @@ public class LoginActivity extends Activity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
+            finish();
         } else { //If we can't log in, display alert signifying problem
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setPositiveButton("OK", null);
