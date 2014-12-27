@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
             String response = "";
             nameValuePairs.add(new BasicNameValuePair("token", token));
             try {
-                response = new Post(nameValuePairs).execute(new URL("http", "192.168.1. 132", "/login")).get();
+                response = new Post(nameValuePairs).execute(new URL("http", "192.168.1. 101", "/login")).get();
                 Uri query = Uri.parse("?" + response);
                 //TODO: finish
             } catch (MalformedURLException e) {
@@ -57,12 +57,12 @@ public class LoginActivity extends Activity {
 
         //Send login POST to server
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("username", username));
-        nameValuePairs.add(new BasicNameValuePair("password", password));
+        nameValuePairs.add(new BasicNameValuePair("user", username));
+        nameValuePairs.add(new BasicNameValuePair("pass", password));
         Post post = new Post(nameValuePairs);
         String response = "";
         try {
-            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "/login")).get();
+            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.101", 8080, "/login")).get();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return;
@@ -87,7 +87,7 @@ public class LoginActivity extends Activity {
             alert.create().show();
         } else if (code.equals("0")) {
             //Get token
-            String token = query.getQueryParameter("token");
+            String token = query.getQueryParameter("token").trim();
 
             //Store user, pass, token
             SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);

@@ -104,7 +104,7 @@ public class MatchesFragment extends Fragment {
         String response = "";
         try {
             //Get JSON from server
-            response = new Get().execute(new URL("http", "192.168.1.132", 8080, "/allMatches")).get().trim();
+            response = new Get().execute(new URL("http", "192.168.1.101", 8080, "/allMatches")).get().trim();
 
             //Values for expandable list view
             keys = new ArrayList<Integer>();

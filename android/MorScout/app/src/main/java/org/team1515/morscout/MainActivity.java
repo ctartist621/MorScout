@@ -156,9 +156,9 @@ public class MainActivity extends FragmentActivity
     public void logout() {
         try {
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("username", username));
-            nameValuePairs.add(new BasicNameValuePair("password", password));
-            String response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "logout")).get().trim();
+            nameValuePairs.add(new BasicNameValuePair("user", username));
+            nameValuePairs.add(new BasicNameValuePair("token", token));
+            String response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.101", 8080, "logout")).get().trim();
             if (response.equals("success")) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
