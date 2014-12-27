@@ -17,7 +17,7 @@ function ajax(url, get, post, cb) {
 		if(xhr.readyState == 4) {
 			if(xhr.status == 200) {
 				if(cb) {
-					cb(JSON.parse(xhr.responseText));
+					cb(parseQS(xhr.responseText));
 				}
 			}
 			else {
@@ -29,6 +29,16 @@ function ajax(url, get, post, cb) {
 	xhr.send(queryString(post));
 }
 
+function parseQS(str) {
+	var arr = str.split("&");
+	var obj = {};
+	for(var i = 0; i < arr.length; i++) {
+		var pair = arr[i].split("=");
+		obj[unescape(pair[0])] = unescape(pair[1] || "");
+	}
+	return obj;
+}
+
 window.onload = function() {
 	ajax("/login", {}, {"user" : "BenH", "pass" : "pigeon"}, function(result) {
 		if(result.code == 0) {
@@ -38,7 +48,8 @@ window.onload = function() {
 				"meta" : {
 					"team" : "1818",
 					"match" : "15",
-					"scout" : "george"
+					"scout" : "george",
+					"time" : new Date().getTime()
 				},
 				"data" : {}
 			})}, function(){

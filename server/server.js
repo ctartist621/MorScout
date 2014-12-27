@@ -31,7 +31,7 @@ function validToken(user, token) {
 }
 
 function validEntry(entry) {
-	if(!entry.meta || !entry.meta.team || !entry.meta.match || !entry.meta.scout || !entry.data) {
+	if(!entry.meta || !entry.meta.team || !entry.meta.match || !entry.meta.scout || !entry.data || !entry.meta.time) {
 		return false;
 	}
 	var data = readJSON("dataPoints.json");
@@ -64,8 +64,13 @@ function getChecksum(data) {
 	return crypto.createHash("md5").update(JSON.stringify(sortJSON(data))).digest("hex");
 }
 
-function sendJSON(res, json) {
-	res.end(JSON.stringify(json));
+function sendQS(res, json) {
+	for(var key in json) {
+		if(typeof(json[key]) == "object") {
+			json[key] = JSON.stringify(json[key]);
+		}
+	}
+	res.end(qs.stringify(json));
 }
 
 function readJSON(file) {
@@ -86,7 +91,7 @@ http.createServer(function(req, res) {
 				var user = post.user;
 				var pass = post.pass;
                 if(!user || !pass) {
-	                sendJSON(res, {"code" : 2});
+	                sendQS(res, {"code" : 2});
                 }
                 else {
 	                var users = readJSON("users.json");
@@ -97,10 +102,10 @@ http.createServer(function(req, res) {
 		                }
 		                users[user].tokens.push(token);
 		                writeJSON("users.json", users);
-		                sendJSON(res, {"code" : 0, "user" : user, "token" : token});
+		                sendQS(res, {"code" : 0, "user" : user, "token" : token});
 	                }
 	                else {
-		                sendJSON(res, {"code" : 1});
+		                sendQS(res, {"code" : 1});
 	                }
                 }
 			}
@@ -111,13 +116,13 @@ http.createServer(function(req, res) {
 					var token = post.token;
 					users[user].tokens.splice(users[user].tokens.indexOf(token), 1);
 					writeJSON("users.json", users);
-					sendJSON(res, {"code" : 0});
+					sendQS(res, {"code" : 0});
 				}
 				else if(path == "/allData") {
-					sendJSON(res, {"code" : 0, "data" : readJSON("data.json")});
+					sendQS(res, {"code" : 0, "data" : readJSON("data.json")});
 				}
 				else if(path == "/allMatches") {
-					sendJSON(res, {"code" : 0, "data" : readJSON("matches.json")});
+					sendQS(res, {"code" : 0, "data" : readJSON("matches.json")});
 				}
 				else if(path == "/sendEntry") {
 					var entry = JSON.parse(post.data);
@@ -142,23 +147,23 @@ http.createServer(function(req, res) {
 								data[team][match][scout].push(entry);
 								writeJSON("data.json", data);
 							}
-							sendJSON(res, {"code" : 0});
+							sendQS(res, {"code" : 0});
 						}
 						else {
-							sendJSON(res, {"code" : 3});
+							sendQS(res, {"code" : 3});
 						}
 					}
 					else {
-						sendJSON(res, {"code" : 2});
+						sendQS(res, {"code" : 2});
 					}
 				}
 			}
 			else {
-				sendJSON(res, {"code" : 1});
+				sendQS(res, {"code" : 1});
 			}
 		});
 	}
-	else {
+	else { // what to do here
 		fs.readFile("test.html", function(err, data) {
 			res.end(data);
 		});
