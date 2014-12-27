@@ -55,13 +55,7 @@ public class MainActivity extends FragmentActivity
         username = sharedPreferences.getString("username", "");
         password = sharedPreferences.getString("password", "");
 
-        //Display welcome message
-        Intent intent = getIntent();
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage("Welcome, " + intent.getStringExtra("username") + "!");
-        alert.setPositiveButton("OK", null);
-        alert.setCancelable(false);
-        alert.create().show();
+
     }
 
     @Override
@@ -156,10 +150,23 @@ public class MainActivity extends FragmentActivity
     public void logout() {
         try {
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("username", username));
-            nameValuePairs.add(new BasicNameValuePair("password", password));
-            String response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "logout")).get().trim();
-            if (response.equals("success")) {
+            nameValuePairs.add(new BasicNameValuePair("user", username));
+            nameValuePairs.add(new BasicNameValuePair("token", token));
+            String response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.101", 8080, "logout")).get().trim();
+
+            //Get code from response
+            Uri query = Uri.parse("?" + response);
+            String code = query.getQueryParameter("code");
+            System.out.println("Code = " + code);
+
+            if (code.equals("0")) {
+                //Remove username, password, and token from storage
+                SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+                preferences.edit().putString("username", "").apply();
+                preferences.edit().putString("password", "").apply();
+                preferences.edit().putString("token", "").apply();
+
+                //Display message - exit upon close
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -182,10 +189,6 @@ public class MainActivity extends FragmentActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-    }
-
-    private void logoutListener() {
-
     }
 
     @Override
