@@ -16,7 +16,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/Index.css" type="text/css">
 	
-	<script src="js/Login.js" type="text/javascript"></script>
 	
   </head>
 
@@ -32,7 +31,7 @@
 
     <div class="login_wrapper">
       <div class="container">
-		  <form id="login_form" action="MorScout.html" method="get" onsubmit= "return validateForm()">
+		  <form id="login_form" action="javascript:void(0);" >
 			  <div id="username-box">
 				<input type="text" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" autofocus>
 			  </div>
@@ -55,9 +54,10 @@ if ('addEventListener' in document) {
     }, false);
 }
 </script>	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/Login.js" type="text/javascript"></script>
 <script type='application/javascript' src='js/fastclick.js'></script>	
 <script type="text/javascript" src="js/links.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	
  </body>
