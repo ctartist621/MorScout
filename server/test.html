@@ -1,6 +1,6 @@
 <html><head><script>
 
-function queryString(obj) {
+function getQS(obj) {
 	var arr = Object.keys(obj);
 	for(var i = 0; i < arr.length; i++) {
 		arr[i] = escape(arr[i]) + "=" + escape(obj[arr[i]]);
@@ -25,8 +25,8 @@ function ajax(url, get, post, cb) {
 			}
 		}
 	};
-	xhr.open(post == {} ? "get" : "post", url + queryString(get), true);
-	xhr.send(queryString(post));
+	xhr.open(post == {} ? "get" : "post", url + getQS(get), true);
+	xhr.send(getQS(post));
 }
 
 function parseQS(str) {

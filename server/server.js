@@ -82,11 +82,12 @@ function writeJSON(file, json) {
 }
 
 http.createServer(function(req, res) {
+	res.writeHead(200, {"Access-Control-Allow-Origin" : "*"});
 	var path = url.parse(req.url, true).pathname;
 	var get = url.parse(req.url, true).query;
 	if(req.method == "POST") {
-		req.on("data", function(data) {
-            var post = qs.parse(String(data));
+		req.on("data", function(post) {
+            post = qs.parse(String(post));
 			if(path == "/login") {
 				var user = post.user;
 				var pass = post.pass;
