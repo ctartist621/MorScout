@@ -7,28 +7,6 @@ function getQS(obj) {
 	}
 	return arr.join("&");
 }
-
-function ajax(url, get, post, cb) {
-	if(get != {}) {
-		url += "?";
-	}
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		if(xhr.readyState == 4) {
-			if(xhr.status == 200) {
-				if(cb) {
-					cb(parseQS(xhr.responseText));
-				}
-			}
-			else {
-				// error connecting to server, do what you want here
-			}
-		}
-	};
-	xhr.open(post == {} ? "get" : "post", url + getQS(get), true);
-	xhr.send(getQS(post));
-}
-
 function parseQS(str) {
 	var arr = str.split("&");
 	var obj = {};
@@ -38,22 +16,47 @@ function parseQS(str) {
 	}
 	return obj;
 }
+function ajax(url, get, post, cb) {
+	var qs = getQS(get);
+	if(qs != "") {
+		url += "?" + qs;
+	}
+	var xhr = new XMLHttpRequest() || new XDomainRequest();
+	xhr.onload = function() {
+		if(cb) {
+			cb(parseQS(xhr.responseText));
+		}
+	};
+	xhr.open("POST", "http://localhost:8080" + url, true);
+	xhr.send(getQS(post));
+}
 
 window.onload = function() {
 	ajax("/login", {}, {"user" : "BenH", "pass" : "pigeon"}, function(result) {
 		if(result.code == 0) {
 			var user = result.user;
 			var token = result.token;
-			ajax("/sendEntry", {}, {"user" : user, "token" : token, "data" : JSON.stringify({
+			ajax("/sync", {"allData" : ""}, {"user" : user, "token" : token, "data" : JSON.stringify([{
 				"meta" : {
-					"team" : "1818",
+					"team" : "1515",
 					"match" : "15",
 					"scout" : "george",
 					"time" : new Date().getTime()
 				},
 				"data" : {}
-			})}, function(){
-				ajax("/logout", {}, {"user" : user, "token" : token});
+			},{
+				"meta" : {
+					"team" : "1515",
+					"match" : "15",
+					"scout" : "bob",
+					"time" : new Date().getTime() - 2000
+				},
+				"data" : {}
+			}])}, function(result){
+				if(result.code == 0) {
+					document.body.innerHTML = result.data;
+					ajax("/logout", {}, {"user" : user, "token" : token});
+				}
 			});
 		}
 	});

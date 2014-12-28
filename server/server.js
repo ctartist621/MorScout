@@ -48,6 +48,27 @@ function validEntry(entry) {
 	return true;
 }
 
+function addEntry(entry, data) {
+	entry.meta.checksum = getChecksum(entry.data);
+	var team = entry.meta.team;
+	var match = entry.meta.match;
+	var scout = entry.meta.scout;
+	data[team] = data[team] || {};
+	data[team][match] = data[team][match] || {};
+	data[team][match][scout] = data[team][match][scout] || [];
+	var any = false;
+	for(var i = 0; i < data[team][match][scout].length; i++) {
+		if(data[team][match][scout][i].meta.checksum == entry.meta.checksum) {
+			any = true;
+			break;
+		}
+	}
+	if(!any) {
+		data[team][match][scout].push(entry);
+	}
+	return data;
+}
+
 function sortJSON(obj) {
 	if(typeof(obj) != "object") {
 		return obj;
@@ -64,6 +85,15 @@ function getChecksum(data) {
 	return crypto.createHash("md5").update(JSON.stringify(sortJSON(data))).digest("hex");
 }
 
+function parseJSON(str) {
+	try {
+		return JSON.parse(str);
+	}
+	catch(err) {
+		return undefined;
+	}
+}
+
 function sendQS(res, json) {
 	for(var key in json) {
 		if(typeof(json[key]) == "object") {
@@ -74,7 +104,7 @@ function sendQS(res, json) {
 }
 
 function readJSON(file) {
-	return JSON.parse(fs.readFileSync(file));
+	return parseJSON(fs.readFileSync(file));
 }
 
 function writeJSON(file, json) {
@@ -125,33 +155,22 @@ http.createServer(function(req, res) {
 				else if(path == "/allMatches") {
 					sendQS(res, {"code" : 0, "data" : readJSON("matches.json")});
 				}
-				else if(path == "/sendEntry") {
-					var entry = JSON.parse(post.data);
-					if(entry) {
-						if(validEntry(entry)) {
-							entry.meta.checksum = getChecksum(entry.data);
-							var data = readJSON("data.json");
-							var team = entry.meta.team;
-							var match = entry.meta.match;
-							var scout = entry.meta.scout;
-							data[team] = data[team] || {};
-							data[team][match] = data[team][match] || {};
-							data[team][match][scout] = data[team][match][scout] || [];
-							var any = false;
-							for(var i = 0; i < data[team][match][scout].length; i++) {
-								if(data[team][match][scout][i].meta.checksum == entry.meta.checksum) {
-									any = true;
-									break;
-								}
+				else if(path == "/sync") {
+					var entries = parseJSON(post.data);
+					if(entries instanceof Array) {
+						var data = readJSON("data.json");
+						for(var i = 0; i < entries.length; i++) {
+							var entry = entries[i];
+							if(validEntry(entry)) {
+								data = addEntry(entry, data);
 							}
-							if(!any) {
-								data[team][match][scout].push(entry);
-								writeJSON("data.json", data);
-							}
-							sendQS(res, {"code" : 0});
+						}
+						writeJSON("data.json", data);
+						if("allData" in get) {
+							sendQS(res, {"code" : 0, "data" : data});
 						}
 						else {
-							sendQS(res, {"code" : 3});
+							sendQS(res, {"code" : 0});
 						}
 					}
 					else {
@@ -164,9 +183,7 @@ http.createServer(function(req, res) {
 			}
 		});
 	}
-	else { // what to do here
-		fs.readFile("test.html", function(err, data) {
-			res.end(data);
-		});
+	else {
+		sendQS(res, {"code" : 2});
 	}
 }).listen(8080, "0.0.0.0");
