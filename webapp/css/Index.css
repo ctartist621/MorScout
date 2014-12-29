@@ -32,10 +32,14 @@ body {
 	min-height: 50px;
 }
 
-.navbar-default a {
-  font-size: 1.1em;
-  font-weight: bold;
+.navbar-default a:not(#nameD):not(#view_prof):not(#logout) {
   text-transform: uppercase;
+  font-size: 1.1em;
+}
+
+.navbar-default a {
+  font-size: 1.3em;
+  font-weight: bold;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-header > a:hover  {

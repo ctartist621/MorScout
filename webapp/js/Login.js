@@ -42,6 +42,10 @@ function submitted() {
 };
 
 */
+if (localStorage.user !== undefined){
+		location = "MorScout.html";
+}
+
 function getQS(obj) {
 	var arr = Object.keys(obj);
 	for(var i = 0; i < arr.length; i++) {
@@ -74,25 +78,51 @@ function ajax(url, get, post, cb) {
 }
 
 document.getElementById("login_form").onsubmit = function() {
+	if($('#check_box').is(':checked')){
 
-	var user = document.getElementById("username").value;
-	var pass = document.getElementById("password").value;
-	
-	ajax("http://localhost:8080/login", {}, {"user" : user, "pass" : pass}, function(result) {
-		if(result.code == 0) {
-			localStorage.user = result.user;
-			localStorage.token = result.token;
-			location = "MorScout.html";
-		}
-		else if(result.code == 1) {
-			alert("invalid username and password");
-		}
-		else {
-			alert("oops");
-		}
-	});
+		var user = document.getElementById("username").value;
+		var pass = document.getElementById("password").value;
+		
+		ajax("http://localhost:8080/login", {}, {"user" : user, "pass" : pass}, function(result) {
+			if(result.code == 0) {
+				localStorage.user = result.user;
+				localStorage.token = result.token;
+				location = "MorScout.html";
+			}
+			else if(result.code == 1) {
+				alert("invalid username and password");
+			}
+			else {
+				alert("oops");
+			}
+		});
+		
+	} else {
+		
+		var user = document.getElementById("username").value;
+		var pass = document.getElementById("password").value;
+		
+		ajax("http://localhost:8080/login", {}, {"user" : user, "pass" : pass}, function(result) {
+			if(result.code == 0) {
+				sessionStorage.user = result.user;
+				sessionStorage.token = result.token;
+				location = "MorScout.html";
+			}
+			else if(result.code == 1) {
+				alert("invalid username and password");
+			}
+			else {
+				alert("oops");
+			}
+		});
+
+	}	
 	return false;
 };
+
+
+	
+
 
 	/*
 	$.post("http://localhost/login",
