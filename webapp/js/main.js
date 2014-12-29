@@ -44,7 +44,14 @@ function ajax(url, get, post, cb) {
 
 $(document).ready(function() {
 	if(localStorage.user !== undefined){
-		document.getElementById('nameD').innerHTML = localStorage.user;
+	
+		var downArrow = document.createElement('span');
+		downArrow.class = 'caret';
+		var userD = document.createTextNode(" " + localStorage.user);
+		
+		document.getElementById('nameD').appendChild(downArrow);
+		document.getElementById('nameD').appendChild(userD);
+		
 		document.getElementById("logout").onclick = function() {
 			
 			ajax("http://localhost:8080/logout", {}, {"user" : localStorage.user, "token" : localStorage.token}, function(result) {
@@ -67,7 +74,14 @@ $(document).ready(function() {
 			alert(localStorage.user + "\nToken: " + localStorage.token);
 		}
 	} else {
-		document.getElementById('nameD').innerHTML = sessionStorage.user;
+		
+		var downArrow = document.createElement('span');
+		downArrow.class = 'caret';
+		var userD = document.createTextNode(" " + sessionStorage.user);
+		
+		document.getElementById('nameD').appendChild(downArrow);
+		document.getElementById('nameD').appendChild(userD);
+		
 		document.getElementById("logout").onclick = function() {
 			
 			ajax("http://localhost:8080/logout", {}, {"user" : sessionStorage.user, "token" : sessionStorage.token}, function(result) {
