@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import org.team1515.communication.Post;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -43,8 +45,8 @@ public class MatchesFragment extends Fragment {
 
     //Match data
     private ArrayList<Match> matches;
-    private ArrayList<Integer> keys;
-    private SparseArray<ArrayList<String>> children;
+    private HashMap<Integer, String> keys;
+    private SparseArray<List<NameValuePair>> children;
 
     /**
      * Use this factory method to create a new instance of
@@ -100,6 +102,7 @@ public class MatchesFragment extends Fragment {
 
     //Retrieve all match data from JSON file
     private void getMatchData() {
+        System.out.println("COLOR = " + Color.RED);
         matches = new ArrayList<Match>();
 
         //Pull data from server and add to list view
@@ -112,7 +115,7 @@ public class MatchesFragment extends Fragment {
         String response;
         try {
             //Get JSON from server
-            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.101", 8080, "/allMatches")).get().trim();
+            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "/allMatches")).get().trim();
 
             //If successful Post, continue with JSON parsing
             Uri query = Uri.parse("?" + response);
@@ -121,26 +124,27 @@ public class MatchesFragment extends Fragment {
                 String jsonData = query.getQueryParameter("data");
 
                 //Values for expandable list view
-                keys = new ArrayList<Integer>();
-                children = new SparseArray<ArrayList<String>>();
+                keys = new HashMap<Integer, String>();
+                children = new SparseArray<List<NameValuePair>>();
 
                 //Parse JSON
                 System.out.println(jsonData);
                 JSONObject json = new JSONObject(jsonData);
-                ArrayList<String> values;
-                for (int i = 1; i <= json.length(); i++) {
-                    keys.add(i);
-                    JSONObject match = json.getJSONObject(Integer.toString(i));
-                    values = new ArrayList<String>();
-                    values.add(match.getString("time"));
+                List<NameValuePair> values;
+                for (int i = 0; i < json.length(); i++) {
+                    JSONObject match = json.getJSONObject(Integer.toString(i + 1));
+                    keys.put(i, "Match " + i + 1 + " at " + match.getString("time"));
+
+                    values = new ArrayList<NameValuePair>();
                     //Blue teams
                     JSONArray blueTeams = match.getJSONArray("blue");
                     for (int x = 0; x < 3; x++) {
-                        values.add("Team " + blueTeams.getInt(x));
+                        values.add(new BasicNameValuePair("blue", "Team " + blueTeams.getInt(x)));
                     }
+                    //Red teams
                     JSONArray redTeams = match.getJSONArray("red");
                     for (int x = 0; x < 3; x++) {
-                        values.add("Team " + redTeams.getInt(x));
+                        values.add(new BasicNameValuePair("red", "Team " + blueTeams.getInt(x)));
                     }
                     children.put(i, values);
                 }
