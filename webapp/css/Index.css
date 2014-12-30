@@ -191,6 +191,7 @@ th,td {
 
 .table_hover{
 	color: white;
+	cursor: pointer;
 }
 
 #r1, #r2, #r3{

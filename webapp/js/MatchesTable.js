@@ -170,9 +170,7 @@ $(document).ready(function() {
 		});
 		
 		$('tr').not(".first_row").click(function(){
-		    sessionStorage.match_num = $(this).children(":first").text();
-			sessionStorage.match_time = $(this).children(":first").next().text();
-			location = "report.html";
+		    location = "report.html?" + getQS({"match" : $(this).children(":first").text(), "time" : $(this).children(":first").next().text()});
 		});
 
 	});
