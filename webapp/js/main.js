@@ -71,7 +71,7 @@ $(document).ready(function() {
 			
 		}
 		document.getElementById("view_prof").onclick = function() {
-			alert(localStorage.user + "\nToken: " + localStorage.token);
+			alert("Hello and have a good day, " + localStorage.user + "\nToken: " + localStorage.token + "\nLogged in indefinitely.");
 		}
 	} else {
 		
@@ -101,8 +101,11 @@ $(document).ready(function() {
 			
 		}
 		document.getElementById("view_prof").onclick = function() {
-			alert(sessionStorage.user + "\nToken: " + sessionStorage.token);
+			alert("Hello and have a good day, " + sessionStorage.user + "\nToken: " + sessionStorage.token + "\nLogged in for 1 session.");
 		}
-	}	
+	}
+
+	
+	
 });
 

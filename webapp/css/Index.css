@@ -160,8 +160,12 @@ table{
 	margin-top: 2em;
 	margin-bottom: 2em;
 	width:90%;
+	border-color: white;
+	color: #CCCCCC;
+	width: 50%;
 	
 }
+
 
 th,td {
     padding: .3em;
@@ -183,6 +187,23 @@ th,td {
 
 .odd_row {
 	background-color: #303030;
+}
+
+.table_hover{
+	color: white;
+}
+
+#r1, #r2, #r3{
+	background-color: #B80000;
+}
+#rh {
+	background-color: #760000;
+}
+#b1, #b2, #b3{
+	background-color: #0029A3;
+}
+#bh {
+	background-color: #001962;
 }
 
 
@@ -277,6 +298,24 @@ input:focus {
 }
 
 /* END OF LOGIN PAGE STYLES */
+
+
+/* REPORT SCREEN STYLES */
+
+.report h2 {
+	display: inline;
+	color: orange;
+	font-family: 'Exo 2', sans-serif;
+
+}
+
+div.report{
+	margin-top: 7em;
+}
+
+
+
+/* END OF REPORT SCREEN STYLES */
 
 
 @media screen and (max-width: 420px){

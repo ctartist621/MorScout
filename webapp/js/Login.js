@@ -43,8 +43,14 @@ function submitted() {
 
 */
 if (localStorage.user !== undefined){
+		window.stop();
 		location = "MorScout.html";
 }
+
+$(document).ready(function() {
+	sessionStorage.removeItem('user')	
+	sessionStorage.removeItem('token')
+});
 
 function getQS(obj) {
 	var arr = Object.keys(obj);
