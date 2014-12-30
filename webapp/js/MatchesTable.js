@@ -50,7 +50,37 @@ $(document).ready(function() {
 	//var jsonStr = '{"1" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "2" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }, "3" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "4" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }, "5" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "6" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }, "7" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "8" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }, "9" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "10" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }}';
 	//var jsonfile = JSON.parse(jsonStr);
 	
- 
+function toMilitary(str){
+	str = str.toString();
+	if (str.substring(5, 7) == "AM"){
+		if(str.indexOf(":") == 1){
+			return parseInt(str.substring(0,1)+str.substring(2,4));
+		}else{
+			return parseInt(str.substring(0,2)+str.substring(3,5));
+		}
+	} else {
+		if(str.indexOf(":") == 1){
+			var mil = parseInt(str.substring(0,1))+12;
+			return parseInt(mil.toString()+str.substring(2,4));
+		}else{
+			var mil = parseInt(str.substring(0,2))+12;
+			return parseInt(mil.toString()+str.substring(3,5));
+		}
+	}	
+}
+
+function getMilitary(d) {
+	mins = d.getMinutes().toString();
+	if(mins.length == 1){
+		mins = "0" + mins;
+	} else if(mins.length == 0){
+		mins = "00";
+	}
+	return parseInt(d.getHours().toString() + mins);
+}
+
+
+
 $(document).ready(function() {
 
 	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
@@ -94,12 +124,10 @@ $(document).ready(function() {
 		for (match_number = 0 ; match_number < Object.keys(jsonfile).length  ; match_number++) {
 				
 				var real_match_number = Object.keys(jsonfile)[match_number];
+				var real_match_number_plus_one = Object.keys(jsonfile)[match_number+1];
+				
 				var tr = document.createElement('tr');
-				  /*	
-					if(match_number time is equal to current time){
-						tr.className = tr.className + "current_match";
-					}
-				  */
+				 
 				var td1 = document.createElement('td');
 				var td2 = document.createElement('td');
 				var td3 = document.createElement('td');
@@ -141,7 +169,20 @@ $(document).ready(function() {
 				tr.appendChild(td9);
 
 				table.appendChild(tr);
-
+				
+				var time = new Date();
+				if(real_match_number_plus_one !== undefined){
+					console.log(getMilitary(time));
+					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < toMilitary(jsonfile[real_match_number_plus_one].time)){
+						$(tr).addClass('current_match');
+					}else{
+						$(tr).removeClass('current_match');
+					}
+				} else {
+					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < toMilitary(jsonfile[real_match_number].time)+25){
+						$(tr).addClass('current_match');
+					}
+				}
 		}
 		
 		document.body.appendChild(table);

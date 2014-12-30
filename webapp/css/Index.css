@@ -171,6 +171,10 @@ th,td {
     padding: .3em;
 }
 
+.odd_row {
+	background-color: #303030;
+}
+
 .current_match{
 	background-color: orange;
 	color: black;
@@ -183,10 +187,6 @@ th,td {
 
 .current_match:hover {
 	background-color: #EE7600;
-}
-
-.odd_row {
-	background-color: #303030;
 }
 
 .table_hover{

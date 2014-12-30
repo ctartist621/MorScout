@@ -45,16 +45,18 @@ function ajax(url, get, post, cb) {
 $(document).ready(function() {
 	if(localStorage.user !== undefined){
 	
-		var downArrow = document.createElement('span');
-		downArrow.class = 'caret';
+		//var downArrow = document.createElement('span');
+		//downArrow.class = 'caret';
 		var userD = document.createTextNode(" " + localStorage.user);
 		
-		document.getElementById('nameD').appendChild(downArrow);
-		document.getElementById('nameD').appendChild(userD);
+		//document.getElementById('nameD').appendChild(downArrow);
 		
+		
+		document.getElementById("UserDropdown").innerHTML = '<a id = "nameD" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="#" id="view_prof">View Profile</a></li><li class="divider"></li><li><a href="#" id="logout">Log out</a></li></ul>'
+		document.getElementById('nameD').appendChild(userD);
 		document.getElementById("logout").onclick = function() {
 			
-			ajax("http://localhost:8080/logout", {}, {"user" : localStorage.user, "token" : localStorage.token}, function(result) {
+			ajax("http://192.168.0.8:8080/logout", {}, {"user" : localStorage.user, "token" : localStorage.token}, function(result) {
 				if(result.code == 0) {
 					localStorage.removeItem('user');
 					localStorage.removeItem('token');
@@ -73,18 +75,20 @@ $(document).ready(function() {
 		document.getElementById("view_prof").onclick = function() {
 			alert("Hello and have a good day, " + localStorage.user + "\nToken: " + localStorage.token + "\nLogged in indefinitely.");
 		}
-	} else {
+	} else if (sessionStorage.user !== undefined) {
 		
-		var downArrow = document.createElement('span');
-		downArrow.class = 'caret';
+		//var downArrow = document.createElement('span');
+		//downArrow.class = 'caret';
 		var userD = document.createTextNode(" " + sessionStorage.user);
-		
-		document.getElementById('nameD').appendChild(downArrow);
+		document.getElementById("UserDropdown").innerHTML = '<a id = "nameD" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="#" id="view_prof">View Profile</a></li><li class="divider"></li><li><a href="#" id="logout">Log out</a></li></ul>'
 		document.getElementById('nameD').appendChild(userD);
+		//document.getElementById('nameD').appendChild(userD);
+		
+		
 		
 		document.getElementById("logout").onclick = function() {
 			
-			ajax("http://localhost:8080/logout", {}, {"user" : sessionStorage.user, "token" : sessionStorage.token}, function(result) {
+			ajax("http://192.168.0.8:8080/logout", {}, {"user" : sessionStorage.user, "token" : sessionStorage.token}, function(result) {
 				if(result.code == 0) {
 					sessionStorage.removeItem('user');
 					sessionStorage.removeItem('token');
