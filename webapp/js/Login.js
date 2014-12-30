@@ -86,7 +86,7 @@ document.getElementById("login_form").onsubmit = function() {
 		var user = document.getElementById("username").value;
 		var pass = document.getElementById("password").value;
 		
-		ajax("http://192.168.0.8:8080/login", {}, {"user" : user, "pass" : pass}, function(result) {
+		ajax("http://192.168.0.15:8080/login", {}, {"user" : user, "pass" : pass}, function(result) {
 			if(result.code == 0) {
 				localStorage.user = result.user;
 				localStorage.token = result.token;
@@ -105,7 +105,7 @@ document.getElementById("login_form").onsubmit = function() {
 		var user = document.getElementById("username").value;
 		var pass = document.getElementById("password").value;
 		
-		ajax("http://192.168.0.8:8080/login", {}, {"user" : user, "pass" : pass}, function(result) {
+		ajax("http://192.168.0.15:8080/login", {}, {"user" : user, "pass" : pass}, function(result) {
 			if(result.code == 0) {
 				sessionStorage.user = result.user;
 				sessionStorage.token = result.token;

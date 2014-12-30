@@ -56,7 +56,7 @@ $(document).ready(function() {
 		document.getElementById('nameD').appendChild(userD);
 		document.getElementById("logout").onclick = function() {
 			
-			ajax("http://192.168.0.8:8080/logout", {}, {"user" : localStorage.user, "token" : localStorage.token}, function(result) {
+			ajax("http://192.168.0.15:8080/logout", {}, {"user" : localStorage.user, "token" : localStorage.token}, function(result) {
 				if(result.code == 0) {
 					localStorage.removeItem('user');
 					localStorage.removeItem('token');
@@ -88,7 +88,7 @@ $(document).ready(function() {
 		
 		document.getElementById("logout").onclick = function() {
 			
-			ajax("http://192.168.0.8:8080/logout", {}, {"user" : sessionStorage.user, "token" : sessionStorage.token}, function(result) {
+			ajax("http://192.168.0.15:8080/logout", {}, {"user" : sessionStorage.user, "token" : sessionStorage.token}, function(result) {
 				if(result.code == 0) {
 					sessionStorage.removeItem('user');
 					sessionStorage.removeItem('token');

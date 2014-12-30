@@ -51,22 +51,37 @@ $(document).ready(function() {
 	//var jsonfile = JSON.parse(jsonStr);
 	
 function toMilitary(str){
-	str = str.toString();
-	if (str.substring(5, 7) == "AM"){
-		if(str.indexOf(":") == 1){
+	if(str.indexOf(":") == 1){
+		
+		if(str.substring(5, 7) == "AM"){
 			return parseInt(str.substring(0,1)+str.substring(2,4));
 		}else{
-			return parseInt(str.substring(0,2)+str.substring(3,5));
-		}
-	} else {
-		if(str.indexOf(":") == 1){
 			var mil = parseInt(str.substring(0,1))+12;
 			return parseInt(mil.toString()+str.substring(2,4));
-		}else{
-			var mil = parseInt(str.substring(0,2))+12;
-			return parseInt(mil.toString()+str.substring(3,5));
 		}
-	}	
+	
+	}else{
+		
+		if(str.substring(6, 8) == "AM"){
+		
+			if(str.substring(0,2) == "12"){
+				return parseInt(str.substring(3,5));
+			}else{
+				return parseInt(str.substring(0,2)+str.substring(3,5));
+			}
+		
+		}else{
+		
+			if(str.substring(0,2) == "12"){
+				return parseInt("12" + str.substring(3,5));
+			}else{
+				var mil = parseInt(str.substring(0,2))+12;
+				return parseInt(mil.toString()+str.substring(3,5));
+			}
+		
+		}
+	
+	}
 }
 
 function getMilitary(d) {
@@ -82,7 +97,7 @@ function getMilitary(d) {
 
 
 $(document).ready(function() {
-
+console.log(toMilitary("1:05 PM"));
 	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
 	
 	$.getJSON('js/matchesJson.json', function(jsonfile){
