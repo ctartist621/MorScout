@@ -1,29 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head>
+  <head>
     <meta name=apple-mobile-web-app-capable content=yes>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <title>MorScout</title>
-	<link rel="apple-touch-icon" sizes="180x180" href="MorIcon.png">
-	<link rel="apple-touch-startup-image" href="MorStartup.png" media="(device-width: 414px)">
+    <title>All Teams</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="img/MorIcon.png">
+	<link rel="apple-touch-startup-image" href="img/MorStartup.png" media="(device-width: 414px)">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/Index.css">
-    
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
-    <script>
-    $(document).ready(function () {
-      $('.hidden').fadeIn(1500).removeClass('hidden');
-    });
-    </script>
-</head>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+  </head>
 
 <body>
 
@@ -45,9 +38,16 @@
 	    <li><a href="#" title="Configure the settings">Settings</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-		<li><a class = "rightlinks" href="MorScout.html" title="Your name" id = "nameD"></a></li>
         <li><a class = "rightlinks" href="#" title="Need help?">Help</a></li>
         <li><a class = "rightlinks" href="#" title="Give us your opinion!">Feedback</a></li>
+		<li class="dropdown">
+          <a id = "nameD" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" id="view_prof">View Profile</a></li>
+            <li class="divider"></li>
+            <li><a href="#" id="logout">Log out</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
@@ -67,6 +67,10 @@
       </div>
     </div>
 	<script src="js/TeamsTable.js"></script>
+	
+<!-- JAVASCRIPT -->	
+	
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
 <script>
 if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {

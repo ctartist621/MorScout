@@ -52,7 +52,7 @@ $(document).ready(function() {
 	
  
 $(document).ready(function() {
-	
+
 	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
 	
 	$.getJSON('js/matchesJson.json', function(jsonfile){
@@ -156,8 +156,22 @@ $(document).ready(function() {
 		table.style.margin = "1.4em auto";
 		table.style.marginBottom = "2em";
 		$("tr:odd").addClass("odd_row");
+		$("tr:first").addClass("first_row");
+		
 
 		// });
+		
+		$('tr').not(".first_row").mouseenter(function(){
+		    $(this).addClass('table_hover')
+		});
+		
+		$('tr').not(".first_row").mouseleave(function(){
+		    $(this).removeClass('table_hover')
+		});
+		
+		$('tr').not(".first_row").click(function(){
+		    location = "report.html?" + getQS({"match" : $(this).children(":first").text(), "time" : $(this).children(":first").next().text()});
+		});
 
 	});
 	
