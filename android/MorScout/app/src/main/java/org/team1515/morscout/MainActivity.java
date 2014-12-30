@@ -152,7 +152,7 @@ public class MainActivity extends FragmentActivity
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("user", username));
             nameValuePairs.add(new BasicNameValuePair("token", token));
-            String response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.101", 8080, "logout")).get().trim();
+            String response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "logout")).get().trim();
 
             //Get code from response
             Uri query = Uri.parse("?" + response);
