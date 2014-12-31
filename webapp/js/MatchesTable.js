@@ -94,6 +94,17 @@ function getMilitary(d) {
 	return parseInt(d.getHours().toString() + mins);
 }
 
+function addMinutes(time, mins){
+	if ((time+mins)%100 > 60){
+		
+		return ((Math.floor((time+mins)/100)+1)*100)+((time+mins)%((60 - (time%100)) + time))
+		
+	}else{
+		return time+mins;
+	}
+	
+}
+
 
 
 $(document).ready(function() {
@@ -194,7 +205,7 @@ console.log(toMilitary("1:05 PM"));
 						$(tr).removeClass('current_match');
 					}
 				} else {
-					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < toMilitary(jsonfile[real_match_number].time)+25){
+					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < addMinutes(toMilitary(jsonfile[real_match_number].time), 2)){
 						$(tr).addClass('current_match');
 					}
 				}

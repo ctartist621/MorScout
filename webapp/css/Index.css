@@ -318,6 +318,68 @@ div.report{
 
 /* END OF REPORT SCREEN STYLES */
 
+/* SETTINGS SCREEN STYLES */
+
+div.settings_list{
+	margin-top: 4em;
+	margin-left: -1.5em;
+	color: orange;
+	font-family: 'Exo 2', sans-serif;
+	display: block;
+	text-align: center;
+}
+.settings_box::-webkit-input-placeholder { 
+    color: gray;
+	opacity:0.8;
+	font-weight: bold;
+}
+.settings_box:-moz-placeholder {
+   color: gray;
+   opacity:0.8;
+   font-weight: bold;
+}
+.settings_box::-moz-placeholder { 
+   color: gray;
+   opacity:0.8;
+   font-weight: bold;
+}
+.settings_box:-ms-input-placeholder {
+   color: gray;
+   opacity:0.8;
+   font-weight: bold;
+}
+
+.settings_list > .text_input{
+	color: black;
+	width: 9.5em;
+	height: 2em;
+	margin-top: .5em;
+	font-size: 2em;
+	font-weight: bold;
+	background-color: #C0C0C0;
+	padding: .2em;
+}
+
+.settings_list > .button_input{
+	color: black;
+	width: 4em;
+	height: 2em;
+	margin-top: .5em;
+	font-size: 2em;
+	font-weight: bold;
+	background-color: gray;
+}
+
+.button_hovered{
+	background-color: #EE7600 !important;
+}
+
+#settings_table{
+margin-top: 3em;
+}
+
+/* END OF SETTINGS SCREEN STYLES */
+
 
 @media screen and (max-width: 420px){
 	.main h1 {
