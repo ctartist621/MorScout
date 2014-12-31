@@ -13,18 +13,6 @@ function getToken(size) {
 	return token;
 }
 
-function equalArrays(a, b) {
-	if(a.length != b.length) {
-		return false;
-	}
-	for(var i = 0; i < a.length; i++) {
-		if(!~b.indexOf(a[i])) {
-			return false;
-		}
-	}
-	return true;
-}
-
 function validToken(user, token) {
 	var users = readJSON("users.json");
 	return users[user] && users[user].tokens && ~users[user].tokens.indexOf(token);
@@ -35,7 +23,7 @@ function validEntry(entry) {
 		return false;
 	}
 	var data = readJSON("dataPoints.json");
-	if(!equalArrays(Object.keys(entry.data).sort(), [].concat(data.string, data.number, data.boolean).sort())) {
+	if(JSON.stringify(Object.keys(entry.data).sort()) != JSON.stringify([].concat(data.string, data.number, data.boolean).sort())) {
 		return false;
 	}
 	for(var key in data) {
@@ -70,7 +58,7 @@ function addEntry(entry, data) {
 }
 
 function sortJSON(obj) {
-	if(typeof(obj) != "object") {
+	if(typeof(obj) != "object" || obj instanceof Array) {
 		return obj;
 	}
 	var arr = Object.keys(obj).sort();
@@ -114,7 +102,6 @@ function writeJSON(file, json) {
 http.createServer(function(req, res) {
 	res.writeHead(200, {"Access-Control-Allow-Origin" : "*"});
 	var path = url.parse(req.url, true).pathname;
-	var get = url.parse(req.url, true).query;
 	if(req.method == "POST") {
 		req.on("data", function(post) {
             post = qs.parse(String(post));
@@ -133,7 +120,7 @@ http.createServer(function(req, res) {
 		                }
 		                users[user].tokens.push(token);
 		                writeJSON("users.json", users);
-		                sendQS(res, {"code" : 0, "user" : user, "token" : token});
+		                sendQS(res, {"code" : 0, "user" : user, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json")});
 	                }
 	                else {
 		                sendQS(res, {"code" : 1});
@@ -149,12 +136,6 @@ http.createServer(function(req, res) {
 					writeJSON("users.json", users);
 					sendQS(res, {"code" : 0});
 				}
-				else if(path == "/allData") {
-					sendQS(res, {"code" : 0, "data" : readJSON("data.json")});
-				}
-				else if(path == "/allMatches") {
-					sendQS(res, {"code" : 0, "data" : readJSON("matches.json")});
-				}
 				else if(path == "/sync") {
 					var entries = parseJSON(post.data);
 					if(entries instanceof Array) {
@@ -166,12 +147,7 @@ http.createServer(function(req, res) {
 							}
 						}
 						writeJSON("data.json", data);
-						if("allData" in get) {
-							sendQS(res, {"code" : 0, "data" : data});
-						}
-						else {
-							sendQS(res, {"code" : 0});
-						}
+						sendQS(res, {"code" : 0, "data" : data, "matches" : readJSON("matches.json")});
 					}
 					else {
 						sendQS(res, {"code" : 2});
@@ -182,6 +158,9 @@ http.createServer(function(req, res) {
 				sendQS(res, {"code" : 1});
 			}
 		});
+	}
+	else if(path == "/ping") {
+		res.end("pong");
 	}
 	else {
 		sendQS(res, {"code" : 2});

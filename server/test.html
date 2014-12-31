@@ -16,11 +16,7 @@ function parseQS(str) {
 	}
 	return obj;
 }
-function ajax(url, get, post, cb) {
-	var qs = getQS(get);
-	if(qs != "") {
-		url += "?" + qs;
-	}
+function ajax(url, post, cb) {
 	var xhr = new XMLHttpRequest() || new XDomainRequest();
 	xhr.onload = function() {
 		if(cb) {
@@ -32,11 +28,11 @@ function ajax(url, get, post, cb) {
 }
 
 window.onload = function() {
-	ajax("/login", {}, {"user" : "BenH", "pass" : "pigeon"}, function(result) {
+	ajax("/login", {"user" : "BenH", "pass" : "pigeon"}, function(result) {
 		if(result.code == 0) {
 			var user = result.user;
 			var token = result.token;
-			ajax("/sync", {"allData" : ""}, {"user" : user, "token" : token, "data" : JSON.stringify([{
+			ajax("/sync", {"user" : user, "token" : token, "allData" : "", "data" : JSON.stringify([{
 				"meta" : {
 					"team" : "1515",
 					"match" : "15",
@@ -55,7 +51,7 @@ window.onload = function() {
 			}])}, function(result){
 				if(result.code == 0) {
 					document.body.innerHTML = result.data;
-					ajax("/logout", {}, {"user" : user, "token" : token});
+					ajax("/logout", {"user" : user, "token" : token});
 				}
 			});
 		}
