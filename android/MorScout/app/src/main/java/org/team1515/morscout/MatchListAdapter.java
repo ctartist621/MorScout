@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -14,13 +16,15 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import org.apache.http.NameValuePair;
+
 public class MatchListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private ArrayList<Integer> keys; // header titles
-    private SparseArray<ArrayList<String>> children;
+    private HashMap<Integer, String> keys; // header titles
+    private SparseArray<List<NameValuePair>> children;
 
-    public MatchListAdapter(Context context, ArrayList<Integer> keys, SparseArray<ArrayList<String>> children) {
+    public MatchListAdapter(Context context, HashMap<Integer, String> keys, SparseArray<List<NameValuePair>> children) {
         this.context = context;
         this.keys = keys;
         this.children = children;
@@ -28,7 +32,7 @@ public class MatchListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
-        return this.children.get(this.keys.get(groupPosition)).get(childPosititon);
+        return children.get(groupPosition).get(childPosititon);
     }
 
     @Override
@@ -40,7 +44,8 @@ public class MatchListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final String childText = (String) getChild(groupPosition, childPosition);
+        NameValuePair child = (NameValuePair)getChild(groupPosition, childPosition);
+        final String childText = child.getValue();
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -51,14 +56,22 @@ public class MatchListAdapter extends BaseExpandableListAdapter {
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.lblListItem);
 
+
         txtListChild.setText(childText);
-        return convertView;
+
+    //Set text color based on team alliance
+    if (child.getName().equals("red")) {
+        txtListChild.setTextColor(Color.RED);
+    } else if (child.getName().equals("blue")) {
+        txtListChild.setTextColor(Color.BLUE);
     }
+
+    return convertView;
+}
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.children.get(this.keys.get(groupPosition))
-                .size();
+        return children.get(groupPosition).size();
     }
 
     @Override
@@ -79,11 +92,11 @@ public class MatchListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String headerTitle = "Match " + getGroup(groupPosition);
+        String headerTitle = getGroup(groupPosition).toString();
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
+            LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_group, null);
+            convertView = inflater.inflate(R.layout.list_group, null);
         }
 
         TextView lblListHeader = (TextView) convertView

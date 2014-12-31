@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.team1515.communication.Config;
 import org.team1515.communication.Post;
 
 import java.net.MalformedURLException;
@@ -40,7 +41,7 @@ public class LoginActivity extends Activity {
 
             String response;
             try {
-                response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.101", 8080, "/login")).get().trim();
+                response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get().trim();
                 Uri query = Uri.parse("?" + response);
                 String code = query.getQueryParameter("code");
                 if (code.equals("0")) {
@@ -80,7 +81,7 @@ public class LoginActivity extends Activity {
         nameValuePairs.add(new BasicNameValuePair("pass", password));
         String response;
         try {
-            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.101", 8080, "/login")).get();
+           response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return;
