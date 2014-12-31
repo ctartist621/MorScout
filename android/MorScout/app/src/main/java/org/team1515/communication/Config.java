@@ -1,8 +1,6 @@
 package org.team1515.communication;
 
 
-import java.net.URL;
-
 public class Config {
     public static final String protocol = "http";
     public static final String host = "192.168.1.132";

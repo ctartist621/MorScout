@@ -19,6 +19,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.team1515.communication.Config;
 import org.team1515.communication.Get;
 import org.team1515.communication.Match;
 import org.team1515.communication.Post;
@@ -115,7 +116,7 @@ public class MatchesFragment extends Fragment {
         String response;
         try {
             //Get JSON from server
-            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "/allMatches")).get().trim();
+            response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/allMatches")).get().trim();
 
             //If successful Post, continue with JSON parsing
             Uri query = Uri.parse("?" + response);

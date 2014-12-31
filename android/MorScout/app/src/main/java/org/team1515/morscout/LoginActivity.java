@@ -81,7 +81,7 @@ public class LoginActivity extends Activity {
         nameValuePairs.add(new BasicNameValuePair("pass", password));
         String response;
         try {
-            response = new Post(nameValuePairs).execute(new URL("http", "192.168.1.132", 8080, "/login")).get();
+           response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return;
