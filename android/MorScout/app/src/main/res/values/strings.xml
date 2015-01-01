@@ -21,6 +21,7 @@
 
     <!-- Matches Fragment -->
     <string name="title_fragment_matches">Matches</string>
+    <string name="failed_to_connect">Failed to connect to server</string>
 
     <!-- Teams Fragment -->
     <string name="title_fragment_teams">Teams</string>

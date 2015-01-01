@@ -33,37 +33,44 @@ public class LoginActivity extends Activity {
         String username = preferences.getString("username", "");
         String password = preferences.getString("password", "");
 
-        if (!username.equals("") && !password.equals("")) {
-            //Set up Post parameters
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-            nameValuePairs.add(new BasicNameValuePair("user", username));
-            nameValuePairs.add(new BasicNameValuePair("pass", password));
+        if (preferences.getBoolean("isLoggedIn", false)) {
+            if (!username.equals("") && !password.equals("")) {
+                //Set up Post parameters
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("user", username));
+                nameValuePairs.add(new BasicNameValuePair("pass", password));
 
-            String response;
-            try {
-                response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get().trim();
-                Uri query = Uri.parse("?" + response);
-                String code = query.getQueryParameter("code");
-                if (code.equals("0")) {
-                    //Store token
-                    String token = query.getQueryParameter("token");
-                    preferences.edit().putString("token", token).apply();
+                String response;
+                try {
+                    response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get().trim();
+                    Uri query = Uri.parse("?" + response);
+                    String code = query.getQueryParameter("code");
+                    if (code.equals("0")) {
+                        //Store token
+                        String token = query.getQueryParameter("token");
+                        preferences.edit().putString("token", token).apply();
 
+                        //Start main activity/main app
+                        Intent intent = new Intent(this, MainActivity.class);
+                        intent.putExtra("username", username);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } finally {
                     //Start main activity/main app
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("username", username);
                     startActivity(intent);
                     finish();
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
             }
         }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     }
@@ -109,6 +116,7 @@ public class LoginActivity extends Activity {
             preferences.edit().putString("username", username).apply();
             preferences.edit().putString("password", password).apply();
             preferences.edit().putString("token", token).apply();
+            preferences.edit().putBoolean("isLoggedIn", true).apply();
 
             //Display welcome message, and start new activity once closed
             displayMessage("Welcome, " + username + "!", new DialogInterface.OnClickListener() {

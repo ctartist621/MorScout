@@ -23,10 +23,10 @@ import org.apache.http.NameValuePair;
 public class MatchListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private HashMap<Integer, String> keys; // header titles
+    private SparseArray<String> keys; // header titles
     private SparseArray<List<NameValuePair>> children;
 
-    public MatchListAdapter(Context context, HashMap<Integer, String> keys, SparseArray<List<NameValuePair>> children) {
+    public MatchListAdapter(Context context, SparseArray<String> keys, SparseArray<List<NameValuePair>> children) {
         this.context = context;
         this.keys = keys;
         this.children = children;

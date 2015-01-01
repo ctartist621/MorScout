@@ -22,7 +22,7 @@ public class FormActivity extends Activity {
         username = intent.getStringExtra("username");
         team = intent.getStringExtra("team");
         System.out.println("user " + username);
-        System.out.println("team" + team);
+        System.out.println("team " + team);
         setTitle("Team " + team);
     }
 }

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -44,10 +45,7 @@ import java.util.concurrent.ExecutionException;
 public class MatchesFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
-    //Match data
-    private ArrayList<Match> matches;
-    private HashMap<Integer, String> keys;
-    private SparseArray<List<NameValuePair>> children;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -76,10 +74,8 @@ public class MatchesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
         //Create ExpandableListView for matches
-        getMatchData();
-        ExpandableListView expandableListView = (ExpandableListView)view.findViewById(R.id.expandableListView);
+        getMatchData(view);
 
-        expandableListView.setAdapter(new MatchListAdapter(view.getContext(), keys, children));
 
         return view;
     }
@@ -102,18 +98,25 @@ public class MatchesFragment extends Fragment {
     }
 
     //Retrieve all match data from JSON file
-    private void getMatchData() {
-        matches = new ArrayList<Match>();
+    private void getMatchData(View view) {
+        //Match data
+        ArrayList<Match> matches = new ArrayList<Match>();
+        SparseArray<String> keys = new SparseArray<String>();
+        SparseArray<List<NameValuePair>> children = new SparseArray<List<NameValuePair>>();
 
-        //Pull data from server and add to list view
+        //Grab data from storage
         SharedPreferences preferences = getActivity().getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
         String username = preferences.getString("username", "");
         String token = preferences.getString("token", "");
+
+        //Add data to post request
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("user", username));
         nameValuePairs.add(new BasicNameValuePair("token", token));
         nameValuePairs.add(new BasicNameValuePair("data", "[]"));
+
         String response;
+        String jsonData = "";
         try {
             //Get JSON from server
             response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/sync")).get().trim();
@@ -122,18 +125,30 @@ public class MatchesFragment extends Fragment {
             Uri query = Uri.parse("?" + response);
             String code = query.getQueryParameter("code");
             if (code.equals("0")) {
-                String jsonData = query.getQueryParameter("matches");
-                System.out.println(jsonData);
+                jsonData = query.getQueryParameter("matches");
+                preferences.edit().putString("matches", jsonData).apply();
 
-                //Values for expandable list view
-                keys = new HashMap<Integer, String>();
-                children = new SparseArray<List<NameValuePair>>();
 
+            } else {
+                Toast.makeText(this.getActivity(), R.string.failed_to_connect, Toast.LENGTH_LONG).show();
+
+                //Could not connect to server - grab data from storage
+                jsonData = preferences.getString("matches", "");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this.getActivity(), R.string.failed_to_connect, Toast.LENGTH_LONG).show();
+
+            //Could not connect to server - grab data from storage
+            jsonData = preferences.getString("matches", "");
+        } finally {
+
+            try {
                 //Parse JSON
-                System.out.println(jsonData);
                 JSONObject json = new JSONObject(jsonData);
                 List<NameValuePair> values;
                 for (int i = 0; i < json.length(); i++) {
+
                     JSONObject match = json.getJSONObject(Integer.toString(i + 1));
                     keys.put(i, "Match " + i + 1 + "\t\t" + match.getString("time"));
 
@@ -149,25 +164,16 @@ public class MatchesFragment extends Fragment {
                         values.add(new BasicNameValuePair("red", Integer.toString(blueTeams.getInt(x))));
                     }
                     children.put(i, values);
+
+                    //Create expandable list view
+                    ExpandableListView expandableListView = (ExpandableListView)view.findViewById(R.id.expandableListView);
+                    expandableListView.setAdapter(new MatchListAdapter(view.getContext(), keys, children));
                 }
-            } else {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setMessage("Error: Failed to retrieve match data");
-                alert.setPositiveButton("OK", null);
-                alert.setCancelable(false);
-                alert.create().show();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
-
 
     /**
      * This interface must be implemented by activities that contain this
