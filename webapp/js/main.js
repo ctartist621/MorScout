@@ -55,7 +55,7 @@ $(document).ready(function() {
 		//document.getElementById('nameD').appendChild(downArrow);
 		
 		
-		document.getElementById("UserDropdown").innerHTML = '<a id = "nameD" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="#" id="view_prof">View Profile</a></li><li class="divider"></li><li><a href="#" id="logout">Log out</a></li></ul>'
+		document.getElementById("UserDropdown").innerHTML = '<a id = "nameD" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="#" id="view_prof">View Profile</a></li><li><a href="#" id="logout">Log Out</a></li></ul>'
 		document.getElementById('nameD').appendChild(userD);
 		document.getElementById("logout").onclick = function() {
 			

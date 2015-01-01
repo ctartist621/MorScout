@@ -144,6 +144,16 @@ th,td {
     padding: .3em;
 }
 
+#loading{
+	width: 100%;
+	position: fixed;
+	top: 45%;
+	text-align: center;
+	color: orange;
+	font-family: 'Exo 2', sans-serif;
+}
+
+
 /* END OF FIRST HEADER STYLES */
 
 /* TABLE STYLES */
@@ -156,13 +166,12 @@ table, th, td {
 	
 }
 
-table{
+.report_table{
 	margin-top: 2em;
 	margin-bottom: 2em;
-	width:90%;
 	border-color: white;
 	color: #CCCCCC;
-	width: 50%;
+	width: 25em;
 	
 }
 
@@ -178,7 +187,7 @@ th,td {
 .current_match{
 	background-color: orange;
 	color: black;
-	line-height: 9vh;
+	line-height: 6vh;
 }
 
 .current_match a{
@@ -312,6 +321,38 @@ input:focus {
 
 div.report{
 	margin-top: 7em;
+	text-align: center;
+}
+
+.report_table{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.report_area{
+	margin-top: 1.45em;
+	width: 17.5em;
+	height: 8.1em ;
+	font-size: 2em;
+	background-color: #C0C0C0;
+	padding: 0.2em;
+}
+.report_area::-webkit-input-placeholder {
+	 color: gray;
+	opacity:0.8;
+}
+.report_area:-moz-placeholder {
+	 color: gray;
+	opacity:0.8;
+}
+.report_area::-moz-placeholder { 
+	 color: gray;
+	opacity:0.8;
+}
+.report_area:-ms-input-placeholder {
+	 color: gray;
+	opacity:0.8;
 }
 
 
@@ -372,6 +413,13 @@ div.settings_list{
 
 .button_hovered{
 	background-color: #EE7600 !important;
+	cursor: pointer;
+}
+
+.button_hovered_report{
+	background-color: white !important;
+	cursor: pointer;
+	color: black;
 }
 
 #settings_table{
@@ -390,12 +438,26 @@ margin-top: 3em;
 	} 
 	.navbar-default .container-fluid {
 	}
+	
 }
 
 @media screen and (max-width: 623px){
-	.firstbar table, th, td {
-		font-size: 3vw
+	.matches_table{
+		font-size: 2vw !important;
+		line-height: 4vh;
 	}
+	
+}
+
+@media screen and (max-width: 408px){
+	.teams_table{
+		width: 90% !important;
+	}
+	
+	.report_table{
+		width: 98% !important;
+	
+}
 }
 
 

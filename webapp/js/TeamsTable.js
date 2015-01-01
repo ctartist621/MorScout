@@ -52,14 +52,14 @@ $(document).ready(function() {
 		document.body.appendChild(table);
 
 
-
 		// STYLES //
 
 		table.style.color = "orange";
-		table.style.width = "30%";
+		table.style.width = "25em";
 		table.style.margin = "1.4em auto";
 		table.style.marginBottom = "2em";
 		$("tr:odd").addClass("odd_row");
+		$(table).addClass('teams_table')
 
 		// });
 

@@ -205,15 +205,14 @@ console.log(toMilitary("1:05 PM"));
 						$(tr).removeClass('current_match');
 					}
 				} else {
-					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < addMinutes(toMilitary(jsonfile[real_match_number].time), 2)){
+					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < addMinutes(toMilitary(jsonfile[real_match_number].time), 5)){
 						$(tr).addClass('current_match');
 					}
 				}
 		}
 		
 		document.body.appendChild(table);
-		
-
+		$('#loading').hide();
 
 
 		// STYLES //
@@ -224,6 +223,7 @@ console.log(toMilitary("1:05 PM"));
 		table.style.marginBottom = "2em";
 		$("tr:odd").addClass("odd_row");
 		$("tr:first").addClass("first_row");
+		$(table).addClass('matches_table')
 		
 
 		// });
