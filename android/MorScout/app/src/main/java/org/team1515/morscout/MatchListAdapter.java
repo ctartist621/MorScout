@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -44,8 +46,8 @@ public class MatchListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
-        NameValuePair child = (NameValuePair)getChild(groupPosition, childPosition);
-        final String childText = child.getValue();
+        final NameValuePair child = (NameValuePair)getChild(groupPosition, childPosition);
+        final String childText = "Team " + child.getValue();
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -65,6 +67,18 @@ public class MatchListAdapter extends BaseExpandableListAdapter {
     } else if (child.getName().equals("blue")) {
         txtListChild.setTextColor(Color.BLUE);
     }
+
+    txtListChild.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            SharedPreferences preferences = context.getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+            String username = preferences.getString("username", "unknown");
+            Intent intent = new Intent(context, FormActivity.class);
+            intent.putExtra("username", username);
+            intent.putExtra("team", child.getValue());
+            context.startActivity(intent);
+        }
+    });
 
     return convertView;
 }

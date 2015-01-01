@@ -103,7 +103,6 @@ public class MatchesFragment extends Fragment {
 
     //Retrieve all match data from JSON file
     private void getMatchData() {
-        System.out.println("COLOR = " + Color.RED);
         matches = new ArrayList<Match>();
 
         //Pull data from server and add to list view
@@ -113,16 +112,18 @@ public class MatchesFragment extends Fragment {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("user", username));
         nameValuePairs.add(new BasicNameValuePair("token", token));
+        nameValuePairs.add(new BasicNameValuePair("data", "[]"));
         String response;
         try {
             //Get JSON from server
-            response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/allMatches")).get().trim();
+            response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/sync")).get().trim();
 
             //If successful Post, continue with JSON parsing
             Uri query = Uri.parse("?" + response);
             String code = query.getQueryParameter("code");
             if (code.equals("0")) {
-                String jsonData = query.getQueryParameter("data");
+                String jsonData = query.getQueryParameter("matches");
+                System.out.println(jsonData);
 
                 //Values for expandable list view
                 keys = new HashMap<Integer, String>();
@@ -134,18 +135,18 @@ public class MatchesFragment extends Fragment {
                 List<NameValuePair> values;
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject match = json.getJSONObject(Integer.toString(i + 1));
-                    keys.put(i, "Match " + i + 1 + " at " + match.getString("time"));
+                    keys.put(i, "Match " + i + 1 + "\t\t" + match.getString("time"));
 
                     values = new ArrayList<NameValuePair>();
                     //Blue teams
                     JSONArray blueTeams = match.getJSONArray("blue");
                     for (int x = 0; x < 3; x++) {
-                        values.add(new BasicNameValuePair("blue", "Team " + blueTeams.getInt(x)));
+                        values.add(new BasicNameValuePair("blue", Integer.toString(blueTeams.getInt(x))));
                     }
                     //Red teams
                     JSONArray redTeams = match.getJSONArray("red");
                     for (int x = 0; x < 3; x++) {
-                        values.add(new BasicNameValuePair("red", "Team " + blueTeams.getInt(x)));
+                        values.add(new BasicNameValuePair("red", Integer.toString(blueTeams.getInt(x))));
                     }
                     children.put(i, values);
                 }

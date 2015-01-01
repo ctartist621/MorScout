@@ -32,4 +32,8 @@
     <string name="path_textbox">Path</string>
     <string name="sync_button">Sync</string>
 
+    <!-- Form Activity -->
+    <string name="title_activity_form">FormActivity</string>
+
+
 </resources>
