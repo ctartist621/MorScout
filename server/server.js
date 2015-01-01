@@ -19,7 +19,7 @@ function validToken(user, token) {
 }
 
 function validEntry(entry) {
-	if(!entry.meta || !entry.meta.team || !entry.meta.match || !entry.meta.scout || !entry.data || !entry.meta.time) {
+	if(!entry.meta || typeof(entry.meta.team) != "string" || typeof(entry.meta.match) != "string" || typeof(entry.meta.time) != "number" || !entry.data) {
 		return false;
 	}
 	var data = readJSON("dataPoints.json");
@@ -36,7 +36,8 @@ function validEntry(entry) {
 	return true;
 }
 
-function addEntry(entry, data) {
+function addEntry(entry, user, data) {
+	entry.meta.scout = user;
 	entry.meta.checksum = getChecksum(entry.data);
 	var team = entry.meta.team;
 	var match = entry.meta.match;
@@ -143,7 +144,7 @@ http.createServer(function(req, res) {
 						for(var i = 0; i < entries.length; i++) {
 							var entry = entries[i];
 							if(validEntry(entry)) {
-								data = addEntry(entry, data);
+								data = addEntry(entry, post.user, data);
 							}
 						}
 						writeJSON("data.json", data);
