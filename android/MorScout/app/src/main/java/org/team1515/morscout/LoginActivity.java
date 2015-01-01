@@ -14,7 +14,7 @@ import android.widget.EditText;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.team1515.communication.Config;
-import org.team1515.communication.Post;
+import org.team1515.communication.Connection;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,8 +26,7 @@ import java.util.concurrent.ExecutionException;
 public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //If already logged in, bypausernamess login screen
-
+        //If already logged in, bypass login screen
         //Retrieve user and pass from storage
         SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
         String username = preferences.getString("username", "");
@@ -42,7 +41,7 @@ public class LoginActivity extends Activity {
 
                 String response;
                 try {
-                    response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get().trim();
+                    response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get().trim();
                     Uri query = Uri.parse("?" + response);
                     String code = query.getQueryParameter("code");
                     if (code.equals("0")) {
@@ -70,6 +69,30 @@ public class LoginActivity extends Activity {
                     finish();
                 }
             }
+        } else {
+            //Logout from previous session when logout wasn't connected to server
+            String token = preferences.getString("toLogout", "");
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("user", username));
+            nameValuePairs.add(new BasicNameValuePair("token", token));
+            try {
+                String response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/logout")).get().trim();
+                Uri query = Uri.parse("?" + response);
+                if (query.getQueryParameter("code").equals("0")) {
+                    preferences.edit().putString("toLogout", "").apply();
+
+                    //Remove username, password, and token from storage
+                    preferences.edit().putString("username", "").apply();
+                    preferences.edit().putString("password", "").apply();
+                    preferences.edit().putString("token", "").apply();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -82,13 +105,37 @@ public class LoginActivity extends Activity {
         final String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
 
-        //Send login POST to server
+        //Logout from previous session when logout wasn't connected to server
+        SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+        String token = preferences.getString("toLogout", "");
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("user", username));
+        nameValuePairs.add(new BasicNameValuePair("token", token));
+        try {
+            String response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/logout")).get().trim();
+            Uri query = Uri.parse("?" + response);
+            if (query.getQueryParameter("code").equals("0")) {
+                preferences.edit().putString("toLogout", "").apply();
+                //Remove username, password, and token from storage
+                preferences.edit().putString("username", "").apply();
+                preferences.edit().putString("password", "").apply();
+                preferences.edit().putString("token", "").apply();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        //Send login POST to server
+        nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("user", username));
         nameValuePairs.add(new BasicNameValuePair("pass", password));
         String response;
         try {
-           response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get();
+           response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return;
@@ -109,10 +156,9 @@ public class LoginActivity extends Activity {
             displayMessage("Could not connect to server");
         } else if (code.equals("0")) {
             //Get token
-            String token = query.getQueryParameter("token").trim();
+            token = query.getQueryParameter("token").trim();
 
             //Store user, pass, token
-            SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
             preferences.edit().putString("username", username).apply();
             preferences.edit().putString("password", password).apply();
             preferences.edit().putString("token", token).apply();

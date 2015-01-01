@@ -3,7 +3,6 @@ package org.team1515.morscout;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,10 +17,9 @@ import android.widget.TextView;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.team1515.communication.Config;
-import org.team1515.communication.Post;
+import org.team1515.communication.Connection;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +114,7 @@ public class MainActivity extends FragmentActivity
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("username", "BenH"));
             nameValuePairs.add(new BasicNameValuePair("password", "pigeon"));
-            response = new Post(nameValuePairs).execute(new URL("http", host, port, path)).get();
+            response = new Connection(nameValuePairs).execute(new URL("http", host, port, path)).get();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             response = "error";
@@ -153,36 +151,39 @@ public class MainActivity extends FragmentActivity
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("user", username));
             nameValuePairs.add(new BasicNameValuePair("token", token));
-            String response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/logout")).get().trim();
+            String response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/logout")).get().trim();
 
             //Get code from response
             Uri query = Uri.parse("?" + response);
             String code = query.getQueryParameter("code");
-            System.out.println("Code = " + code);
 
+            SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
             if (code.equals("0")) {
                 //Remove username, password, and token from storage
-                SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
                 preferences.edit().putString("username", "").apply();
                 preferences.edit().putString("password", "").apply();
                 preferences.edit().putString("token", "").apply();
+            } else {
 
-                //Display message - exit upon close
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        try {
-                            finish();
-                        } catch (Throwable throwable) {
-                            throwable.printStackTrace();
-                        }
-                    }
-                });
-                alert.setCancelable(false);
-                alert.setMessage("Logged out");
-                alert.create().show();
+                preferences.edit().putString("toLogout", token).apply();
+
             }
+            preferences.edit().putBoolean("isLoggedIn", false).apply();
+            //Display message - exit upon close
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    try {
+                        finish();
+                    } catch (Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                }
+            });
+            alert.setCancelable(false);
+            alert.setMessage("Logged out");
+            alert.create().show();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

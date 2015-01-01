@@ -1,10 +1,8 @@
 package org.team1515.morscout;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,16 +19,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.team1515.communication.Config;
-import org.team1515.communication.Get;
 import org.team1515.communication.Match;
-import org.team1515.communication.Post;
+import org.team1515.communication.Connection;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -119,7 +113,7 @@ public class MatchesFragment extends Fragment {
         String jsonData = "";
         try {
             //Get JSON from server
-            response = new Post(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/sync")).get().trim();
+            response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/sync")).get().trim();
 
             //If successful Post, continue with JSON parsing
             Uri query = Uri.parse("?" + response);

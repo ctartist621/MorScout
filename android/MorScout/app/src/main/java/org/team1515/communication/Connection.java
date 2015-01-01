@@ -13,19 +13,18 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
-public class Post extends AsyncTask<URL, Void, String> {
+public class Connection extends AsyncTask<URL, Void, String> {
 
     private static final int STREAM_LENGTH = 500;
     private List<NameValuePair> nameValuePairs;
 
-    public Post(List<NameValuePair> nameValuePairs) {
+    public Connection(List<NameValuePair> nameValuePairs) {
         this.nameValuePairs = nameValuePairs;
     }
 
@@ -50,8 +49,10 @@ public class Post extends AsyncTask<URL, Void, String> {
 
             // Execute HTTP Post Request
             HttpResponse response = httpClient.execute(httppost);
-            return readInputStream(response.getEntity().getContent(), STREAM_LENGTH);
-
+            Reader reader = new InputStreamReader(response.getEntity().getContent(), "UTF-8");
+            char[] buffer = new char[STREAM_LENGTH];
+            reader.read(buffer);
+            return new String(buffer);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
             return "code=-1";
@@ -59,13 +60,5 @@ public class Post extends AsyncTask<URL, Void, String> {
             e.printStackTrace();
             return "code=-1";
         }
-    }
-
-    // Reads an InputStream and converts it to a String.
-    public String readInputStream(InputStream stream, int len) throws IOException {
-        Reader reader = new InputStreamReader(stream, "UTF-8");
-        char[] buffer = new char[len];
-        reader.read(buffer);
-        return new String(buffer);
     }
 }
