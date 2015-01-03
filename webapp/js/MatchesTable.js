@@ -111,7 +111,7 @@ $(document).ready(function() {
 console.log(toMilitary("1:05 PM"));
 	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
 	
-	$.getJSON('js/matchesJson.json', function(jsonfile){
+	$.getJSON('json/matchesJson.json', function(jsonfile){
 		
 		
 		

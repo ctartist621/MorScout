@@ -11,7 +11,7 @@ $(document).ready(function() {
 	
 	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
 	
-	$.getJSON('js/matchesJson.json', function(jsonfile){
+	$.getJSON('json/matchesJson.json', function(jsonfile){
 		
 		var data = urlGet(String(location));
 		

@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
 	
-	$.getJSON('js/teamsJson.json', function(jsonfile){
+	$.getJSON('json/teamsJson.json', function(jsonfile){
 		
 		
 		
@@ -50,7 +50,7 @@ $(document).ready(function() {
 		}
 		
 		document.body.appendChild(table);
-
+		$('#loading').hide();
 
 		// STYLES //
 
