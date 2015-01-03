@@ -21,6 +21,8 @@ import org.json.JSONObject;
 import org.team1515.communication.Config;
 import org.team1515.communication.Match;
 import org.team1515.communication.Connection;
+import org.team1515.communication.Response;
+import org.team1515.communication.Sync;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -109,21 +111,17 @@ public class MatchesFragment extends Fragment {
         nameValuePairs.add(new BasicNameValuePair("token", token));
         nameValuePairs.add(new BasicNameValuePair("data", "[]"));
 
-        String response;
+        Response response;
         String jsonData = "";
         try {
             //Get JSON from server
-            response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/sync")).get().trim();
-
-            //If successful Post, continue with JSON parsing
-            Uri query = Uri.parse("?" + response);
-            String code = query.getQueryParameter("code");
-            if (code.equals("0")) {
-                jsonData = query.getQueryParameter("matches");
-                preferences.edit().putString("matches", jsonData).apply();
-
-
+            response = new Sync().execute(preferences).get();
+            System.out.println(response);
+            if (response == Response.SYNC_SUCCESS) {
+                //Grab sync data
+                jsonData = preferences.getString("matches", "{}");
             } else {
+                //Notify user of connection failure via a toast
                 Toast.makeText(this.getActivity(), R.string.failed_to_connect, Toast.LENGTH_LONG).show();
 
                 //Could not connect to server - grab data from storage
@@ -136,7 +134,6 @@ public class MatchesFragment extends Fragment {
             //Could not connect to server - grab data from storage
             jsonData = preferences.getString("matches", "");
         } finally {
-
             try {
                 //Parse JSON
                 JSONObject json = new JSONObject(jsonData);

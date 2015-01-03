@@ -15,6 +15,9 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.team1515.communication.Config;
 import org.team1515.communication.Connection;
+import org.team1515.communication.Login;
+import org.team1515.communication.Logout;
+import org.team1515.communication.Response;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,157 +29,86 @@ import java.util.concurrent.ExecutionException;
 public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //If already logged in, bypass login screen
-        //Retrieve user and pass from storage
-        SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
-        String username = preferences.getString("username", "");
-        String password = preferences.getString("password", "");
+        //Attempt to log out of previous session
+        try {
+            //Make logout connection to server
+            SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+            boolean isLoggedIn = preferences.getBoolean("isLoggedIn", false);
+            Response response = null;
+            if (!isLoggedIn) {
+                new Logout().execute(preferences).get();
+            } else {
+                //Attempt login
+                response = new Login().execute(preferences).get();
 
-        if (preferences.getBoolean("isLoggedIn", false)) {
-            if (!username.equals("") && !password.equals("")) {
-                //Set up Post parameters
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                nameValuePairs.add(new BasicNameValuePair("user", username));
-                nameValuePairs.add(new BasicNameValuePair("pass", password));
-
-                String response;
-                try {
-                    response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get().trim();
-                    Uri query = Uri.parse("?" + response);
-                    String code = query.getQueryParameter("code");
-                    if (code.equals("0")) {
-                        //Store token
-                        String token = query.getQueryParameter("token");
-                        preferences.edit().putString("token", token).apply();
-
-                        //Start main activity/main app
-                        Intent intent = new Intent(this, MainActivity.class);
-                        intent.putExtra("username", username);
-                        startActivity(intent);
-                        finish();
-                    }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } finally {
-                    //Start main activity/main app
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.putExtra("username", username);
-                    startActivity(intent);
-                    finish();
+                //Generate response based on code received
+                if (response == Response.LOGIN_SUCESSS || response == Response.CONNECTION_FAILED) {
+                    //Display welcome message, and start new activity once closed
+                    displayMessage("Welcome, " + preferences.getString("username", "") + "!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //Start main activity/main app
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
                 }
             }
-        } else {
-            //Logout from previous session when logout wasn't connected to server
-            String token = preferences.getString("toLogout", "");
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("user", username));
-            nameValuePairs.add(new BasicNameValuePair("token", token));
-            try {
-                String response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/logout")).get().trim();
-                Uri query = Uri.parse("?" + response);
-                if (query.getQueryParameter("code").equals("0")) {
-                    preferences.edit().putString("toLogout", "").apply();
-
-                    //Remove username, password, and token from storage
-                    preferences.edit().putString("username", "").apply();
-                    preferences.edit().putString("password", "").apply();
-                    preferences.edit().putString("token", "").apply();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }catch(ExecutionException e){
+            e.printStackTrace();
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     }
 
     public void loginClick(View view) {
-        //Grab user and pass from text boxes
-        EditText usernameText = (EditText)findViewById(R.id.usernameText);
-        EditText passwordText = (EditText)findViewById(R.id.passwordText);
-        final String username = usernameText.getText().toString();
-        String password = passwordText.getText().toString();
-
-        //Logout from previous session when logout wasn't connected to server
-        SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
-        String token = preferences.getString("toLogout", "");
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("user", username));
-        nameValuePairs.add(new BasicNameValuePair("token", token));
+        //Attempt to log out of previous session
         try {
-            String response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/logout")).get().trim();
-            Uri query = Uri.parse("?" + response);
-            if (query.getQueryParameter("code").equals("0")) {
-                preferences.edit().putString("toLogout", "").apply();
-                //Remove username, password, and token from storage
-                preferences.edit().putString("username", "").apply();
-                preferences.edit().putString("password", "").apply();
-                preferences.edit().putString("token", "").apply();
+            //Make logout connection to server
+            SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+            Response response  = new Logout().execute(preferences).get();
+
+            //Continue login if connection was successful
+            if (response != Response.CONNECTION_FAILED) {
+                //Grab user and pass from text boxes
+                EditText usernameText = (EditText)findViewById(R.id.usernameText);
+                EditText passwordText = (EditText)findViewById(R.id.passwordText);
+                String username = usernameText.getText().toString();
+                String password = passwordText.getText().toString();
+
+                //Store username and password
+                preferences.edit().putString("username", username).apply();
+                preferences.edit().putString("password", password).apply();
+
+                //Make login connection to server
+                response = new Login().execute(preferences).get();
+
+                //Generate response based on code received
+                if (response == Response.LOGIN_SUCESSS) {
+                    //Display welcome message, and start new activity once closed
+                    displayMessage("Welcome, " + username + "!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //Start main activity/main app
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                    //If we can't log in, display alert signifying problem
+                } else if (response == Response.CONNECTION_FAILED) {
+                    displayMessage("Could not connect to server");
+                } else if (response == Response.LOGIN_FAILED) {
+                    displayMessage("Username/password incorrect");
+                }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        //Send login POST to server
-        nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("user", username));
-        nameValuePairs.add(new BasicNameValuePair("pass", password));
-        String response;
-        try {
-           response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/login")).get();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return;
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        //Parse response
-        Uri query = Uri.parse("?" + response);
-        String code = query.getQueryParameter("code").trim();
-
-        //Generate response based on code received
-        if (code.equals("-1")) {
-            displayMessage("Could not connect to server");
-        } else if (code.equals("0")) {
-            //Get token
-            token = query.getQueryParameter("token").trim();
-
-            //Store user, pass, token
-            preferences.edit().putString("username", username).apply();
-            preferences.edit().putString("password", password).apply();
-            preferences.edit().putString("token", token).apply();
-            preferences.edit().putBoolean("isLoggedIn", true).apply();
-
-            //Display welcome message, and start new activity once closed
-            displayMessage("Welcome, " + username + "!", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    //Start main activity/main app
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("username", username);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-        } else { //If we can't log in, display alert signifying problem
-            displayMessage("Username/password incorrect");
         }
     }
 

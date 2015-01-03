@@ -18,6 +18,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.team1515.communication.Config;
 import org.team1515.communication.Connection;
+import org.team1515.communication.Logout;
+import org.team1515.communication.Response;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -114,13 +116,8 @@ public class MainActivity extends FragmentActivity
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("username", "BenH"));
             nameValuePairs.add(new BasicNameValuePair("password", "pigeon"));
-            response = new Connection(nameValuePairs).execute(new URL("http", host, port, path)).get();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            response = "error";
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            response = null;//new Connection(nameValuePairs).execute(new URL("http", host, port, path)).get();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -148,25 +145,13 @@ public class MainActivity extends FragmentActivity
 
     public void logout() {
         try {
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("user", username));
-            nameValuePairs.add(new BasicNameValuePair("token", token));
-            String response = new Connection(nameValuePairs).execute(new URL(Config.protocol, Config.host, Config.port, "/logout")).get().trim();
-
-            //Get code from response
-            Uri query = Uri.parse("?" + response);
-            String code = query.getQueryParameter("code");
-
             SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
-            if (code.equals("0")) {
-                //Remove username, password, and token from storage
-                preferences.edit().putString("username", "").apply();
-                preferences.edit().putString("password", "").apply();
-                preferences.edit().putString("token", "").apply();
+
+            Response response = new Logout().execute(preferences).get();
+            if (response == Response.LOGOUT_SUCCESS) {
+
             } else {
-
                 preferences.edit().putString("toLogout", token).apply();
-
             }
             preferences.edit().putBoolean("isLoggedIn", false).apply();
             //Display message - exit upon close
@@ -184,11 +169,7 @@ public class MainActivity extends FragmentActivity
             alert.setCancelable(false);
             alert.setMessage("Logged out");
             alert.create().show();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

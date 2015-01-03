@@ -16,6 +16,6 @@
         android:id="@+id/testEditText"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="@string/password_textbox" />
+        android:hint="//test" />
 
 </RelativeLayout>
