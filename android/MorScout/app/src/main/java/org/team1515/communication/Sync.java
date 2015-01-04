@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sync extends Connection {
-    public Sync() {
+    public Sync(SharedPreferences preferences) {
+        super(preferences);
         try {
             url = new URL(protocol, host, port, "/sync");
         } catch (MalformedURLException e) {
@@ -21,11 +22,11 @@ public class Sync extends Connection {
     }
 
     @Override
-    protected Response doInBackground(SharedPreferences... preferences) {
+    protected Response doInBackground(Void... voids) {
         //Prepare post data
-        String username = preferences[0].getString("username", "");
-        String token = preferences[0].getString("token", "");
-        String data = preferences[0].getString("data", "[]");
+        String username = preferences.getString("username", "");
+        String token = preferences.getString("token", "");
+        String data = preferences.getString("data", "[]");
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
         nameValuePairs.add(new BasicNameValuePair("user", username));
         nameValuePairs.add(new BasicNameValuePair("token", token));
@@ -38,7 +39,7 @@ public class Sync extends Connection {
         //Code is 0 when sync successful
         if (code.equals("0")) {
             //Add match data to storage
-            preferences[0].edit().putString("matches", query.getQueryParameter("matches")).apply();
+            preferences.edit().putString("matches", query.getQueryParameter("matches")).apply();
 
             return Response.SYNC_SUCCESS;
         } else if (code.equals("1")) {

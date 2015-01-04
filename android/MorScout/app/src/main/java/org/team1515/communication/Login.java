@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Login extends Connection {
-    public Login() {
+    public Login(SharedPreferences preferences) {
+        super(preferences);
         try {
             //Create url for login
             url = new URL(protocol, host, port, "/login");
@@ -26,10 +27,10 @@ public class Login extends Connection {
     }
 
     @Override
-    protected Response doInBackground(SharedPreferences... preferences) {
+    protected Response doInBackground(Void... voids) {
         //Prepare post data
-        String username = preferences[0].getString("username", "");
-        String password = preferences[0].getString("password", "");
+        String username = preferences.getString("username", "");
+        String password = preferences.getString("password", "");
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("user", username));
         nameValuePairs.add(new BasicNameValuePair("pass", password));
@@ -41,8 +42,8 @@ public class Login extends Connection {
         //Code is 0 when login successful
         if (code.equals("0")) {
             //Add token to storage and mark user as logged in
-            preferences[0].edit().putString("token", query.getQueryParameter("token")).apply();
-            preferences[0].edit().putBoolean("isLoggedIn", true).apply();
+            preferences.edit().putString("token", query.getQueryParameter("token")).apply();
+            preferences.edit().putBoolean("isLoggedIn", true).apply();
 
             return Response.LOGIN_SUCESSS;
         } else if (code.equals("1")) {

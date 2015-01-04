@@ -147,7 +147,7 @@ public class MainActivity extends FragmentActivity
         try {
             SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
 
-            Response response = new Logout().execute(preferences).get();
+            Response response = new Logout(preferences).execute().get();
             if (response == Response.LOGOUT_SUCCESS) {
 
             } else {

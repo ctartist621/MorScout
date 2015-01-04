@@ -22,22 +22,32 @@ import java.net.URL;
 import java.util.List;
 
 
-public abstract class Connection extends AsyncTask<SharedPreferences, Void, Response> {
+public abstract class Connection extends AsyncTask<Void, Void, Response> {
 
     private static final int STREAM_LENGTH = 500;
 
     protected final String protocol = "http";
-    protected final String host = "192.168.1.132";
-    protected final int port = 8080;
+    protected final String host;// = "192.168.1.132";
+    protected final int port;// = 8080;
     protected URL url;
+    protected SharedPreferences preferences;
+
+    public Connection(SharedPreferences preferences) {
+        this.preferences = preferences;
+
+        //Grab host and port
+        host = preferences.getString("host", "192.168.1.132");
+        port = preferences.getInt("port", 8080);
+
+    }
 
 
     protected String connect(List<NameValuePair> nameValuePairs) {
         // Create a new HttpClient and Post Header, set timeout values
         HttpClient httpClient = new DefaultHttpClient();
         HttpParams httpParams = httpClient.getParams();
-        HttpConnectionParams.setConnectionTimeout(httpParams, 3000);
-        HttpConnectionParams.setConnectionTimeout(httpParams, 3000);
+        HttpConnectionParams.setConnectionTimeout(httpParams, 1000);
+        HttpConnectionParams.setConnectionTimeout(httpParams, 1000);
         HttpPost httppost;
         try {
             httppost = new HttpPost(url.toURI());

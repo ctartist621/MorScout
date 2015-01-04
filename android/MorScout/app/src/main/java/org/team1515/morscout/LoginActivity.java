@@ -27,19 +27,30 @@ import java.util.concurrent.ExecutionException;
 
 
 public class LoginActivity extends Activity {
+
+    SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        //Load host name from storage
+        preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
+        EditText hostnameTextbox = (EditText)findViewById(R.id.hostnameTextbox);
+        System.out.println(hostnameTextbox.getText().toString());
+        hostnameTextbox.setText(preferences.getString("host", "192.168.1.132"));
+
         //Attempt to log out of previous session
         try {
             //Make logout connection to server
-            SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
             boolean isLoggedIn = preferences.getBoolean("isLoggedIn", false);
             Response response = null;
             if (!isLoggedIn) {
-                new Logout().execute(preferences).get();
+                new Logout(preferences).execute().get();
             } else {
                 //Attempt login
-                response = new Login().execute(preferences).get();
+                response = new Login(preferences).execute().get();
 
                 //Generate response based on code received
                 if (response == Response.LOGIN_SUCESSS || response == Response.CONNECTION_FAILED) {
@@ -60,16 +71,19 @@ public class LoginActivity extends Activity {
         }catch(ExecutionException e){
             e.printStackTrace();
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
     }
 
     public void loginClick(View view) {
+        //Grab host name from text box
+        String host = ((EditText)findViewById(R.id.hostnameTextbox)).getText().toString();
+        if (!host.equals("")) {
+            preferences.edit().putString("host", host).apply();
+        }
+
         //Attempt to log out of previous session
         try {
             //Make logout connection to server
-            SharedPreferences preferences = getSharedPreferences("org.team1515.morscout", Context.MODE_PRIVATE);
-            Response response  = new Logout().execute(preferences).get();
+            Response response  = new Logout(preferences).execute().get();
 
             //Continue login if connection was successful
             if (response != Response.CONNECTION_FAILED) {
@@ -84,7 +98,7 @@ public class LoginActivity extends Activity {
                 preferences.edit().putString("password", password).apply();
 
                 //Make login connection to server
-                response = new Login().execute(preferences).get();
+                response = new Login(preferences).execute().get();
 
                 //Generate response based on code received
                 if (response == Response.LOGIN_SUCESSS) {

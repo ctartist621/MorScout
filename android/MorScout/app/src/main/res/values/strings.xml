@@ -14,6 +14,7 @@
     <!-- Login Activity -->
     <string name="username_textbox">Username</string>
     <string name="password_textbox">Password</string>
+    <string name="hostname_textbox">Host</string>
     <string name="login_button">Login</string>
 
     <!-- Main Activity -->

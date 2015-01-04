@@ -115,7 +115,7 @@ public class MatchesFragment extends Fragment {
         String jsonData = "";
         try {
             //Get JSON from server
-            response = new Sync().execute(preferences).get();
+            response = new Sync(preferences).execute().get();
             System.out.println(response);
             if (response == Response.SYNC_SUCCESS) {
                 //Grab sync data
