@@ -1,89 +1,31 @@
-/*
-$(document).ready(function() {
-	var jsonStr = '{"1" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "2" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }}';
-	var jsonfile ;
-	$.ajax({
-        type: "GET",
-		url: "hebdate.json",
-		dataType: "json",
-		success: function(json) {
-	 		jsonfile = JSON.parse(jsonStr);
-		}
-	});
-*/
-	/*
-	
-	THIS IS WHAT THE SAMPLE JSON FILE LOOKS LIKE
-	
-		{
-			"1" : {
-				"red" : [
-					1515,
-					1516,
-					1517
-				],
-				"blue" : [
-					1717,
-					1718,
-					1719
-				],
-				"time" : "2:00 AM"
-			},
-			"2" : {
-				"red" : [
-					1515,
-					1516,
-					1517
-				],
-				"blue" : [
-					1717,
-					1718,
-					1719
-				],
-				"time" : "5:00 AM"
-			}
-	
-		}
-
-	*/
-	
 	//var jsonStr = '{"1" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "2" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }, "3" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "4" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }, "5" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "6" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }, "7" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "8" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }, "9" : {"red" : [1515,1516,1517],"blue" : [1717,1718,1719],"time" : "5:00 AM", "scouted" : "Yes" }, "10" : {"red" : [1111,1112,1113],"blue" : [1212,1213,1214],"time" : "2:00 AM", "scouted" : "No" }}';
 	//var jsonfile = JSON.parse(jsonStr);
 	
 function toMilitary(str){
-	if(str.indexOf(":") == 1){
-		
+	if(str.indexOf(":") == 1){	
 		if(str.substring(5, 7) == "AM"){
 			return parseInt(str.substring(0,1)+str.substring(2,4));
 		}else{
 			var mil = parseInt(str.substring(0,1))+12;
 			return parseInt(mil.toString()+str.substring(2,4));
 		}
-	
 	}else{
-		
 		if(str.substring(6, 8) == "AM"){
-		
 			if(str.substring(0,2) == "12"){
 				return parseInt(str.substring(3,5));
 			}else{
 				return parseInt(str.substring(0,2)+str.substring(3,5));
 			}
-		
 		}else{
-		
 			if(str.substring(0,2) == "12"){
 				return parseInt("12" + str.substring(3,5));
 			}else{
 				var mil = parseInt(str.substring(0,2))+12;
 				return parseInt(mil.toString()+str.substring(3,5));
 			}
-		
 		}
-	
 	}
 }
-
 function getMilitary(d) {
 	mins = d.getMinutes().toString();
 	if(mins.length == 1){
@@ -93,27 +35,20 @@ function getMilitary(d) {
 	}
 	return parseInt(d.getHours().toString() + mins);
 }
-
 function addMinutes(time, mins){
 	if ((time+mins)%100 > 60){
-		
 		return ((Math.floor((time+mins)/100)+1)*100)+((time+mins)%((60 - (time%100)) + time))
-		
 	}else{
 		return time+mins;
 	}
-	
 }
 
 
 
 $(document).ready(function() {
 console.log(toMilitary("1:05 PM"));
-	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
-	
+	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX OR IE(BUT WHY WOULD YOU DO THAT)! CHROME DOES NOT ALLOW LOCAL AJAX
 	$.getJSON('json/matchesJson.json', function(jsonfile){
-		
-		
 		
 		var table = document.createElement('table');
 		
@@ -212,21 +147,11 @@ console.log(toMilitary("1:05 PM"));
 		}
 		
 		document.body.appendChild(table);
+		
 		$('#loading').hide();
-
-
-		// STYLES //
-
-		table.style.color = "orange";
-		table.style.width = "90%";
-		table.style.margin = "1.4em auto";
-		table.style.marginBottom = "2em";
 		$("tr:odd").addClass("odd_row");
 		$("tr:first").addClass("first_row");
 		$(table).addClass('matches_table')
-		
-
-		// });
 		
 		$('tr').not(".first_row").mouseenter(function(){
 		    $(this).addClass('table_hover')
@@ -239,8 +164,7 @@ console.log(toMilitary("1:05 PM"));
 		$('tr').not(".first_row").click(function(){
 		    location = "report.html?" + getQS({"match" : $(this).children(":first").text(), "time" : $(this).children(":first").next().text()});
 		});
-
+		
 	});
-	
 });
 

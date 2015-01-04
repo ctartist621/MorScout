@@ -16,10 +16,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/index.css" type="text/css">
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	
   </head>
 
- <body>
+<body>
 
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -40,43 +39,47 @@
   </div>
 </nav>
 
-    <div class="login_wrapper">
-      <div class="container">
-		  <form id="login_form" action="javascript:void(0);" >
-			  <div id="username-box">
+<div class="login_wrapper">
+    <div class="container">
+		<form id="login_form" action="javascript:void(0);" >
+			<div id="username-box">
 				<input type="text" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" autofocus>
-			  </div>
-			  <div id="password-box">
+			</div>
+			<div id="password-box">
 				<input type="password" id="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-			  </div>
-			  <div class="check">
+			</div>
+			<div class="check">
 				<input type="checkbox" id="check_box"> Remember me</input>
-			  </div>
-			  <div class="login">
+			</div>
+			<div class="login">
 			   <input type="submit" id ="login_button" value="Login" >
-			  </div>
-		  </form>
-      </div>
+			</div>
+		</form>
     </div>
-<script>
-if ('addEventListener' in document) {
-    document.addEventListener('DOMContentLoaded', function() {
-        FastClick.attach(document.body);
-    }, false);
-}
-</script>
-<script>
-$(document).ready(function() {
-	$('#login_button').hover(function() {
-		$(this).toggleClass('button_hovered')
-	});
-});
-</script>	
+</div>
+	
+<!-- JAVASCRIPT -->	
+	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="js/login.js" type="text/javascript"></script>
 <script type='application/javascript' src='js/fastclick.js'></script>	
 <script type="text/javascript" src="js/links.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	
- </body>
+<script>
+	if ('addEventListener' in document) {
+		document.addEventListener('DOMContentLoaded', function() {
+			FastClick.attach(document.body);
+		}, false);
+	}
+</script>
+<script>
+	$(document).ready(function() {
+		$('#login_button').hover(function() {
+			$(this).toggleClass('button_hovered')
+		});
+	});
+</script>
+		
+</body>
 </html>

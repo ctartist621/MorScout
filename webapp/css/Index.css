@@ -7,6 +7,7 @@
 	margin: 0; /* removes default margins of HTML elements (not to be changed) */
 	padding:0; /* removes default paddings of HTML elements (not to be changed) */
 	border: 0; /* removes default borders of HTML elements (not to be changed) */
+	-webkit-border-radius: 0px; /* sharp angles for text boxes in safari (not to be changed) */
 }
 
 body {
@@ -65,15 +66,11 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 
 #toggle_button:hover{
 	background-color: #EE7600; /* gives background color to hovered hamburger menu toggle button*/
-	border:0;
+	border:0; /* removes border of hamburger menu toggle button when hovered (most likely not to be changed) */
 }
 
 .navbar-default .navbar-toggle .icon-bar {
     background-color: black; /* sets color of the foreground(I know, it's weird) of the hamburger menu toggle button */
-}
-
-@media only screen (height: 736px) and (width: 414px) {
-	/* insert here css styles that apply to iPhone 6 plus */
 }
 
 /* END OF NAVIGATION BAR STYLES */
@@ -84,7 +81,6 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 	margin-top: 20vh; /* sets welcome message distance from top of page  */
 	font-family: 'Exo 2', sans-serif; /* sets welcome message font */
 }
-
 
 .main_welcome h1 {
 	color: orange; /* sets large "MorScout" text color to orange */
@@ -118,12 +114,21 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 }
 
 .normal_text p{
-	color: orange;
-	margin: 1em;
-	font-size: 1.8em;
+	color: orange; /* color of text for writing anything which isn't of any special section */
+	margin: 1em; /* margin for writing anything which isn't of any special section */
+	font-size: 1.8em; /* font size for writing anything which isn't of any special section */
 }
 .normal_text{
-	margin-top: 8em;
+	margin-top: 7em; /* distance of general writing from top of page */
+}
+.QApair{
+	margin: 1em; /* margin of question and answer pair on help page */
+	margin-bottom: 3em; /* bottom margin of question and answer pair on help page */
+	border: 0.1em solid orange; /* border of question and answer pair on help page */
+}
+.q{
+	font-weight: bold;
+	color: #EE7600 !important;
 }
 
 /* END OF GENERAL STYLES */
@@ -135,18 +140,28 @@ table, th, td {
 	border-collapse: collapse; /* collapses cell borders (not to be changed) */
 	font-size: 1.4em; /* sets font size of text in table cells */
 	text-align: center; /* horizontal alignment of text in table cells */
-	
 }
 
 th,td {
     padding: .3em; /* padding(distance of text from borders) of table cells (not to be changed) */
 }
 
+.matches_table, .teams_table{
+	color: orange; /* color of text in all matches and all teams tables */
+	width: 90%; /* width of all matches table */
+	margin: 1.4em auto; /* margin of all matches and all teams table */
+	margin-bottom: 2em; /* distance of tables from bottom of page */
+}
+
+.teams_table{
+	width: 25em; /* to override the width from the ^ previous styles for the all teams table */
+}
+
 .report_table{
 	margin-top: 2em; /* top margin of report screen table */
-	margin-bottom: 2em; /* bottom margin of report screen table */
+	margin-bottom: 1em; /* bottom margin of report screen table */
 	color: #CCCCCC; /* text color of report screen table */
-	width: 25em; /* width of report screen table */
+	width: 98%; /* width of report screen table */
 	margin-left: auto; /* auto aligns report screen table */
 	margin-right: auto; /* auto aligns report screen table */
 }
@@ -263,7 +278,6 @@ input:focus {
 
 .login_wrapper{
 	margin-top: 30vh; /* distance of login form from top of page (most likely not to be changed) */
-	-webkit-border-radius: 0px; /* sharp angles for text boxes in safari (not to be changed) */
 	color: orange; /* color of [typed] text in username and password text boxes */
 	background-color: black; /* background color of login form */
 }
@@ -290,13 +304,28 @@ input:focus {
 	text-align: center; /* horizontal alignment of text in report screen */
 }
 
+#report_title{
+	margin-left: 0.2em; /* left margin of title of report page */
+	margin-top: 0; /* overrides .page_title class top margin to not have a huge top margin (not to be changed) */
+	text-align: left; /* horizontal alignment of title of report page */
+}
+
 .report_area{
-	margin-top: 1.45em; /* top margin of report boxes */
-	width: 17.5em; /* width of report boxes */
+	margin: 0em; /* margin for report boxes */
+	width: 98%; /* width of report boxes */
 	height: 8.1em ; /* height of report boxes */
 	font-size: 2em; /* font size of report boxes */
 	background-color: #C0C0C0; /* background color of report boxes */
 	padding: 0.2em; /* padding(distance of wall of box to text) of report boxes */
+	margin-top: 1.45em; /* top margin of report boxes */
+	margin-bottom: 0.5em; /* bottom margin for report boxes */
+}
+#team_report_area{
+	width: 20em; /* width of report text box in all teams page */
+	display: block; /* for centering element (not to be changed) */
+	margin-left: auto; /* for centering element (not to be changed) */
+	margin-right: auto; /* for centering element (not to be changed) */
+	margin-bottom: 30em; /* bottom margin of report text box in all teams page  */
 }
 .report_area::-webkit-input-placeholder {
 	 color: gray; /* place holder text color of report boxes */
@@ -398,21 +427,24 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 	.main_welcome h3 {
 		font-size: 6vw; /* scaling font size for "Welcome to MorScout" text */
 	} 
+	#report_title{
+		text-align: center; /* horizontal alignment of title of report page */
+	}
+	#team_report_area{
+		width: 90%; /* scaling width for report box in all teams page */
+	}
 }
 
 @media screen and (max-width: 623px){
 	.matches_table{
 		font-size: 2vw !important; /* scaling font size for text in all matches table */
-		line-height: 4vh; /* larger scaling line height for text in all matches table for easier "touchability" on small screens */
+		line-height: 4vh; /* larger scaling line height for text in all matches table for easier match selecting on small screens */
 	}
 }
 
 @media screen and (max-width: 408px){
 	.teams_table{
 		width: 90% !important; /* scaling width for all teams table */
-	}	
-	.report_table{
-		width: 98% !important; /* scaling width for report page table */
 	}
 }
 

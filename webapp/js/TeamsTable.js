@@ -4,8 +4,6 @@ $(document).ready(function() {
 	
 	$.getJSON('json/teamsJson.json', function(jsonfile){
 		
-		
-		
 		var table = document.createElement('table');
 		
 		var header_row = document.createElement('tr');
@@ -26,43 +24,56 @@ $(document).ready(function() {
 		
 		for (match_number = 0 ; match_number < Object.keys(jsonfile).length  ; match_number++) {
 				
-				var real_match_number = Object.keys(jsonfile)[match_number];
-				var tr = document.createElement('tr');
-				  /*	
-					if(match_number time is equal to current time){
-						tr.className = tr.className + "current_match";
-					}
-				  */
-				var td1 = document.createElement('td');
-				var td2 = document.createElement('td');
+			var real_match_number = Object.keys(jsonfile)[match_number];
+			var tr = document.createElement('tr');
 
-				var text1 = document.createTextNode(real_match_number);
-				var text2 = document.createTextNode(jsonfile[real_match_number].team);
+			var td1 = document.createElement('td');
+			var td2 = document.createElement('td');
 
-				td1.appendChild(text1);
-				td2.appendChild(text2);
+			var text1 = document.createTextNode(real_match_number);
+			var text2 = document.createTextNode(jsonfile[real_match_number].team);
+
+			td1.appendChild(text1);
+			td2.appendChild(text2);
 				
-				tr.appendChild(td1);
-				tr.appendChild(td2);
+			tr.appendChild(td1);
+			tr.appendChild(td2);
 
-				table.appendChild(tr);
+			table.appendChild(tr);
 
-		}
+		};
 		
 		document.body.appendChild(table);
+		
 		$('#loading').hide();
-
-		// STYLES //
-
-		table.style.color = "orange";
-		table.style.width = "25em";
-		table.style.margin = "1.4em auto";
-		table.style.marginBottom = "2em";
 		$("tr:odd").addClass("odd_row");
-		$(table).addClass('teams_table')
-
-		// });
+		$("tr:first").addClass("first_row");
+		$(table).addClass('teams_table');
+		$("tr:last").attr('id', 'scrollHere');
+		
+		$('tr').not(".first_row").mouseenter(function(){
+		    $(this).addClass('table_hover');
+		});
+		
+		$('tr').not(".first_row").mouseleave(function(){
+		    $(this).removeClass('table_hover');
+		});
+		
+		$('tr').not(".first_row").click( function(){
+			if(document.getElementById('team_report_area') == null){
+				var reportBox = document.createElement('textarea');
+				$(reportBox).addClass('report_area');
+				$(reportBox).attr('id', 'team_report_area');
+				$(reportBox).attr("placeholder", "Enter REPORT here...");
+				$(reportBox).hide();
+				document.body.appendChild(reportBox);
+				$(reportBox).fadeIn(500);
+				location = '#scrollHere';
+				$(reportBox).focus();
+			}else{
+				alert("You already have a form open!");
+			}
+		});
 
 	});
-	
 });
