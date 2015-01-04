@@ -6,4 +6,4 @@
 - [X] Server
 - [X] Web Client
 - [X] Android Client
-- [ ] iOS Client (Coming soon...)
+- [X] iOS Client
