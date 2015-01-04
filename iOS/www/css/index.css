@@ -1,0 +1,471 @@
+
+.hidden  {
+    display: none; /* hides elements under class "hidden" (not to be changed)  */
+}
+
+*{
+	margin: 0; /* removes default margins of HTML elements (not to be changed) */
+	padding:0; /* removes default paddings of HTML elements (not to be changed) */
+	border: 0; /* removes default borders of HTML elements (not to be changed) */
+	-webkit-border-radius: 0px; /* sharp angles for text boxes in safari (not to be changed) */
+}
+
+body {
+    background-color: #191919; /* sets background color of all pages to black */
+	font-size: 100% /* makes default px size of elements equal to 1em (not to be changed) */
+}
+
+/* NAVIGATION BAR STYLES */
+
+.navbar{
+	
+}
+
+.navbar .container-fluid{
+	padding-top:17px;
+}
+
+.navbar-default .container-fluid {
+  background-color: #E69400; /* color of nav bar */
+  font-family: 'Open Sans', sans-serif; /* font of nav bar links */
+  width: 100%; /* width of nav bar (not to be changed) */
+  padding-bottom: 0px !important;
+}
+
+.navbar-default{
+	border: 0; /* removes thin white line at bottom of the nav bar (not to be changed) */
+	min-height: 50px;
+}
+
+.navbar-default a:not(#nameD):not(#view_prof):not(#logout) {
+  text-transform: uppercase; /* changes every link in the nav bar to upper-case except for user profile dropdown menu */
+  font-size: 1.1em; /* size of nav bar links except for user profile dropdown menu */
+}
+
+.navbar-default a {
+  font-size: 1.3em; /* user profile dropdown menu font size */
+  font-weight: bold; /* user profile dropdown menu font weight */
+  padding-bottom: -10px !important;
+}
+
+.navbar{
+	min-height: 20px !important;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-header > a:hover  {
+	color: black; /* color of hovered links in nav bar */
+	background-color: orange;
+}
+
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-header > a{
+	color: white; /* color of un-hovered links in nav bar */
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+color: black; /* color of text of selected link in nav bar */
+background-color: #EE7600; /* color of background of selected link in nav bar */
+}
+
+.navbar-default div.navbar-collapse {
+    border-top: 0; /* removes thin white line above hamburger menu (not to be changed) */
+}
+
+.navbar-nav li{
+	text-align: center; /* sets horizontal aligns of links in the hamburger menu */
+}
+
+#toggle_button{
+	background-color: #E69400; /* sets background color for background of hamburger menu toggle button */
+	border:0; /* removes border of hamburger menu toggle button (most likely not to be changed) */
+	border-radius: 0; /* gives hamburger menu toggle button sharp corners */
+}
+
+#toggle_button:hover{
+	background-color: #EE7600; /* gives background color to hovered hamburger menu toggle button*/
+	border:0; /* removes border of hamburger menu toggle button when hovered (most likely not to be changed) */
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white; /* sets color of the foreground(I know, it's weird) of the hamburger menu toggle button */
+}
+
+/* END OF NAVIGATION BAR STYLES */
+
+/* WELCOME PAGE STYLES */
+
+.main_welcome  {
+	margin-top: 20vh; /* sets welcome message distance from top of page  */
+	font-family: 'Exo 2', sans-serif; /* sets welcome message font */
+}
+
+.main_welcome h1 {
+	color: orange; /* sets large "MorScout" text color to orange */
+	font-size: 8em; /* sets font size of large "MorScout" text */
+	text-align: center; /* horizontal alignment of large "MorScout" text */
+}
+
+.main_welcome h3 {
+  text-align:center; /* horizontal alignment of small "Welcome to MorScout" text */
+  color: orange; /* sets font color of small "Welcome to MorScout" text */
+} 
+
+/* END OF WELCOME PAGE STYLES */
+
+/* GENERAL STYLES */
+
+.page_title {
+	font-family: 'Exo 2', sans-serif; /* font of page title */
+	color: orange; /* font color of page title */
+	margin-top: 5em; /* distance of page title from top */
+	text-align: center; /* aligns page title to center */
+}
+
+#loading{
+	width: 100%; /* width of loading message */
+	position: fixed; /* position of loading message is static (not to be changed) */
+	top: 45%; /* distance from top of loading message */
+	text-align: center; /* horizontal alignment of loading message */
+	color: orange; /* text color of loading message */
+	font-family: 'Exo 2', sans-serif; /* font of loading message */
+}
+
+.normal_text p{
+	color: orange; /* color of text for writing anything which isn't of any special section */
+	margin: 1em; /* margin for writing anything which isn't of any special section */
+	font-size: 1.8em; /* font size for writing anything which isn't of any special section */
+}
+.normal_text{
+	margin-top: 7em; /* distance of general writing from top of page */
+}
+.QApair{
+	margin: 1em; /* margin of question and answer pair on help page */
+	margin-bottom: 3em; /* bottom margin of question and answer pair on help page */
+	border: 0.1em solid orange; /* border of question and answer pair on help page */
+}
+.q{
+	font-weight: bold;
+	color: #EE7600 !important;
+}
+
+/* END OF GENERAL STYLES */
+
+/* TABLE STYLES */
+
+table, th, td {
+    border: 1px solid white; /* sets border width, style, and color for all table cells */
+	border-collapse: collapse; /* collapses cell borders (not to be changed) */
+	font-size: 1.4em; /* sets font size of text in table cells */
+	text-align: center; /* horizontal alignment of text in table cells */
+}
+
+th,td {
+    padding: .3em; /* padding(distance of text from borders) of table cells (not to be changed) */
+}
+
+.matches_table, .teams_table{
+	color: orange; /* color of text in all matches and all teams tables */
+	width: 90%; /* width of all matches table */
+	margin: 1.4em auto; /* margin of all matches and all teams table */
+	margin-bottom: 2em; /* distance of tables from bottom of page */
+}
+
+.teams_table{
+	width: 25em; /* to override the width from the ^ previous styles for the all teams table */
+}
+
+.report_table{
+	margin-top: 2em; /* top margin of report screen table */
+	margin-bottom: 1em; /* bottom margin of report screen table */
+	color: #CCCCCC; /* text color of report screen table */
+	width: 98%; /* width of report screen table */
+	margin-left: auto; /* auto aligns report screen table */
+	margin-right: auto; /* auto aligns report screen table */
+}
+
+.odd_row {
+	background-color: #303030; /* background color of odd rows in tables */
+}
+
+.current_match{
+	background-color: orange; /* background-color of current match row in matches table */
+	color: black; /* text color of current match row */
+	line-height: 6vh; /* height of current match row */
+}
+
+.current_match:hover {
+	background-color: #EE7600; /* background color of current match row when hovered */
+}
+
+.table_hover{
+	color: white; /* color of text when any row is hovered over */
+	cursor: pointer; /* changes cursor to shape of hand when hovering over rows (not to be changed) */
+}
+
+#r1, #r2, #r3{
+	background-color: #B80000; /* background color of table cells of red teams */
+}
+#rh {
+	background-color: #760000; /* background color of table header cell of red teams */
+}
+#b1, #b2, #b3{
+	background-color: #0029A3; /* background color of table cells of blue teams */
+}
+#bh {
+	background-color: #001962; /* background color of table header cell of blue teams */
+}
+
+/* END OF TABLE STYLES */
+
+
+/* LOGIN PAGE STYLES */
+
+#login_form {
+	font-family: 'Open Sans', sans-serif; /* font for login form */
+	font-weight: 300; /* font thickness for login form */
+	text-align: center; /* horizontal alignment of the whole login form */
+}
+
+#login_button {
+	height:2.2em; /* button height */
+	width: 12.3em; /* button width */
+	color: black; /* text color of button */
+	text-align: center; /* horizontal alignment of text of button */
+	font-size: 2em; /* font size of button */
+	background-color: orange; /* background color of button */
+	margin-top:.3em; /* top margin of button */
+}
+
+.check {
+
+ /* NOTICE: PLEASE DO NOT CHANGE ANY STYLES FOR THIS ELEMENT, IT WAS CAREFULLY DESIGNED TO CENTER IN THE FORM */
+ 
+	font-size: 2em; /* font size of "remember me" text */
+	color: orange; /* text color of "remember me" text */
+	margin-top: .3em; /* top margin of "remember me" text */
+	margin-left: auto; /* to center "remember me" text */
+	margin-right: auto; /* to center "remember me" text */
+	width: 12.3em; /* width of "remember me" text */
+	text-align: left; /* horizontal alignment of "remember me" text */
+}
+
+#check_box{
+	height:1.2em; /* height of square check box */
+	width: 1.2em; /* width of square check box */
+	border:none; /* removes border of check box (not to be changed) */
+}
+
+
+#username{
+	height:2.2em; /* height of username text box */
+	width: 11.15em; /* width of username text box */
+	text-align: center; /* horizontal alignment of text in username text box */
+	font-size: 2.2em; /* font size of text in username text box */
+	border-bottom: none; /* removes bottom border of username text box to create effect of connected text boxes (not to be changed) */
+	
+}
+
+#password{
+	height:2.2em; /* height of password text box */
+	width: 11.15em; /* width of password text box */
+	text-align: center; /* horizontal alignment of text(dots) in password text box*/
+	font-size: 2.2em; /* font size of text(dots) in password text box */
+}
+
+::-webkit-input-placeholder { 
+    color: rgb(229 , 148 , 0); /* color for place holder text */
+	opacity:0.8; /* opacity of place holder text */
+}
+:-moz-placeholder {
+   color: rgb(229 , 148 , 0); 
+   opacity:0.8; 
+}
+::-moz-placeholder { 
+   color: rgb(229 , 148 , 0); 
+   opacity:0.8; 
+}
+:-ms-input-placeholder {
+   color: rgb(229 , 148 , 0); 
+   opacity:0.8; 
+}
+
+input:focus {
+    outline-width: 0; /* removes default browser borders when text box is in focus (not to be changed) */
+}
+
+.login_wrapper{
+	margin-top: 30vh; /* distance of login form from top of page (most likely not to be changed) */
+	color: orange; /* color of [typed] text in username and password text boxes */
+	background-color: black; /* background color of login form */
+}
+
+.login_wrapper input{
+	border: .1em solid orange; /* border width, style, and color of text boxes and login button */
+	background-color: black; /* background color of username and password text boxes */
+}
+
+/* END OF LOGIN PAGE STYLES */
+
+
+/* REPORT SCREEN STYLES */
+
+.report h2 {
+	display: inline; /* makes "Match # - time" text display on one line (not to be changed) */
+	color: orange; /* color of "Match # - time" text */
+	font-family: 'Exo 2', sans-serif; /* font of "Match # - time" text */
+
+}
+
+.report{
+	margin-top: 7em; /* distance of report screen contents from top of page */
+	text-align: center; /* horizontal alignment of text in report screen */
+}
+
+#report_title{
+	margin-left: 0.2em; /* left margin of title of report page */
+	margin-top: 0; /* overrides .page_title class top margin to not have a huge top margin (not to be changed) */
+	text-align: left; /* horizontal alignment of title of report page */
+}
+
+.report_area{
+	margin: 0em; /* margin for report boxes */
+	width: 98%; /* width of report boxes */
+	height: 8.1em ; /* height of report boxes */
+	font-size: 2em; /* font size of report boxes */
+	background-color: #C0C0C0; /* background color of report boxes */
+	padding: 0.2em; /* padding(distance of wall of box to text) of report boxes */
+	margin-top: 1.45em; /* top margin of report boxes */
+	margin-bottom: 0.5em; /* bottom margin for report boxes */
+}
+#team_report_area{
+	width: 20em; /* width of report text box in all teams page */
+	display: block; /* for centering element (not to be changed) */
+	margin-left: auto; /* for centering element (not to be changed) */
+	margin-right: auto; /* for centering element (not to be changed) */
+	margin-bottom: 30em; /* bottom margin of report text box in all teams page  */
+}
+.report_area::-webkit-input-placeholder {
+	 color: gray; /* place holder text color of report boxes */
+	opacity:0.8; /* place holder text opacity of report boxes */
+}
+.report_area:-moz-placeholder {
+	 color: gray; 
+	opacity:0.8; 
+}
+.report_area::-moz-placeholder { 
+	 color: gray;
+	opacity:0.8;
+}
+.report_area:-ms-input-placeholder {
+	 color: gray;
+	opacity:0.8;
+}
+
+
+
+/* END OF REPORT SCREEN STYLES */
+
+/* SETTINGS SCREEN STYLES */
+
+.settings_option{
+	margin-top: 4em; /* top margin of each settings option */
+	margin-bottom: 4em; /* bottom margin of each settings option */
+	color: orange; /* color of text in settings */
+	font-family: 'Exo 2', sans-serif; /* font of text in settings */
+	display: block; /* to make elements appear on new line (not to be changed) */
+	text-align: center; /* horizontal alignment of each setting in its respective column */
+	margin-left: -1.2vw; /* to move the settings to the left (not to be changed) */
+}
+.settings_box::-webkit-input-placeholder { 
+    color: gray; /* color of place holder text in settings text boxes */
+	opacity:0.8; /* opacity of place holder text in settings text boxes */
+	font-weight: bold; /* weight of place holder text in settings text boxes */
+}
+.settings_box:-moz-placeholder {
+   color: gray; 
+   opacity:0.8; 
+   font-weight: bold; 
+}
+.settings_box::-moz-placeholder { 
+   color: gray; 
+   opacity:0.8;
+   font-weight: bold;
+}
+.settings_box:-ms-input-placeholder {
+   color: gray;
+   opacity:0.8;
+   font-weight: bold;
+}
+
+.settings_list > .text_input{
+	color: black; /* color of [typed] text in text boxes */
+	width: 9.5em; /* width of text box */
+	height: 2em; /* height of text box */
+	margin-top: .5em; /* top margin of text box */
+	font-size: 2em; /* font size of text in text box */
+	font-weight: bold; /* font weight of text in text box */
+	background-color: #C0C0C0; /* background color of text box */
+	padding: .2em; /* padding(distance of border of text box to text) of text box */
+}
+
+.settings_list > .button_input{
+	color: black; /* color of text in button */
+	width: 4em; /* width of button */
+	height: 2em; /* height of button */
+	margin-top: .5em; /* top margin of button */
+	font-size: 2em; /* font size of button */
+	font-weight: bold; /* font weight of button */
+	background-color: gray; /* background color of button */
+}
+
+.button_hovered{
+	background-color: #EE7600 !important; /* background color of button when hovered */
+	cursor: pointer; /* changes cursor to hand (not to be changed) */
+}
+
+.button_hovered_report{
+	background-color: white !important; /* background color of hovered table cell in report table */
+	cursor: pointer; /* changes cursor to hand (not to be changed) */
+	color: black; /* text color of hovered table cell in report table */
+}
+
+#settings_grid{
+margin-top: 4em; /* distance of grid of settings from top of page */
+}
+
+/* END OF SETTINGS SCREEN STYLES */
+
+/* STYLES FOR SMALLER SCREENS */
+
+@media screen and (max-width: 420px){
+	.main_welcome h1 {
+		font-size: 19vw; /* scaling font size for "MorScout" text */
+	}
+	.main_welcome h3 {
+		font-size: 6vw; /* scaling font size for "Welcome to MorScout" text */
+	} 
+	#report_title{
+		text-align: center; /* horizontal alignment of title of report page */
+	}
+	#team_report_area{
+		width: 90%; /* scaling width for report box in all teams page */
+	}
+}
+
+@media screen and (max-width: 623px){
+	.matches_table{
+		font-size: 2vw !important; /* scaling font size for text in all matches table */
+		line-height: 4vh; /* larger scaling line height for text in all matches table for easier match selecting on small screens */
+	}
+}
+
+@media screen and (max-width: 408px){
+	.teams_table{
+		width: 90% !important; /* scaling width for all teams table */
+	}
+}
+
+@media only screen (height: 736px) and (width: 414px) {
+	/* insert here css styles that apply to iPhone 6 plus */
+}
+
+/* END OF STYLES FOR SMALLER SCREENS */	

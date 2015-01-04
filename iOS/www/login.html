@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta name=apple-mobile-web-app-capable content=yes>
+    <meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>Login Page</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="img/MorIcon.png">
+	<link rel="apple-touch-startup-image" href="img/MorStartup.png" media="(device-width: 414px)">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/index.css" type="text/css">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  </head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	  <a class="navbar-brand" href="#">MorScout Login</a>
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MorScoutNav" id = "toggle_button">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+    </div>
+	<div class="collapse navbar-collapse" id="MorScoutNav">
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="settings.html" title="Configure the settings">Settings</a></li>
+			<li><a href="help.html" title="Need help?">Help</a></li>
+		</ul>	
+	</div>	
+  </div>
+</nav>
+
+<div class="login_wrapper">
+    <div class="container">
+		<form id="login_form" action="javascript:void(0);" >
+			<div id="username-box">
+				<input type="text" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" autofocus>
+			</div>
+			<div id="password-box">
+				<input type="password" id="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+			</div>
+			<div class="check">
+				<input type="checkbox" id="check_box"> Remember me</input>
+			</div>
+			<div class="login">
+			   <input type="submit" id ="login_button" value="Login" >
+			</div>
+		</form>
+    </div>
+</div>
+	
+<!-- JAVASCRIPT -->	
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/login.js" type="text/javascript"></script>
+<script type='application/javascript' src='js/fastclick.js'></script>	
+<script type="text/javascript" src="js/links.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	
+<script>
+	if ('addEventListener' in document) {
+		document.addEventListener('DOMContentLoaded', function() {
+			FastClick.attach(document.body);
+		}, false);
+	}
+</script>
+<script>
+	$(document).ready(function() {
+		$('#login_button').hover(function() {
+			$(this).toggleClass('button_hovered')
+		});
+	});
+</script>
+		
+</body>
+</html>
