@@ -12,7 +12,7 @@
 
 body {
     background-color: black; /* sets background color of all pages to black */
-	font-size: 100% /* makes default px size of elements equal to 1em (not to be changed) */
+	font-size: 100%; /* makes default px size of elements equal to 1em (not to be changed) */
 }
 
 /* NAVIGATION BAR STYLES */
@@ -161,7 +161,7 @@ th,td {
 	margin-top: 2em; /* top margin of report screen table */
 	margin-bottom: 1em; /* bottom margin of report screen table */
 	color: #CCCCCC; /* text color of report screen table */
-	width: 25em; /* width of report screen table */
+	width: 98%; /* width of report screen table */
 	margin-left: auto; /* auto aligns report screen table */
 	margin-right: auto; /* auto aligns report screen table */
 }
@@ -307,7 +307,7 @@ input:focus {
 #report_title{
 	margin-left: 0.2em; /* left margin of title of report page */
 	margin-top: 0; /* overrides .page_title class top margin to not have a huge top margin (not to be changed) */
-	text-align: center; /* horizontal alignment of title of report page */
+	text-align: left; /* horizontal alignment of title of report page */
 }
 
 .report_area{
@@ -342,6 +342,9 @@ input:focus {
 .report_area:-ms-input-placeholder {
 	 color: gray;
 	opacity:0.8;
+}
+#report_instruction{
+	display: block;
 }
 
 
@@ -427,6 +430,9 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 	.main_welcome h3 {
 		font-size: 6vw; /* scaling font size for "Welcome to MorScout" text */
 	} 
+	#report_title{
+		text-align: center; /* horizontal alignment of title of report page */
+	}
 	#team_report_area{
 		width: 90%; /* scaling width for report box in all teams page */
 	}
@@ -442,9 +448,6 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 @media screen and (max-width: 408px){
 	.teams_table{
 		width: 90% !important; /* scaling width for all teams table */
-	}
-	.report_table{	
-		width: 98%; /* width of report screen table */
 	}
 }
 

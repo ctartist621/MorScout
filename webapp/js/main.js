@@ -78,7 +78,7 @@ $(document).ready(function() {
 			
 		}
 		document.getElementById("view_prof").onclick = function() {
-			alert("Hello and have a good day, " + sessionStorage.user + "\nToken: " + sessionStorage.token + "\nLogged in for 1 session.\nIP: " + localStorage.ip);
+			alert("Hello and have a good day, " + sessionStorage.user.substring(0,sessionStorage.user.length-1) + "\nToken: " + sessionStorage.token + "\nLogged in for 1 session.\nIP: " + localStorage.ip);
 		}
 	}
 });

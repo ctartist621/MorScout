@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <title>Report Screen</title>
+    <title>Report Match</title>
 	<link rel="apple-touch-icon" sizes="180x180" href="img/MorIcon.png">
 	<link rel="apple-touch-startup-image" href="img/MorStartup.png" media="(device-width: 414px)">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
@@ -54,9 +54,10 @@
 			<h2 id="report_match_num"></h2>
 			<h2> - </h2>
 			<h2 id="report_match_time"></h2>
+			<h2 id="report_instruction">Scout the match as a whole or choose a team to scout.</h2>
 		</div>
 		<div class="row">
-			<div class = "col-md-12">
+			<div class = "col-md-4">
 				<table class="report_table">
 					<tr>
 						<th id="rh">Red Teams</th>
@@ -105,12 +106,11 @@ if ('addEventListener' in document) {
 </script>
 <script>
 	$(document).ready(function() {
-		$('.report_area').hide();
 		$('td').hover(function(){
 			$(this).toggleClass('button_hovered_report')
 		});
 		$('td').click(function(){
-			$('.report_area').fadeIn(500);
+			location = "reportTeam.html"
 		});
 	});
 </script>

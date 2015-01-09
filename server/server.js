@@ -101,7 +101,7 @@ function writeJSON(file, json) {
 }
 
 http.createServer(function(req, res) {
-	res.writeHead(200, {"Access-Control-Allow-Origin" : "*"});
+	res.writeHead(200, {"Access-Control-Allow-Headers" : "Content-Type", "Access-Control-Allow-Origin" : "*"});
 	var path = url.parse(req.url, true).pathname;
 	if(req.method == "POST") {
 		req.on("data", function(post) {

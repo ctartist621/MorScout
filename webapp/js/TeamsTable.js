@@ -60,19 +60,7 @@ $(document).ready(function() {
 		});
 		
 		$('tr').not(".first_row").click( function(){
-			if(document.getElementById('team_report_area') == null){
-				var reportBox = document.createElement('textarea');
-				$(reportBox).addClass('report_area');
-				$(reportBox).attr('id', 'team_report_area');
-				$(reportBox).attr("placeholder", "Enter REPORT here...");
-				$(reportBox).hide();
-				document.body.appendChild(reportBox);
-				$(reportBox).fadeIn(500);
-				location = '#scrollHere';
-				$(reportBox).focus();
-			}else{
-				alert("You already have a form open!");
-			}
+			location = "reportTeam.html"
 		});
 
 	});
