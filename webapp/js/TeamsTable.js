@@ -60,7 +60,7 @@ $(document).ready(function() {
 		});
 		
 		$('tr').not(".first_row").click( function(){
-			location = "reportTeam.html"
+			location = "reportTeam.html?" + getQS({"team" : $(this).children(":first").next().text()});
 		});
 
 	});

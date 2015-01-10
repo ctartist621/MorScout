@@ -110,7 +110,7 @@ if ('addEventListener' in document) {
 			$(this).toggleClass('button_hovered_report')
 		});
 		$('td').click(function(){
-			location = "reportTeam.html"
+			location = "reportTeam.html?" + getQS({"team" : $(this).text()});
 		});
 	});
 </script>

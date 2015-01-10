@@ -91,6 +91,23 @@ if ('addEventListener' in document) {
 		});
 	});
 </script>
+<script>
+	function urlGet(url) {
+		var index = url.indexOf("?");
+		if(!~index) {
+			return {};
+		}
+		else {
+			return parseQS(url.substring(index + 1));
+		}
+	}
+	$(document).ready(function(){
+		var data = urlGet(String(location));
+		$('#report_team_num').html(data.team);
+	});
+	
+
+</script>
 
 </body>
 </html>
