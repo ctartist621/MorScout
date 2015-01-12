@@ -37,5 +37,25 @@
     <!-- Form Activity -->
     <string name="title_activity_form">FormActivity</string>
 
+    <!-- Form Strings -->
+    <string name="form_human_label">Where is the human player</string>
+    <string name="form_human_other">Other Side</string>
+    <string name="form_human_own">Own Side</string>
+    <string name="form_human_litter">Litter Zone</string>
+    <string name="form_tote_knock_label">Did they knock over totes?</string>
+    <string name="form_tote_level">What was the highest level tote?</string>
+    <string name="form_bin_number">How many recycle bins?</string>
+    <string name="form_bin_litter">How much litter was in recycle bins?</string>
+    <string name="form_cycle_time">How long was their cycle time (secs)?"</string>
+    <string name="form_auto_label">Autonomous</string>
+    <string name="form_auto_totes_number"># of totes stacked</string>
+    <string name="form_auto_set_label">What type(s) of sets did they accomplish?</string>
+    <string name="form_auto_set_tote">Tote set</string>
+    <string name="form_auto_set_container">Container set</string>
+    <string name="form_auto_set_stacked">Stacked tote set</string>
+    <string name="form_wheels_label">What type of wheels?</string>
+    <string name="form_coop_label">How many co-op points</string>
+
+
 
 </resources>
