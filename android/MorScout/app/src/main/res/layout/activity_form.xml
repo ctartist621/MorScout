@@ -7,15 +7,38 @@
     tools:context="org.team1515.morscout.FormActivity"
     android:background="#ccff7700" >
 
-    <EditText
+    <!-- Human Player -->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:inputType="textMultiLine"
-        android:id="@+id/testEditText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:hint="//test" />
+        android:id="@+id/humanLabel"
+        android:text="@string/form_human_label" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/humanLabel"
+        android:id="@+id/humanradio">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/form_human_own"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/form_human_other"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/form_human_litter"/>
+    </RadioGroup>
+
+    <!-- Tote knocking over -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/humanradio"
+            android:text="@string/form_tote_knock_label"/>
+
 
 </RelativeLayout>
