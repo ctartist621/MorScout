@@ -13,11 +13,10 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/addtohomescreen.css">	
-	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  </head>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   </head>
 
 <body>
    
@@ -63,13 +62,12 @@
 
 <!-- JAVASCRIPT -->		
 	
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
-<script src="js/reportTable.js"></script>	
-<script src="js/main.js" type="text/javascript"></script>
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>  
 <script type='application/javascript' src='js/fastclick.js'></script>	
 <script type="text/javascript" src="js/links.js"></script>	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>	
+
+<script src="js/main.js" type="text/javascript"></script>
 
 <script>
 if ('addEventListener' in document) {
@@ -83,16 +81,23 @@ $(document).ready(function() {
 	$('#ip_button').hover(function() {
 		$(this).toggleClass('button_hovered')
 	});
-	document.getElementById('ip_button').onclick = function(){
+	$('#ip_button').click(function(){
 		if(document.getElementById('ip_text').value !== ""){
 			localStorage.ip = document.getElementById('ip_text').value;
 			$('#ip_text').attr('placeholder', localStorage.ip);
-			$('#ip_text').val('');
-			console.log("new ip: " + localStorage.ip);
+			var jqxhr = $.get("http://"+ localStorage.ip +":8080/ping",function(data,status){
+   			});
+   			var timeout = setTimeout(function(){
+   				alert("This IP does not work");
+   			}, 2000);
+   			jqxhr.done(function(){
+   				clearTimeout(timeout);
+   				alert("This IP works.");
+   			});
 		} else {
 			alert("IP can not be empty!");
 		}
-	};
+	});
 	$('#ip_text').val(localStorage.ip);
 	$('#ip_text').attr('placeholder', localStorage.ip);
 });

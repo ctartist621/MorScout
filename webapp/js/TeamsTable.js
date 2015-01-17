@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
 	
-	$.getJSON('json/teamsJson.json', function(jsonfile){
+	$.getJSON('json/officialteams.json', function(jsonfile){
 		
 		var table = document.createElement('table');
 		
@@ -11,8 +11,8 @@ $(document).ready(function() {
 		var th1 = document.createElement('th');
 		var th2 = document.createElement('th');
 		
-		var th_text1 = document.createTextNode("#");
-		var th_text2 = document.createTextNode("Team");
+		var th_text1 = document.createTextNode("Team");
+		var th_text2 = document.createTextNode("Name");
 		
 		th1.appendChild(th_text1);
 		th2.appendChild(th_text2);
@@ -30,8 +30,8 @@ $(document).ready(function() {
 			var td1 = document.createElement('td');
 			var td2 = document.createElement('td');
 
-			var text1 = document.createTextNode(real_match_number);
-			var text2 = document.createTextNode(jsonfile[real_match_number].team);
+			var text1 = document.createTextNode(jsonfile[real_match_number].team_number);
+			var text2 = document.createTextNode(jsonfile[real_match_number].nickname);
 
 			td1.appendChild(text1);
 			td2.appendChild(text2);
@@ -60,7 +60,7 @@ $(document).ready(function() {
 		});
 		
 		$('tr').not(".first_row").click( function(){
-			location = "reportTeam.html?" + getQS({"team" : $(this).children(":first").next().text()});
+			location = "reportTeam.html?" + getQS({"team" : $(this).children(":first").text(), "name" : $(this).children(":first").next().text()});
 		});
 
 	});

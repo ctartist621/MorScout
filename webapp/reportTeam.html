@@ -13,7 +13,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/index.css" type="text/css">
  </head>
  
@@ -50,29 +50,49 @@
 <div class = "report">
 	<div class = "container-fluid">
 		<div id="report_title" class="page_title">
-			<h2>Team </h2>
-			<h2 id="report_team_num"></h2>
+			<h2 class="page_title">Team </h2>
+			<h2 class="page_title" id="report_team_num"></h2>
+			<h2 id="dash"> - </h2>
+			<h2 class="page_title" id="report_team_name"></h2>
 		</div>
 		<div class="row">
-			<div class="col-md-4">
-				<textarea class="report_area" placeholder="Enter REPORT here..."></textarea>
-		    </div>
-	  	    <div class="col-md-4">
-				<textarea class="report_area" placeholder="Enter COMMENTS here..."></textarea>
-			</div>	
-		</div>	
+			<div class="col-md-3">
+	  	    	<div class="scout_div"> 
+	  	    		<h3 class="scout_div_title">General</h3> 
+	  	    		<input class="report_check" type="checkbox" id="check111"></input><label id="report_text" for="check111">Can they flip totes?</label><br/>
+	  	    		<p id="report_text">Type of wheels: </p>
+	  	    		<div class="selectdiv" > 
+				      <select class="selectboxdiv">
+				        <option>choose...</option>
+				        <option>Mecanum</option>
+				        <option>Swerve</option>
+				        <option>West Coast</option>
+				        <option>Tread</option>
+				      </select>
+				      <div style="display:inline;" class="out">XCZXCzxcxz</div>
+				  	</div> 
+	  	    		<p id="report_text">Cycle time (sec): </p>
+	  	    		<input id="report_box_small" type="number"></input><br/>
+	  	    		<p id="report_text">Co-op points: </p>
+	  	    		<input id="report_box_small" type="number"></input><br/>  
+	  	    	</div>	
+			</div>
+		</div>
 	</div>
 </div>
+
+<span class="entypo-down-open" data-text="down-open"></span>
+    
+
 	
 <!-- JAVASCRIPT -->		
 	
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
-<script src="js/reportTable.js"></script>	
-<script src="js/main.js" type="text/javascript"></script>
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>		
 <script type='application/javascript' src='js/fastclick.js'></script>	
 <script type="text/javascript" src="js/links.js"></script>	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+<script src="js/main.js" type="text/javascript"></script>
 
 <script>
 if ('addEventListener' in document) {
@@ -80,16 +100,6 @@ if ('addEventListener' in document) {
         FastClick.attach(document.body);
     }, false);
 }
-</script>
-<script>
-	$(document).ready(function() {
-		$('td').hover(function(){
-			$(this).toggleClass('button_hovered_report')
-		});
-		$('td').click(function(){
-			location = "reportTeam.html"
-		});
-	});
 </script>
 <script>
 	function urlGet(url) {
@@ -103,10 +113,24 @@ if ('addEventListener' in document) {
 	}
 	$(document).ready(function(){
 		var data = urlGet(String(location));
-		$('#report_team_num').html(data.team);
+		if(data.name != undefined){
+			$('#report_team_num').html(data.team);
+			$('#report_team_name').html(data.name);
+		}else{
+			$('#report_team_num').html(data.team);
+			$("#dash").hide();
+		}	
 	});
-	
+</script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$("select").change(function () { 
+	   var str = ""; 
+	   str = $(this).find(":selected").text(); 
+	   $(".out").text(str); 
+	}).trigger('change'); 		
+	})
 </script>
 
 </body>

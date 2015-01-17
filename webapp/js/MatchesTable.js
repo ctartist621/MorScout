@@ -46,7 +46,6 @@ function addMinutes(time, mins){
 
 
 $(document).ready(function() {
-console.log(toMilitary("1:05 PM"));
 	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX OR IE(BUT WHY WOULD YOU DO THAT)! CHROME DOES NOT ALLOW LOCAL AJAX
 	$.getJSON('json/matchesJson.json', function(jsonfile){
 		

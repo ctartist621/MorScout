@@ -81,5 +81,8 @@ $(document).ready(function() {
 			alert("Hello and have a good day, " + sessionStorage.user.substring(0,sessionStorage.user.length-1) + "\nToken: " + sessionStorage.token + "\nLogged in for 1 session.\nIP: " + localStorage.ip);
 		}
 	}
+	$('.button').hover(function(){
+		$(this).toggleClass('button_hovered')
+	});
 });
 

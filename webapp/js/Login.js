@@ -28,13 +28,6 @@ function ajax(url, get, post, cb) {
 	xhr.open("POST", url, true);
 	xhr.send(getQS(post));
 }
-$(document).ready(function() {
-	sessionStorage.removeItem('user')	
-	sessionStorage.removeItem('token')
-	if(localStorage.ip == undefined){
-		localStorage.ip = localhost;
-	}
-});
 document.getElementById("login_form").onsubmit = function() {
 	if($('#check_box').is(':checked')){
 
