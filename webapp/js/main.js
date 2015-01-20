@@ -84,5 +84,11 @@ $(document).ready(function() {
 	$('.button').hover(function(){
 		$(this).toggleClass('button_hovered')
 	});
+	$('.button').bind('touchstart',function(){
+		$(this).addClass('button_hovered')
+	});
+	$('.button').bind('touchend',function(){
+		$(this).removeClass('button_hovered')
+	});
 });
 

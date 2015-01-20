@@ -159,6 +159,14 @@ $(document).ready(function() {
 		$('tr').not(".first_row").mouseleave(function(){
 		    $(this).removeClass('table_hover')
 		});
+
+		$('tr').not(".first_row").bind('touchstart',function(){
+		    $(this).addClass('table_hover')
+		});
+		
+		$('tr').not(".first_row").bind('touchend',function(){
+		    $(this).removeClass('table_hover')
+		});
 		
 		$('tr').not(".first_row").click(function(){
 		    location = "report.html?" + getQS({"match" : $(this).children(":first").text(), "time" : $(this).children(":first").next().text()});

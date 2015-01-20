@@ -58,6 +58,14 @@ $(document).ready(function() {
 		$('tr').not(".first_row").mouseleave(function(){
 		    $(this).removeClass('table_hover');
 		});
+
+		$('tr').not(".first_row").bind('touchstart',function(){
+		    $(this).addClass('table_hover')
+		});
+		
+		$('tr').not(".first_row").bind('touchend',function(){
+		    $(this).removeClass('table_hover')
+		});
 		
 		$('tr').not(".first_row").click( function(){
 			location = "reportTeam.html?" + getQS({"team" : $(this).children(":first").text(), "name" : $(this).children(":first").next().text()});
