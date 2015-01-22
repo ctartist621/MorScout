@@ -121,7 +121,7 @@ http.createServer(function(req, res) {
 		                }
 		                users[user].tokens.push(token);
 		                writeJSON("users.json", users);
-		                sendQS(res, {"code" : 0, "user" : user, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json")});
+		                sendQS(res, {"code" : 0, "user" : user, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
 	                }
 	                else {
 		                sendQS(res, {"code" : 1});

@@ -15,6 +15,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
    </head>
   
 <body>
@@ -33,14 +34,14 @@
       <ul class="nav navbar-nav">
         <li><a href="matches.html"title="List of all matches">All Matches</a></li>
         <li><a href="teams.html"title="List of all teams">Team List</a></li>
-        <li><a href="#"title="Sync with the server" >Sync </a></li>
+        <li><a href="sync.html"title="Sync with the server" >Sync </a></li>
 	    <li><a href="settings.html" title="Configure the settings">Settings</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="active"><a class = "rightlinks" href="help.html" title="Need help?">Help</a></li>
         <li><a class = "rightlinks" href="#" title="Give us your opinion!">Feedback</a></li>
 		<li id="UserDropdown" class="dropdown">
-          <a class = "rightlinks" href="Login.html">Log in</a>
+          <a class = "rightlinks" href="login.html">Log in</a>
         </li>
       </ul>
     </div>
@@ -49,48 +50,48 @@
   
 <div class="normal_text">
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-6">
-				<div class = "QApair">
-					<p class='q'>Q. What is MorScout?</p>
-					<p>A. MorScout is an FRC scouting app used to record match details and team strengths and weaknesses. This helps us form better strategies with the information collected about teams. MorScout was developed by the friendly and awesome programming team of team 1515, MorTorq!</p>
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<div class="row">
+					<div class = "QApair">
+						<p class='q'>Q. What is MorScout?</p>
+						<p>A. MorScout is an FRC scouting app used to record match details and team strengths and weaknesses. This helps us form better strategies with the information collected about teams. MorScout was developed by MorTorq!</p>
+					</div>
 				</div>
-			</div>	
-			<div class="col-md-6">
-				<div class = "QApair">
-					<p class='q'>Q. How can I scout a specific team?</p>
-					<p >A. You can scout a team by going to the all teams page and clicking on a team, or you can go to the all matches page and click on a match that said team is participating in, and then select the team number from the table.</p>
+				<div class="row">
+					<div class = "QApair">
+						<p class='q'>Q. How can I scout a specific team?</p>
+						<p >A. You can scout a team by going to the all teams page and clicking on a team, or you can go to the all matches page and click on a match that said team is participating in, and then select the team number from the table.</p>
+					</div>
+				</div>		
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<div class="row">
+					<div class = "QApair">
+						<p class='q'>Q. I can't login, what can I do?</p>
+						<p>A. Sometimes the root of the problem can be from having a wrong server IP in the settings. Try changing your IP in settings or asking someone to inform you of any server changes. The IP can also be found on the computer that's hosting the server.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "QApair">
+						<p class='q'>Q. What are some server IP's I can try?</p>
+						<p>A. Maybe if you are running the server locally you can try "localhost" or "127.0.0.1". Otherwise, another common modem IP is "192.168.0.X" Note: X is a number. e.g "2" or "12".</p>
+					</div>
+				</div>	
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<div class="row">
+					<div class = "QApair">
+						<p class='q'>Q. What does the highlighted row in the all matches section mean?</p>
+						<p>A. The highlighted row is, in fact the match that is currently taking place. It is based on time, so it may not be accurate if there were to be delays.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "QApair">
+						<p class='q'>Q. How can I access the login screen?</p>
+						<p>A. You can easily access the login screen by clicking on the "Log In" button on the right of the navigation bar. If you see something else, that means your already logged in and you need to log out in the dropdown menu and repeat the steps from this answer.</p>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<div class = "QApair">
-					<p class='q'>Q. I can't login, what can I do?</p>
-					<p>A. Sometimes the root of the problem can be from having a wrong server IP in the settings. Try changing your IP in settings or asking someone to inform you of any server changes.</p>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class = "QApair">
-					<p class='q'>Q. What are some server IP's I can try?</p>
-					<p>A. Maybe if you are running the server locally you can try "localhost" or "127.0.0.1". Otherwise, another common modem IP is "192.168.0.X" Note: X is a number. e.g "2" or "12".</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<div class = "QApair">
-					<p class='q'>Q. What does the highlighted row in the all matches section mean?</p>
-					<p>A. The highlighted row is, in fact the match that is currently taking place. It is based on time, so it may not be accurate if there were to be delays.</p>
-				</div>
-			</div>	
-			<div class="col-md-6">
-				<div class = "QApair">
-					<p class='q'>Q. How can I access the login screen?</p>
-					<p>A. You can easily access the login screen by clicking on the "Log In" button on the right of the navigation bar. If you see something else, that means your already logged in and you need to log out in the dropdown menu and repeat the steps from this answer.</p>
-				</div>
-			</div>	
-		</div>	
 	</div>
 </div>
 	
