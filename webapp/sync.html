@@ -79,6 +79,24 @@ if ('addEventListener' in document) {
 		$('#sync_button').click(function(){
 			$(this).fadeOut(300);
 			$('#loading').fadeIn(300);
+			ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "entries": localStorage.unSynced || "[]"}, function(result){
+				if(result.code == 0){
+					localStorage.data = result.data;
+					localStorage.matches = result.matches;
+					localStorage.teams = result.teams;
+					localStorage.unSynced = "[]";
+					$('#loading').html("Done!");
+				}else if(result.code == 1){
+					$('#loading').html('Log in first!');
+					setTimeout(function() {
+						location = "login.html";
+					}, 1000);
+				}else{
+					$('#loading').html('Internal Error');
+				}
+			}, function() {
+				$('#loading').html('Error connecting to server');
+			});
 		});
 	});
 </script>

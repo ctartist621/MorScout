@@ -81,6 +81,9 @@
 		if(localStorage.ip == undefined){
 			localStorage.ip = "localhost";
 		}
+		if(localStorage.port == undefined){
+			localStorage.port = "8080";
+		}
 		$('#login_button').hover(function() {
 			$(this).toggleClass('button_hovered')
 		});

@@ -58,6 +58,13 @@
 				<input id="ip_button" class="button_input" type="submit" value ="change"></input>
 			</form>
 		</div>
+		<div class = "col-md-4 settings_option">
+			<form class = "settings_list">
+				<h1>Change Port</h1>
+				<input id="port_text" class="settings_box text_input" type="text" placeholder=" Enter desired port"></input>
+				<input id="port_button" class="button_input" type="submit" value ="change"></input>
+			</form>
+		</div>
 	</div>
 </div>
 
@@ -92,21 +99,33 @@ $(document).ready(function() {
 		if(document.getElementById('ip_text').value !== ""){
 			localStorage.ip = document.getElementById('ip_text').value;
 			$('#ip_text').attr('placeholder', localStorage.ip);
-			var jqxhr = $.get("http://"+ localStorage.ip +":8080/ping",function(data,status){
-   			});
-   			var timeout = setTimeout(function(){
-   				alert("This IP does not work");
-   			}, 2000);
-   			jqxhr.done(function(){
-   				clearTimeout(timeout);
-   				alert("This IP works.");
-   			});
 		} else {
 			alert("IP can not be empty!");
 		}
 	});
+
+	$('#port_button').hover(function() {
+		$(this).toggleClass('button_hovered')
+	});
+	$('#port_button').bind('touchstart',function() {
+		$(this).addClass('button_hovered')
+	});
+	$('#port_button').bind('touchend',function() {
+		$(this).removeClass('button_hovered')
+	});
+	$('#port_button').click(function(){
+		if(document.getElementById('port_text').value !== ""){
+			localStorage.port = document.getElementById('port_text').value;
+			$('#port_text').attr('placeholder', localStorage.port);
+		} else {
+			alert("Port can not be empty!");
+		}	
+	});
+
 	$('#ip_text').val(localStorage.ip);
+	$('#port_text').val(localStorage.port);
 	$('#ip_text').attr('placeholder', localStorage.ip);
+	$('#port_text').attr('placeholder', localStorage.port);
 });
 </script>
 

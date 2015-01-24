@@ -31,10 +31,8 @@ $(document).ready(function() {
 		
 		$('#report_match_num').html(data.match);
 		$('#report_match_time').html(data.time);
- 
+ 		
 	});
-	
-	
-	
+
 });
 

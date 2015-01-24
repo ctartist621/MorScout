@@ -169,6 +169,8 @@ $(document).ready(function() {
 		});
 		
 		$('tr').not(".first_row").click(function(){
+			localStorage.match = $(this).children(":first").text();
+			localStorage.time = $(this).children(":first").next().text();
 		    location = "report.html?" + getQS({"match" : $(this).children(":first").text(), "time" : $(this).children(":first").next().text()});
 		});
 		

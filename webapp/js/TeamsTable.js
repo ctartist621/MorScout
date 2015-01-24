@@ -71,5 +71,19 @@ $(document).ready(function() {
 			location = "reportTeam.html?" + getQS({"team" : $(this).children(":first").text(), "name" : $(this).children(":first").next().text()});
 		});
 
+		var $rows = $('.teams_table tr');
+		$('#team_search').keyup(function() {
+			$('tr').removeClass('odd_row');
+		    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+		    if(val==""){
+		    	$("tr:odd").addClass("odd_row");
+		    }
+
+		    $rows.show().filter(function() {
+		        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+		        return !~text.indexOf(val);
+		    }).hide();
+		});
+
 	});
 });
