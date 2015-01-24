@@ -1,5 +1,5 @@
 {
-	"string" : [],
-	"number" : [],
-	"boolean" : []
+	"string" : ["autoComments", "teleopComments"],
+	"number" : ["highestToteAuto", "grayTotes", "containers", "containerLitter", "landfillLitter", "highestToteTeleop"],
+	"boolean" : ["nearDrivers", "robotMoved", "toteMoved", "containerMoved", "toteStacked", "landfillContainer", "coopertitionSet", "coopertitionStack"]
 }
