@@ -167,3 +167,14 @@ http.createServer(function(req, res) {
 		sendQS(res, {"code" : 2});
 	}
 }).listen(8080, "0.0.0.0");
+
+(function() {
+	var obj = require("os").networkInterfaces();
+	for(var key in obj) {
+		for(var i = 0; i < obj[key].length; i++) {
+			if(obj[key][i].family == "IPv4" && obj[key][i].address != "127.0.0.1") {
+				console.log(obj[key][i].address);
+			}
+		}
+	}
+})();
