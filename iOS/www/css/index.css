@@ -1,4 +1,3 @@
-
 .hidden  {
     display: none; /* hides elements under class "hidden" (not to be changed)  */
 }
@@ -10,31 +9,25 @@
 	-webkit-border-radius: 0px; /* sharp angles for text boxes in safari (not to be changed) */
 }
 
+html{
+	
+}
+
 body {
-    background-color: #191919; /* sets background color of all pages to black */
-	font-size: 100% /* makes default px size of elements equal to 1em (not to be changed) */
+    background: #000000; /* background color */
+	font-size: 100%; /* makes default px size of elements equal to 1em (not to be changed) */
 }
 
 /* NAVIGATION BAR STYLES */
 
-.navbar{
-	
-}
-
-.navbar .container-fluid{
-	padding-top:17px;
-}
-
 .navbar-default .container-fluid {
-  background-color: #E69400; /* color of nav bar */
+  background-color: DarkOrange; /* color of nav bar */
   font-family: 'Open Sans', sans-serif; /* font of nav bar links */
   width: 100%; /* width of nav bar (not to be changed) */
-  padding-bottom: 0px !important;
 }
 
 .navbar-default{
 	border: 0; /* removes thin white line at bottom of the nav bar (not to be changed) */
-	min-height: 50px;
 }
 
 .navbar-default a:not(#nameD):not(#view_prof):not(#logout) {
@@ -45,16 +38,10 @@ body {
 .navbar-default a {
   font-size: 1.3em; /* user profile dropdown menu font size */
   font-weight: bold; /* user profile dropdown menu font weight */
-  padding-bottom: -10px !important;
-}
-
-.navbar{
-	min-height: 20px !important;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-header > a:hover  {
-	color: black; /* color of hovered links in nav bar */
-	background-color: orange;
+	color: #853500; /* color of hovered links in nav bar */
 }
 
 .navbar-default .navbar-nav > li > a, .navbar-default .navbar-header > a{
@@ -62,7 +49,7 @@ body {
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-color: black; /* color of text of selected link in nav bar */
+color: #853500; /* color of text of selected link in nav bar */
 background-color: #EE7600; /* color of background of selected link in nav bar */
 }
 
@@ -75,7 +62,7 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 }
 
 #toggle_button{
-	background-color: #E69400; /* sets background color for background of hamburger menu toggle button */
+	background-color: blue; /* sets background color for background of hamburger menu toggle button */
 	border:0; /* removes border of hamburger menu toggle button (most likely not to be changed) */
 	border-radius: 0; /* gives hamburger menu toggle button sharp corners */
 }
@@ -89,6 +76,32 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
     background-color: white; /* sets color of the foreground(I know, it's weird) of the hamburger menu toggle button */
 }
 
+	/* NAVBAR STYLES FOR MOBILE */
+	  
+		.navbar {
+			min-height:38px;   
+		}
+		.navbar .navbar-brand{ 
+			padding: 0 12px; 
+			line-height: 38px; 
+			height: 38px; 
+		}
+		.navbar .navbar-nav > li > a {  
+			padding-top: 0px; 
+			padding-bottom: 0px; 
+			line-height: 38px; 
+		}
+		.navbar .navbar-toggle {  
+			margin-top: 3px; 
+			margin-bottom: 0px; 
+			padding: 8px 9px; 
+		}
+		.navbar-default .container-fluid {
+			padding-top: 20px;
+		}
+	  	
+	/* END OF NAVBAR STYLES FOR MOBILE */
+
 /* END OF NAVIGATION BAR STYLES */
 
 /* WELCOME PAGE STYLES */
@@ -99,14 +112,14 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 }
 
 .main_welcome h1 {
-	color: orange; /* sets large "MorScout" text color to orange */
+	color: DarkOrange; /* sets large "MorScout" text color to DarkOrange */
 	font-size: 8em; /* sets font size of large "MorScout" text */
 	text-align: center; /* horizontal alignment of large "MorScout" text */
 }
 
 .main_welcome h3 {
   text-align:center; /* horizontal alignment of small "Welcome to MorScout" text */
-  color: orange; /* sets font color of small "Welcome to MorScout" text */
+  color: DarkOrange; /* sets font color of small "Welcome to MorScout" text */
 } 
 
 /* END OF WELCOME PAGE STYLES */
@@ -115,9 +128,9 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 
 .page_title {
 	font-family: 'Exo 2', sans-serif; /* font of page title */
-	color: orange; /* font color of page title */
+	color: DarkOrange; /* font color of page title */
 	margin-top: 5em; /* distance of page title from top */
-	text-align: center; /* aligns page title to center */
+	text-align: center !important; /* aligns page title to center */
 }
 
 #loading{
@@ -125,12 +138,12 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 	position: fixed; /* position of loading message is static (not to be changed) */
 	top: 45%; /* distance from top of loading message */
 	text-align: center; /* horizontal alignment of loading message */
-	color: orange; /* text color of loading message */
+	color: DarkOrange; /* text color of loading message */
 	font-family: 'Exo 2', sans-serif; /* font of loading message */
 }
 
 .normal_text p{
-	color: orange; /* color of text for writing anything which isn't of any special section */
+	color: DarkOrange; /* color of text for writing anything which isn't of any special section */
 	margin: 1em; /* margin for writing anything which isn't of any special section */
 	font-size: 1.8em; /* font size for writing anything which isn't of any special section */
 }
@@ -140,11 +153,17 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 .QApair{
 	margin: 1em; /* margin of question and answer pair on help page */
 	margin-bottom: 3em; /* bottom margin of question and answer pair on help page */
-	border: 0.1em solid orange; /* border of question and answer pair on help page */
+	border: 0.1em solid DarkOrange; /* border of question and answer pair on help page */
+
 }
 .q{
 	font-weight: bold;
-	color: #EE7600 !important;
+	color: LightGray !important;
+}
+
+#team_search{
+	margin-top: 1em;
+	margin-bottom: 0;
 }
 
 /* END OF GENERAL STYLES */
@@ -163,23 +182,26 @@ th,td {
 }
 
 .matches_table, .teams_table{
-	color: orange; /* color of text in all matches and all teams tables */
+	color: DarkOrange; /* color of text in all matches and all teams tables */
 	width: 90%; /* width of all matches table */
 	margin: 1.4em auto; /* margin of all matches and all teams table */
 	margin-bottom: 2em; /* distance of tables from bottom of page */
 }
 
 .teams_table{
-	width: 25em; /* to override the width from the ^ previous styles for the all teams table */
+	width: 30em; /* to override the width from the ^ previous styles for the all teams table */
 }
 
 .report_table{
-	margin-top: 2em; /* top margin of report screen table */
+	margin-top: 2.2em; /* top margin of report screen table */
 	margin-bottom: 1em; /* bottom margin of report screen table */
 	color: #CCCCCC; /* text color of report screen table */
-	width: 98%; /* width of report screen table */
+	width: 90%; /* width of report screen table */
 	margin-left: auto; /* auto aligns report screen table */
 	margin-right: auto; /* auto aligns report screen table */
+	height:12.3em;
+	min-width: 20em;
+	max-width: 35em;
 }
 
 .odd_row {
@@ -187,7 +209,7 @@ th,td {
 }
 
 .current_match{
-	background-color: orange; /* background-color of current match row in matches table */
+	background-color: DarkOrange; /* background-color of current match row in matches table */
 	color: black; /* text color of current match row */
 	line-height: 6vh; /* height of current match row */
 }
@@ -202,7 +224,7 @@ th,td {
 }
 
 #r1, #r2, #r3{
-	background-color: #B80000; /* background color of table cells of red teams */
+	background-color: #B80000 ; /* background color of table cells of red teams */
 }
 #rh {
 	background-color: #760000; /* background color of table header cell of red teams */
@@ -231,7 +253,7 @@ th,td {
 	color: black; /* text color of button */
 	text-align: center; /* horizontal alignment of text of button */
 	font-size: 2em; /* font size of button */
-	background-color: orange; /* background color of button */
+	background-color: DarkOrange; /* background color of button */
 	margin-top:.3em; /* top margin of button */
 }
 
@@ -239,13 +261,14 @@ th,td {
 
  /* NOTICE: PLEASE DO NOT CHANGE ANY STYLES FOR THIS ELEMENT, IT WAS CAREFULLY DESIGNED TO CENTER IN THE FORM */
  
-	font-size: 2em; /* font size of "remember me" text */
-	color: orange; /* text color of "remember me" text */
-	margin-top: .3em; /* top margin of "remember me" text */
+	
+	color: DarkOrange; /* text color of "remember me" text */
+	margin-top: .4em; /* top margin of "remember me" text */
 	margin-left: auto; /* to center "remember me" text */
 	margin-right: auto; /* to center "remember me" text */
-	width: 12.3em; /* width of "remember me" text */
+	width:25.7em;
 	text-align: left; /* horizontal alignment of "remember me" text */
+	font-family: "Exo 2", sans-serif;
 }
 
 #check_box{
@@ -294,12 +317,12 @@ input:focus {
 
 .login_wrapper{
 	margin-top: 30vh; /* distance of login form from top of page (most likely not to be changed) */
-	color: orange; /* color of [typed] text in username and password text boxes */
+	color: DarkOrange; /* color of [typed] text in username and password text boxes */
 	background-color: black; /* background color of login form */
 }
 
 .login_wrapper input{
-	border: .1em solid orange; /* border width, style, and color of text boxes and login button */
+	border: .1em solid DarkOrange; /* border width, style, and color of text boxes and login button */
 	background-color: black; /* background color of username and password text boxes */
 }
 
@@ -310,7 +333,7 @@ input:focus {
 
 .report h2 {
 	display: inline; /* makes "Match # - time" text display on one line (not to be changed) */
-	color: orange; /* color of "Match # - time" text */
+	color: DarkOrange; /* color of "Match # - time" text */
 	font-family: 'Exo 2', sans-serif; /* font of "Match # - time" text */
 
 }
@@ -328,13 +351,14 @@ input:focus {
 
 .report_area{
 	margin: 0em; /* margin for report boxes */
-	width: 98%; /* width of report boxes */
+	width: 85%; /* width of report boxes */
 	height: 8.1em ; /* height of report boxes */
 	font-size: 2em; /* font size of report boxes */
 	background-color: #C0C0C0; /* background color of report boxes */
 	padding: 0.2em; /* padding(distance of wall of box to text) of report boxes */
 	margin-top: 1.45em; /* top margin of report boxes */
 	margin-bottom: 0.5em; /* bottom margin for report boxes */
+	color: black;
 }
 #team_report_area{
 	width: 20em; /* width of report text box in all teams page */
@@ -359,17 +383,245 @@ input:focus {
 	 color: gray;
 	opacity:0.8;
 }
+#report_instruction{
+	display: block;
+}
+.scout_div{
+	color: DarkOrange;
+	text-align: left;
+	margin-bottom: 3em;
+	margin-top: 0 !important;
+	margin-left: 1em;
+	font-family: 'Exo 2', sans-serif; 
+	margin-top: 3em;
+	padding: 0.7em;
+	width: 90%;
+	/* background-color: #B0C4DE; */
+}
+.scout_div p{
+	margin-left: .3em;
+	font-size: 1.9em !important;
+}
+.scout_div h3{
+	margin: 0;
+	margin-bottom: .2em;
+	font-size: 2.7em !important;
+}
+.report_check{
+	margin: 0.3em !important;
+	font-size: 2em;	
+}
+#report_text{
+	font-size: 2em !important;
+	display: inline;
+	margin: 0.3em;
+	font-weight: normal;
+	margin-bottom: 0.5em;
 
+}
+#report_box_small{
+	margin: .3em;
+	width: 2.5em;
+	font-size: 1.6em; 
+	padding: .1em;
+	padding-top: 0;
+	background-color: #333333;
+	border: 1px solid DarkOrange;
+	color: DarkOrange;
+	font-weight: bold;
+	text-align: center;
+	height: 1.5em;
+}
+.select1 select{
+	margin: .3em;
+	width: 7em;
+	font-size: 1.6em; 
+	padding: .1em;
+	background-color: #333333;
+	color: DarkOrange;
+	font-weight: bold;
+	text-align: center;
+	-webkit-appearance: none;
+	border: 1px solid DarkOrange;
+	padding-left: 1px;
+	padding-left: .3em;
+}
 
+.select1{
+	display: inline;
+	overflow: hidden;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+#updown{
+	padding-right: 5px;
+}
+.scout_div_title{
+	border-bottom: 1px solid gray;
+	padding-bottom: 0.33em; 
+	margin-top: 1em !important;
+	font-weight: bold !important;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+label {  
+    display: inline-block;  
+    cursor: pointer;  
+    position: relative;  
+    padding-left: 25px;  
+    margin-right: 15px;   
+}  
+input[type=checkbox] {  
+    display: none;  
+} 
+input[type=radio] {  
+    display: none;  
+}  
+label:before {  
+    border-radius: 3px;  
+} 
+.radio label:before {  
+    border-radius: 1em;  
+}   
+input[type=radio]:checked + label:before {  
+	position: absolute;
+    content: "\2022";  
+    font-size: 2.3em;  
+    color: DarkOrange;  
+    text-align: center;  
+    line-height: .130em; 
+    bottom: 0.05em;
+}  
+input[type=checkbox]:checked + label:before {  
+	position: absolute;
+    content: "\2713";  
+    font-size: 15px;  
+    color: DarkOrange;  
+    text-align: center;  
+    line-height: 15px;
+    bottom: 0.15em;    
+}
+label:before {  
+    content: "";  
+    display: inline-block;  
+  
+    width: 16px;  
+    height: 16px;  
+  
+    margin-right: 10px;  
+    position: absolute;  
+    left: 0;  
+    bottom: .1em;  
+    background-color: #5C5C5C;  
+}
+.selectdiv{
+	width:7em;
+	border:1px solid DarkOrange;
+	height:1.6em;
+	background:url(http://i59.tinypic.com/2uz5v0g.jpg) no-repeat right center;	
+	border-radius:0;
+	cursor:pointer;
+	background-color: #333333;
+	color: DarkOrange;
+	font-size: 1.6em;
+	font-family: 'Exo 2', sans-serif;
+	display: inline-block;
+	margin-bottom: .3em;
+	}
+.selectdiv:hover, .selectdiv:focus {
+	width:7em;
+	border:1px solid DarkOrange;
+	height:1.6em;
+	background: url(http://i59.tinypic.com/2uz5v0g.jpg) no-repeat right;
+	border-radius:0;
+	cursor:pointer;
+	color: DarkOrange;
+	background-color: #333333;
+	font-size: 1.6em;
+	}	
+.selectdiv div{
+	z-index:-1;
+	border:0px solid #000;
+	height:23px;
+	overflow:hidden;
+	padding:1px 0px 0px 5px;
+	cursor:pointer;
+
+	}	
+.selectboxdiv{
+ 	height: 23px;
+    left: 7.5em;
+    margin-top: 0;
+    position: absolute;
+    width: 7em;
+    z-index: 2;	
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	-khtml-opacity: 0;
+	-moz-opacity: 0;
+	opacity: 0;
+	cursor:pointer;
+	}	
+
+.button{
+	font-size: 3em;
+	padding-left: .2em;
+	padding-right: .2em;
+	margin-bottom: 1em;
+	margin-top: 0.5em;
+	border-radius: .2em;
+	background-color: DarkOrange;
+	color: black;
+	font-family: 'Exo 2', sans-serif;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+}
+
+.add_minus_button{
+	font-size: 1.8em;
+	padding-left: .2em;
+	padding-right: .2em;
+	border-radius: .2em;
+	background-color: DarkOrange;
+	color: black;
+	font-family: 'Exo 2', sans-serif;
+	padding-top:0px;
+	padding-bottom: 0px;
+	width: 1.5em;
+	margin: .1em;
+	font-weight: bold;
+}
+
+.submit_match{
+	text-align: right;
+	margin-right: 5em;
+	width: 100%;
+}
 
 /* END OF REPORT SCREEN STYLES */
+
+/* SYNC PAGE STYLES */
+
+.sync{
+	position: fixed;
+	width: 100%;
+	text-align: center;
+	top: 45%;
+}
+
+/* END OF SYNC PAGE STYLES */
 
 /* SETTINGS SCREEN STYLES */
 
 .settings_option{
 	margin-top: 4em; /* top margin of each settings option */
 	margin-bottom: 4em; /* bottom margin of each settings option */
-	color: orange; /* color of text in settings */
+	color: DarkOrange; /* color of text in settings */
 	font-family: 'Exo 2', sans-serif; /* font of text in settings */
 	display: block; /* to make elements appear on new line (not to be changed) */
 	text-align: center; /* horizontal alignment of each setting in its respective column */
@@ -407,6 +659,17 @@ input:focus {
 	padding: .2em; /* padding(distance of border of text box to text) of text box */
 }
 
+.text_input{
+	color: black; /* color of [typed] text in text boxes */
+	width: 14em; /* width of text box */
+	height: 2em; /* height of text box */
+	margin-top: .5em; /* top margin of text box */
+	font-size: 2em; /* font size of text in text box */
+	font-weight: bold; /* font weight of text in text box */
+	background-color: #C0C0C0; /* background color of text box */
+	padding: .2em; /* padding(distance of border of text box to text) of text box */
+}
+
 .settings_list > .button_input{
 	color: black; /* color of text in button */
 	width: 4em; /* width of button */
@@ -423,6 +686,11 @@ input:focus {
 }
 
 .button_hovered_report{
+	background-color: white !important; /* background color of hovered table cell in report table */
+	cursor: pointer; /* changes cursor to hand (not to be changed) */
+	color: black; /* text color of hovered table cell in report table */
+}
+.button_selected_report{
 	background-color: white !important; /* background color of hovered table cell in report table */
 	cursor: pointer; /* changes cursor to hand (not to be changed) */
 	color: black; /* text color of hovered table cell in report table */
@@ -450,17 +718,49 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 		width: 90%; /* scaling width for report box in all teams page */
 	}
 }
-
+/*
 @media screen and (max-width: 623px){
+	
 	.matches_table{
-		font-size: 2vw !important; /* scaling font size for text in all matches table */
-		line-height: 4vh; /* larger scaling line height for text in all matches table for easier match selecting on small screens */
+		font-size: 2vw !important; /* scaling font size for text in all matches table 
+		line-height: 4vh; /* larger scaling line height for text in all matches table for easier match selecting on small screens 
+	}
+*/
+} 
+@media screen and (max-width: 991px){
+	.scout_div{
+		margin-bottom: 0 !important;
 	}
 }
-
 @media screen and (max-width: 408px){
+	
+}
+
+@media screen and (max-width: 456px){
 	.teams_table{
 		width: 90% !important; /* scaling width for all teams table */
+	}
+	.scout_div{
+		font-size: 2.5vw;
+	}
+	label:before{
+		width: 5vw;
+		height: 5vw;
+	}
+	input[type=checkbox]:checked + label:before {  
+    content: "\2713";  
+    font-size: 5vw;  
+    color: DarkOrange;  
+    text-align: center;  
+    line-height: 5vw;  
+	}
+	.report_area{
+	width: 94%; /* width of report boxes */
+	}
+	.submit_match{
+		text-align: right;
+		margin-right: 5em;
+		width: 94%;
 	}
 }
 
@@ -468,4 +768,10 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 	/* insert here css styles that apply to iPhone 6 plus */
 }
 
+@media screen and (max-width: 1199px){
+	.QApair{
+		
+	}
+}	
 /* END OF STYLES FOR SMALLER SCREENS */	
+
