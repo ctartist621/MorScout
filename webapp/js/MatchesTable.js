@@ -60,6 +60,9 @@ $(document).ready(function() {
 		var th5 = document.createElement('th');
 		th4.colSpan = "3";
 		th5.colSpan = "3";
+
+		$(th4).addClass('matchesTableHide');
+		$(th5).addClass('matchesTableHide');
 		
 		var th_text1 = document.createTextNode("#");
 		var th_text2 = document.createTextNode("Time");
@@ -98,6 +101,13 @@ $(document).ready(function() {
 				var td8 = document.createElement('td');
 				var td9 = document.createElement('td');
 
+				$(td4).addClass('matchesTableHide');
+				$(td5).addClass('matchesTableHide');
+				$(td6).addClass('matchesTableHide');
+				$(td7).addClass('matchesTableHide');
+				$(td8).addClass('matchesTableHide');
+				$(td9).addClass('matchesTableHide');
+
 				var text1 = document.createTextNode(real_match_number);
 				var text2 = document.createTextNode(jsonfile[real_match_number].time);
 				var text3 = document.createTextNode(jsonfile[real_match_number].scouted);
@@ -132,7 +142,6 @@ $(document).ready(function() {
 				
 				var time = new Date();
 				if(real_match_number_plus_one !== undefined){
-					console.log(getMilitary(time));
 					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < toMilitary(jsonfile[real_match_number_plus_one].time)){
 						$(tr).addClass('current_match');
 					}else{
@@ -173,7 +182,23 @@ $(document).ready(function() {
 			localStorage.time = $(this).children(":first").next().text();
 		    location = "report.html?" + getQS({"match" : $(this).children(":first").text(), "time" : $(this).children(":first").next().text()});
 		});
+
+
+
+		if(window.innerWidth<630){
+			$('.matchesTableHide').hide();
+		}else{
+			$('.matchesTableHide').show();
+		}
 		
 	});
+});
+
+$(window).resize(function() {
+	if(window.innerWidth<630){
+		$('.matchesTableHide').hide();
+	}else{
+		$('.matchesTableHide').show();
+	}
 });
 
