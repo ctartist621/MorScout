@@ -148,7 +148,7 @@ http.createServer(function(req, res) {
 							}
 						}
 						writeJSON("data.json", data);
-						sendQS(res, {"code" : 0, "data" : data, "matches" : readJSON("matches.json")});
+						sendQS(res, {"code" : 0, "data" : data, "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
 					}
 					else {
 						sendQS(res, {"code" : 2});
