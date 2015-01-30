@@ -13,7 +13,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/index.css" type="text/css">
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -25,6 +24,7 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 		  <a class="navbar-brand" id="morscout" href="javascript:window.history.back();" ><span class="glyphicon glyphicon-chevron-left"></span> back</a>
+		   <a class="navbar-brand current_page" href="#">Report</a>
 		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MorScoutNav" id = "toggle_button">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -48,7 +48,7 @@
 		</div>
 	</div>
 </nav>
-	 
+
 <div class = "report">
 	<div class = "container-fluid">
 		<div id="report_title" class="page_title">
@@ -56,7 +56,7 @@
 			<h2 id="report_match_num"></h2>
 			<h2> - </h2>
 			<h2 id="report_match_time"></h2>
-			<h2 id="report_instruction">Choose a team to scout</h2>
+			<h2 id="report_instruction">Choose a team to scout or view</h2>
 		</div>
 		<div class="row">
 			
@@ -82,6 +82,18 @@
 			</div>
 			
 		</div>
+		<div class="row">
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>	
+			<div class="col-md-10 col-sm-12 col-xs-12">
+				<ul id="report_tabs" class="nav nav-tabs">
+				  <li id="scout_tab" class="active"><a href="javascript: void(0);">Scout</a></li>
+				  <li id="view_tab"><a href="javascript: void(0);">View</a></li>
+				</ul>	
+			</div>
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>
+		</div>			
 		<div id="scout_form" class="row">	
 			<div class="col-md-1 col-sm-0 col-xs-0">
 			</div>	
@@ -91,22 +103,22 @@
 
 	  	    		<div class="radio">
 		  	    		<input class="report_check" type="radio" name="auto" id="nearDrivers"></input>
-		  	    		<label id="report_text" for="nearDrivers">Started near drivers</label><br/>
+		  	    		<label id="report_text" for="nearDrivers" class="report_radio_check">Started near drivers</label><br/>
 						<input class="report_check" type="radio" name="auto" id="radio12"></input>
-						<label id="report_text" for="radio12">Started near landfill</label><br/>
+						<label id="report_text" for="radio12" class="report_radio_check">Started near landfill</label><br/>
 					</div>	
 
 	  	    		<input class="report_check" type="checkbox" id="robotMoved"></input>
-	  	    		<label id="report_text" for="robotMoved">Robot moves to auto zone?</label><br/>
+	  	    		<label id="report_text" for="robotMoved" class="report_radio_check">Robot moves to auto zone?</label><br/>
 
 					<input class="report_check" type="checkbox" id="toteMoved"></input>
-					<label id="report_text" for="toteMoved">tote moved to auto zone?</label><br/>
+					<label id="report_text" for="toteMoved" class="report_radio_check">tote moved to auto zone?</label><br/>
 
 					<input class="report_check" type="checkbox" id="containerMoved"></input>
-					<label id="report_text" for="containerMoved">Container set on auto zone?</label><br/>
+					<label id="report_text" for="containerMoved" class="report_radio_check">Container set on auto zone?</label><br/>
 
 					<input class="report_check" type="checkbox" id="toteStacked"></input>
-					<label id="report_text" for="toteStacked">Single stacked tote set?</label><br/>
+					<label id="report_text" for="toteStacked" class="report_radio_check">Single stacked tote set?</label><br/>
 
 	  	    		<p id="report_text">Highest level tote stacked: </p>
 	  	    		<input id="report_box_small" class="highestToteAuto" type="number"></input><br/>
@@ -142,11 +154,13 @@
 	  	    		<input id="report_box_small" type="number" class="highestToteTeleop"></input><br/>
 
 	  	    		<input class="report_check" type="checkbox" id="landfillContainer"></input>
-	  	    		<label id="report_text" for="landfillContainer">Get container from landfill?</label><br/> 
-	  	    		<input class="report_check" type="checkbox" id="coopertitionSet"></input>
-	  	    		<label id="report_text" for="coopertitionSet">Coopertition set</label><br/>
-					<input class="report_check" type="checkbox" id="coopertitionStack"></input>
-					<label id="report_text" for="coopertitionStack">Coopertition stack</label><br/>
+	  	    		<label id="report_text" for="landfillContainer" class="report_radio_check">Gets container from landfill?</label><br/> 
+	  	    		<div class="radio">
+		  	    		<input class="report_check" type="radio" id="coopertitionSet" name="coopertition"></input>
+		  	    		<label id="report_text" for="coopertitionSet" class="report_radio_check">Coopertition set</label><br/>
+						<input class="report_check" type="radio" id="coopertitionStack" name="coopertition"></input>
+						<label id="report_text" for="coopertitionStack" class="report_radio_check">Coopertition stack</label><br/>
+					</div>
 					<textarea id="teleopComments" class="report_area" placeholder="comments"></textarea> 
 				</div>
 				<div class="submit_match">
@@ -179,8 +193,89 @@
 				</div>
 			</div> -->
 		</div>	
-		<div class="row">
-			
+		<div id="view_form" class="row">
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>	
+			<div class="col-md-5 col-sm-6 col-xs-12">
+				<div class="scout_div">
+	  	    		<h3 class="scout_div_title view_title">Autonomous</h3>
+	  	    		<table id="view_table">
+	  	    			<tr>
+	  	    				<td>Started near</td>
+	  	    				<td id="view_nearDrivers">No Info</td>	
+	  	    			</tr>
+	  	    			<tr>
+	  	    				<td>Robot moved to auto zone</td>
+	  	    				<td id="view_robotMoved">No Info</td>	
+	  	    			</tr>	
+	  	    			<tr>
+	  	    				<td>Tote set on auto zone</td>
+	  	    				<td id="view_toteMoved">No Info</td>	
+	  	    			</tr>
+	  	    			<tr>
+	  	    				<td>Container set on auto zone</td>
+	  	    				<td id="view_containerMoved">No Info</td>	
+	  	    			</tr>
+	  	    			<tr>
+	  	    				<td>Totes stacked on auto zone</td>
+	  	    				<td id="view_toteStacked">No Info</td>	
+	  	    			</tr>
+	  	    			<tr>
+	  	    				<td>Highest leve tote stacked</td>
+	  	    				<td id="view_highestToteAuto">No Info</td>	
+	  	    			</tr>
+	  	    			<tr>
+	  	    				<td>Can get container from landfill</td>
+	  	    				<td id="view_landfillContainer">No Info</td>	
+	  	    			</tr>		
+	  	    			<tr>
+	  	    				<td>Comments</td>
+	  	    				<td id="view_autoComments">No Info</td>	
+	  	    			</tr>					
+	  	    		</table>	
+	  	    	</div>	
+			</div>
+			<div class="col-md-5 col-sm-6 col-xs-12">
+				<div class="scout_div">
+	  	    		<h3 class="scout_div_title view_title">Teleop</h3>
+	  	    		<table id="view_table">
+	  	    			<tr>
+	  	    				<td>Gray totes scored</td>
+	  	    				<td id="view_grayTotes">No Info</td>	
+	  	    			</tr>
+	  	    			<tr>
+	  	    				<td>Containers scored</td>
+	  	    				<td id="view_containers">No Info</td>	
+	  	    			</tr>	
+	  	    			<tr>
+	  	    				<td>Litter in containers</td>
+	  	    				<td id="view_containerLitter">No Info</td>	
+	  	    			</tr>
+	  	    			<tr>
+	  	    				<td>Litter put in landfill</td>
+	  	    				<td id="view_landfillLitter">No Info</td>	
+	  	    			</tr>
+	  	    			<tr>
+	  	    				<td>Highest level tote stacked</td>
+	  	    				<td id="view_highestToteTeleop">No Info</td>	
+	  	    			</tr>
+	  	    			<tr>
+	  	    				<td>Coopertition set</td>
+	  	    				<td id="view_coopertitionSet">No Info</td>	
+	  	    			</tr>	
+	  	    			<tr>
+	  	    				<td>Coopertition stack</td>
+	  	    				<td id="view_coopertitionStack">No Info</td>	
+	  	    			</tr>	
+	  	    			<tr>
+	  	    				<td>Comments</td>
+	  	    				<td id="view_teleopComments">No Info</td>	
+	  	    			</tr>					
+	  	    		</table>	
+	  	    	</div>	
+			</div>		
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>	
 		</div>	
 	</div>
 </div>
@@ -205,36 +300,59 @@ if ('addEventListener' in document) {
 
 <script>
 
-	var backbutton = document.getElementById("morscout");
-	backbutton.onclick = function(e){
-  		e = e || window.event; // support  for IE8 and lower
-  		e.preventDefault(); // stop browser from doing native logic
- 		window.history.back();
-	}
-
 	$(document).ready(function() {
 
 		$('#scout_form').hide();
-		$('#submit_match_report').hide();
-
-
-		$('td').bind('touchstart',function(){
+		$('#view_form').hide();
+		$('#report_tabs').hide();
+		if(localStorage.data){
+			$('#view_nearDrivers').html(localStorage.data[0])
+			$('#view_teleopComments').html(localStorage.data[0])
+			$('#view_highestToteAuto').html(localStorage.data[0])
+			$('#view_grayTotes').html(localStorage.data[0])
+			$('#view_containers').html(localStorage.data[0])
+			$('#view_containerLitter').html(localStorage.data[0])
+			$('#view_landfillLitter').html(localStorage.data[0])
+			$('#view_highestToteTeleop').html(localStorage.data[0])
+			$('#view_autoComments').html(localStorage.data[0])
+			$('#view_robotMoved').html(localStorage.data[0])
+			$('#view_toteMoved').html(localStorage.data[0])
+			$('#view_containerMoved').html(localStorage.data[0])
+			$('#view_toteStacked').html(localStorage.data[0])
+			$('#view_landfillContainer').html(localStorage.data[0])
+			$('#view_coopertitionSet').html(localStorage.data[0])
+			$('#view_coopertitionStack').html(localStorage.data[0])
+		}
+		$('.report_table td').bind('touchstart',function(){
 			$(this).addClass('button_hovered_report')
 		});
-		$('td').bind('touchend',function(){
+		$('.report_table td').bind('touchend',function(){
 			$(this).removeClass('button_hovered_report')
 		});
-		$('td').hover(function(){
+		$('.report_table td').hover(function(){
 			$(this).toggleClass('button_hovered_report')
 		});
-		$('td').click(function(){
+		$('.report_table td').click(function(){
 			localStorage.removeItem('team');
 			localStorage.team = $(this).text();
 			$('td').removeClass('button_selected_report');
  			$(this).addClass('button_selected_report');
  			$('#scout_form').fadeIn(300);
-			$('#submit_match_report').fadeIn(300);
+			$('#report_tabs').fadeIn(300);
+			$('#scout_tab').trigger("click");
 			// location = "reportTeam.html?" + getQS({"team" : $(this).text()});
+		});
+		$('#view_tab').click(function(){
+			$('#view_tab').addClass("active");
+			$('#scout_tab').removeClass('active');
+			$('#scout_form').hide();
+			$('#view_form').show();
+		});
+		$('#scout_tab').click(function(){
+			$('#scout_tab').addClass("active");
+			$('#view_tab').removeClass('active');
+			$('#scout_form').show();
+			$("#view_form").hide();
 		});
 		
 		localStorage.unSynced = "[]";
@@ -245,17 +363,17 @@ if ('addEventListener' in document) {
 				"meta" : {
 					"team" : localStorage.team,
 					"match" : localStorage.match,
-					"time" : localStorage.time
+					"time" : new Date().getTime()
 				},
 				"data" : {
 					autoComments : $('#autoComments').val(),
 					teleopComments : $('#teleopComments').val(),
-					highestToteAuto : $('.highestToteAuto').val(),
-					grayTotes : $('.grayTotes').val(),
-					containers : $('.containers').val(),
-					containerLitter : $('.containerLitter').val(),
-					landfillLitter : $('.landfillLitter').val(),
-					highestToteTeleop : $('.highestToteTeleop').val(),
+					highestToteAuto : parseInt($('.highestToteAuto').val()) || 0,
+					grayTotes : parseInt($('.grayTotes').val()) || 0,
+					containers : parseInt($('.containers').val()) || 0,
+					containerLitter : parseInt($('.containerLitter').val()) || 0,
+					landfillLitter : parseInt($('.landfillLitter').val()) || 0,
+					highestToteTeleop : parseInt($('.highestToteTeleop').val()) || 0,
 					nearDrivers : $('#nearDrivers').is(':checked'),
 					robotMoved : $('#robotMoved').is(':checked'),
 					toteMoved : $('#toteMoved').is(':checked'),
@@ -266,9 +384,27 @@ if ('addEventListener' in document) {
 					coopertitionStack : $('#coopertitionStack').is(':checked')
 				}
 			});
-			localStorage.unSynced = JSON.stringify(arr); 
+			localStorage.unSynced = JSON.stringify(arr);
 
-			alert(localStorage.unSynced);
+			ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
+				if(result.code == 0){
+					localStorage.data = result.data;
+					localStorage.matches = result.matches;
+					localStorage.teams = result.teams;
+					localStorage.unSynced = "[]";
+					alert("synced")
+				}else if(result.code == 1){
+					alert("log in first")
+					setTimeout(function() {
+						location = "login.html";
+					}, 1000);
+				}else{
+					alert('Internal Error');
+				}
+			}, function() {
+				alert('Error connecting to server');
+			});
+
 		});
 
 		var grayTotes = 0;

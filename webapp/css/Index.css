@@ -351,7 +351,8 @@ input:focus {
 
 .report_area{
 	margin: 0em; /* margin for report boxes */
-	width: 85%; /* width of report boxes */
+	width: 100%; /* width of report boxes */
+	max-width: 18em;
 	height: 8.1em ; /* height of report boxes */
 	font-size: 2em; /* font size of report boxes */
 	background-color: #C0C0C0; /* background color of report boxes */
@@ -580,6 +581,7 @@ label:before {
 	font-family: 'Exo 2', sans-serif;
 	padding-top: 0.1em;
 	padding-bottom: 0.1em;
+	border-radius: 0;
 }
 
 .add_minus_button{
@@ -595,6 +597,7 @@ label:before {
 	width: 1.5em;
 	margin: .1em;
 	font-weight: bold;
+	border-radius: 0;
 }
 
 .submit_match{
@@ -603,6 +606,37 @@ label:before {
 	width: 100%;
 }
 
+#report_tabs a{
+	font-size: 2em;
+	color: orange;
+	font-family: 'Exo 2', sans-serif;
+}
+#report_tabs a:hover{
+	border-radius: 0;
+	color: black;
+}
+#report_tabs .active a{
+	font-size: 2em;
+	color: black;
+	font-family: 'Exo 2', sans-serif;
+	background-color: orange;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-radius: 0;
+}
+#report_tabs{
+	border-bottom: solid 1px gray;
+	margin-top: 3em;
+}
+
+.view_title{
+	border-bottom: none;
+}
+
+#view_table{
+	width: 100%;
+}
 /* END OF REPORT SCREEN STYLES */
 
 /* SYNC PAGE STYLES */
@@ -686,7 +720,7 @@ label:before {
 }
 
 .button_hovered_report{
-	background-color: white !important; /* background color of hovered table cell in report table */
+	background-color: #C0C0C0 !important; /* background color of hovered table cell in report table */
 	cursor: pointer; /* changes cursor to hand (not to be changed) */
 	color: black; /* text color of hovered table cell in report table */
 }
@@ -717,6 +751,7 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 	#team_report_area{
 		width: 90%; /* scaling width for report box in all teams page */
 	}
+
 }
 /*
 @media screen and (max-width: 623px){
@@ -726,14 +761,22 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 		line-height: 4vh; /* larger scaling line height for text in all matches table for easier match selecting on small screens 
 	}
 */
-} 
+}
 @media screen and (max-width: 991px){
 	.scout_div{
 		margin-bottom: 0 !important;
 	}
 }
-@media screen and (max-width: 408px){
-	
+@media screen and (max-width: 767px){
+	.current_page{
+		position: absolute !important;
+		left: 0 !important; 
+		right: 0 !important; 
+		width: 100% !important; 
+		text-align: center !important; 
+		pointer-events: none !important; 
+		cursor: default !important;
+	}
 }
 
 @media screen and (max-width: 456px){
@@ -748,19 +791,25 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 		height: 5vw;
 	}
 	input[type=checkbox]:checked + label:before {  
-    content: "\2713";  
-    font-size: 5vw;  
-    color: orange;  
-    text-align: center;  
-    line-height: 5vw;  
+	    content: "\2713";  
+	    font-size: 5vw;  
+	    color: orange;  
+	    text-align: center;
+	    line-height: 4.5vw;    
+	}
+	input[type=radio]:checked + label:before {    
+	    line-height: 2vw;    
 	}
 	.report_area{
-	width: 94%; /* width of report boxes */
+		width: 94%; /* width of report boxes */
 	}
 	.submit_match{
 		text-align: right;
 		margin-right: 5em;
 		width: 94%;
+	}
+	.report_radio_check{
+		padding-left:1.3em !important;
 	}
 }
 

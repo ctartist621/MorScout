@@ -13,7 +13,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/index.css" type="text/css">
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -25,6 +24,7 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 		  <a class="navbar-brand" id="morscout" href="javascript:window.history.back();" ><span class="glyphicon glyphicon-chevron-left"></span> back</a>
+		   <a class="navbar-brand current_page" href="#">Report</a>
 		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MorScoutNav" id = "toggle_button">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -58,11 +58,26 @@
 			<h2 class="page_title" id="report_team_name"></h2>
 		</div>
 		<div class="row">
-			<div class="col-md-4 col-sm-6 col-xs-12">
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>	
+			<div class="col-md-10 col-sm-12 col-xs-12">
+				<ul id="report_tabs" class="nav nav-tabs">
+				  <li id="scout_tab" class="active"><a href="javascript: void(0);">Scout</a></li>
+				  <li id="view_tab"><a href="javascript: void(0);">View</a></li>
+				</ul>	
+			</div>
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>
+		</div>	
+		<div id="scout_form" class="row">
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>
+			<div class="col-md-5 col-sm-6 col-xs-12">
 	  	    	<div class="scout_div"> 
 	  	    		<h3 class="scout_div_title">General</h3> 
-	  	    		<input class="report_check" type="checkbox" id="check111"></input><label id="report_text" for="check111">Can flip totes?</label><br/>
-	  	    		<p id="report_text">Wheels: </p>
+	  	    		<input class="report_check" type="checkbox" id="check111"></input>
+	  	    		<label id="report_text" for="check111" class="report_radio_check">Can flip totes?</label><br/>
+	  	    		<p id="report_text">Drive Train: </p>
 	  	    		<div class="selectdiv" > 
 				      <select class="selectboxdiv">
 				        <option>choose...</option>
@@ -78,6 +93,37 @@
 	  	    		<p id="report_text">Co-op points: </p>
 	  	    		<input id="report_box_small" type="number"></input><br/>  
 	  	    	</div>	
+			</div>
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>
+		</div>
+		<div id="view_form" class="row">
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>
+			<div class="col-md-5 col-sm-6 col-xs-12">
+				<div class="scout_div">
+					<h3 class="scout_div_title view_title">General</h3>
+					<table id="view_table">
+						<tr>
+							<td>Can flip totes</td>
+							<td>No Info</td>
+						</tr>
+						<tr>
+							<td>Drive Train</td>
+							<td>No Info</td>
+						</tr>
+						<tr>
+							<td>Cycle Time (seconds)</td>
+							<td>No Info</td>
+						</tr>
+						<tr>
+							<td>Co-op Points</td>
+							<td>No Info</td>
+						</tr>
+					</table>
+				</div>	
+			</div>	
+			<div class="col-md-1 col-sm-0 col-xs-0">
 			</div>
 		</div>
 	</div>
@@ -127,12 +173,28 @@ if ('addEventListener' in document) {
 
 <script type="text/javascript">
 $(document).ready(function(){
+
 	$("select").change(function () { 
 	   var str = ""; 
 	   str = $(this).find(":selected").text(); 
 	   $(".out").text(str); 
-	}).trigger('change'); 		
-	})
+	}).trigger('change');
+
+	$('#view_form').hide(); 	
+
+	$('#view_tab').click(function(){
+		$('#view_tab').addClass("active");
+		$('#scout_tab').removeClass('active');
+		$('#scout_form').hide();
+		$('#view_form').show();
+	});
+	$('#scout_tab').click(function(){
+		$('#scout_tab').addClass("active");
+		$('#view_tab').removeClass('active');
+		$('#scout_form').show();
+		$("#view_form").hide();
+	});	
+});
 </script>
 
 </body>

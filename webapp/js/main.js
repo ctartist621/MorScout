@@ -35,6 +35,11 @@ function ajax(url, get, post, cb, err) {
 }
 
 $(document).ready(function() {
+	if($(window).width()<768){
+		$('.current_page').show();
+	}else{
+		$('.current_page').hide();
+	}
 	if(localStorage.user !== undefined){
 	
 		var userD = document.createTextNode(" " + localStorage.user);
@@ -45,6 +50,7 @@ $(document).ready(function() {
 				if(result.code == 0) {
 					localStorage.removeItem('user');
 					localStorage.removeItem('token');
+					localStorage.hasLoggedIn = false;
 					location = "index.html";
 				}
 				else if(result.code == 1) {
@@ -70,6 +76,7 @@ $(document).ready(function() {
 				if(result.code == 0) {
 					sessionStorage.removeItem('user');
 					sessionStorage.removeItem('token');
+					localStorage.hasLoggedIn = false;
 					location = "index.html";
 				}
 				else if(result.code == 1) {
@@ -83,8 +90,10 @@ $(document).ready(function() {
 			
 		}
 		document.getElementById("view_prof").onclick = function() {
-			alert("Hello and have a good day, " + sessionStorage.user.substring(0,sessionStorage.user.length-1) + "\nToken: " + sessionStorage.token + "\nLogged in for 1 session.\nIP: " + localStorage.ip);
+			alert("Hello and have a good day, " + sessionStorage.user + "\nToken: " + sessionStorage.token + "\nLogged in for 1 session.\nIP: " + localStorage.ip);
 		}
+	} else {
+		localStorage.hasLoggedIn = false;
 	}
 		$('.button').hover(function(){
 			$(this).toggleClass('button_hovered')
@@ -96,5 +105,12 @@ $(document).ready(function() {
 			$(this).removeClass('button_hovered')
 		});
 	
+});
+$(window).resize(function(){
+	if($(window).width()<768){
+		$('.current_page').show();
+	}else{
+		$('.current_page').hide();
+	}
 });
 

@@ -38,6 +38,7 @@ document.getElementById("login_form").onsubmit = function() {
 			if(result.code == 0) {
 				localStorage.user = result.user;
 				localStorage.token = result.token;
+				localStorage.hasLoggedIn = true;
 				location = "index.html";
 			}
 			else if(result.code == 1) {
@@ -57,6 +58,7 @@ document.getElementById("login_form").onsubmit = function() {
 			if(result.code == 0) {
 				sessionStorage.user = result.user;
 				sessionStorage.token = result.token;
+				localStorage.hasLoggedIn = true;
 				location = "index.html";
 			}
 			else if(result.code == 1) {
