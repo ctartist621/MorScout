@@ -124,6 +124,7 @@ http.createServer(function(req, res) {
 		                	users[username].tokens.push(token);
 		                	writeJSON("users.json", users);
 		        		sendQS(res, {"code" : 0, "user" : username, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
+		        		console.log("login:\t" + username);
 		        		userFound = true;
 		        		break;
 	                	}
@@ -141,6 +142,7 @@ http.createServer(function(req, res) {
 					users[user].tokens.splice(users[user].tokens.indexOf(token), 1);
 					writeJSON("users.json", users);
 					sendQS(res, {"code" : 0});
+					console.log("logout:\t" + post.user);
 				}
 				else if(path == "/sync") {
 					var entries = parseJSON(post.data);
@@ -154,6 +156,7 @@ http.createServer(function(req, res) {
 						}
 						writeJSON("data.json", data);
 						sendQS(res, {"code" : 0, "data" : data, "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
+						console.log("sync:\t" + post.user);
 					}
 					else {
 						sendQS(res, {"code" : 2});
