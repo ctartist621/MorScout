@@ -3,7 +3,7 @@ var fs = require("fs");
 
 http.request({
 	host : "www.thebluealliance.com",
-	path : "/api/v2/event/2010sc/matches",
+	path : JSON.parse(fs.readFileSync("url.json")).matches,
 	headers : {"X-TBA-App-Id" : "frc1515:MorScout:1"}
 }, function(res) {
 	var data = "";

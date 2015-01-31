@@ -42,6 +42,7 @@ function addEntry(entry, user, data) {
 	var team = entry.meta.team;
 	var match = entry.meta.match;
 	var scout = entry.meta.scout;
+	data = data || {};
 	data[team] = data[team] || {};
 	data[team][match] = data[team][match] || {};
 	data[team][match][scout] = data[team][match][scout] || [];
@@ -74,6 +75,18 @@ function getChecksum(data) {
 	return crypto.createHash("md5").update(JSON.stringify(sortJSON(data))).digest("hex");
 }
 
+function twoDigit(num) {
+	return (num < 10 ? "0" : "") + num;
+}
+
+function timeString() {
+	var date = new Date();
+	var hours = ((date.getHours() + 11) % 12 + 1);
+	var minutes = date.getMinutes();
+	var seconds = date.getSeconds();
+	return twoDigit(hours) + ":" + twoDigit(minutes) + ":" + twoDigit(seconds);
+}
+
 function parseJSON(str) {
 	try {
 		return JSON.parse(str);
@@ -100,6 +113,11 @@ function writeJSON(file, json) {
 	fs.writeFile(file, JSON.stringify(json));
 }
 
+function log(line) {
+	console.log(line);
+	fs.writeFile("log.txt", fs.readFileSync("log.txt") + line + "\n");
+}
+
 http.createServer(function(req, res) {
 	res.writeHead(200, {"Access-Control-Allow-Headers" : "Content-Type", "Access-Control-Allow-Origin" : "*"});
 	var path = url.parse(req.url, true).pathname;
@@ -124,7 +142,7 @@ http.createServer(function(req, res) {
 		                	users[username].tokens.push(token);
 		                	writeJSON("users.json", users);
 		        		sendQS(res, {"code" : 0, "user" : username, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
-		        		console.log("login:\t" + username);
+		        		log("login:\t" + username + "\t" + timeString());
 		        		userFound = true;
 		        		break;
 	                	}
@@ -142,21 +160,23 @@ http.createServer(function(req, res) {
 					users[user].tokens.splice(users[user].tokens.indexOf(token), 1);
 					writeJSON("users.json", users);
 					sendQS(res, {"code" : 0});
-					console.log("logout:\t" + post.user);
+					log("logout:\t" + post.user +"\t" + timeString());
 				}
 				else if(path == "/sync") {
 					var entries = parseJSON(post.data);
 					if(entries instanceof Array) {
 						var data = readJSON("data.json");
+						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN READING");
 						for(var i = 0; i < entries.length; i++) {
 							var entry = entries[i];
 							if(validEntry(entry)) {
 								data = addEntry(entry, post.user, data);
 							}
 						}
+						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN WRITING");
 						writeJSON("data.json", data);
 						sendQS(res, {"code" : 0, "data" : data, "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
-						console.log("sync:\t" + post.user);
+						log("sync:\t" + post.user + "\t" + timeString());
 					}
 					else {
 						sendQS(res, {"code" : 2});
@@ -186,3 +206,4 @@ http.createServer(function(req, res) {
 		}
 	}
 })();
+console.log();
