@@ -114,16 +114,21 @@ http.createServer(function(req, res) {
                 }
                 else {
 	                var users = readJSON("users.json");
-	                if(users[user] && users[user].pass == pass) {
-		                var token = getToken(32);
-		                if(!users[user].tokens) {
-			                users[user].tokens = [];
-		                }
-		                users[user].tokens.push(token);
-		                writeJSON("users.json", users);
-		                sendQS(res, {"code" : 0, "user" : user, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
+	                var userFound = false;
+	                for(var username in users) {
+	                	if(user.toLowerCase() == username.toLowerCase() && users[username].pass == pass) {
+		                	var token = getToken(32);
+		                	if(!users[username].tokens) {
+			                	users[username].tokens = [];
+		                	}
+		                	users[username].tokens.push(token);
+		                	writeJSON("users.json", users);
+		        		sendQS(res, {"code" : 0, "user" : username, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
+		        		userFound = true;
+		        		break;
+	                	}
 	                }
-	                else {
+	                if(!userFound) {
 		                sendQS(res, {"code" : 1});
 	                }
                 }
