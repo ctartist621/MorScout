@@ -23,7 +23,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-		  <a class="navbar-brand" id="morscout" href="javascript:window.history.back();" ><span class="glyphicon glyphicon-chevron-left"></span> back</a>
+		  <a class="navbar-brand" id="morscout" href="javascript:if(!window.history.back()) window.history.back(2);" ><span class="glyphicon glyphicon-chevron-left"></span> back</a>
 		   <a class="navbar-brand current_page" href="#">Report</a>
 		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MorScoutNav" id = "toggle_button">
 			<span class="icon-bar"></span>
@@ -112,7 +112,7 @@
 	  	    		<label id="report_text" for="robotMoved" class="report_radio_check">Robot moves to auto zone?</label><br/>
 
 					<input class="report_check" type="checkbox" id="toteMoved"></input>
-					<label id="report_text" for="toteMoved" class="report_radio_check">tote moved to auto zone?</label><br/>
+					<label id="report_text" for="toteMoved" class="report_radio_check">Tote moved to auto zone?</label><br/>
 
 					<input class="report_check" type="checkbox" id="containerMoved"></input>
 					<label id="report_text" for="containerMoved" class="report_radio_check">Container set on auto zone?</label><br/>
@@ -305,24 +305,43 @@ if ('addEventListener' in document) {
 		$('#scout_form').hide();
 		$('#view_form').hide();
 		$('#report_tabs').hide();
-		if(localStorage.data){
-			$('#view_nearDrivers').html(localStorage.data[0])
-			$('#view_teleopComments').html(localStorage.data[0])
-			$('#view_highestToteAuto').html(localStorage.data[0])
-			$('#view_grayTotes').html(localStorage.data[0])
-			$('#view_containers').html(localStorage.data[0])
-			$('#view_containerLitter').html(localStorage.data[0])
-			$('#view_landfillLitter').html(localStorage.data[0])
-			$('#view_highestToteTeleop').html(localStorage.data[0])
-			$('#view_autoComments').html(localStorage.data[0])
-			$('#view_robotMoved').html(localStorage.data[0])
-			$('#view_toteMoved').html(localStorage.data[0])
-			$('#view_containerMoved').html(localStorage.data[0])
-			$('#view_toteStacked').html(localStorage.data[0])
-			$('#view_landfillContainer').html(localStorage.data[0])
-			$('#view_coopertitionSet').html(localStorage.data[0])
-			$('#view_coopertitionStack').html(localStorage.data[0])
-		}
+		
+		var viewData = function() {
+			var data = JSON.parse(localStorage.data);
+			if(data && data[localStorage.team] && data[localStorage.team][localStorage.match]){
+				var report;
+				var match = JSON.parse(localStorage.data)[localStorage.team][localStorage.match];
+				for(var user in match) {
+					if(match[user].length > 0) {
+						report = match[user].last().data;
+						break;
+					}
+				}
+				if(report) {
+					if(report.nearDrivers){
+						$('#view_nearDrivers').html("Drivers")
+					}else{
+						$('#view_nearDrivers').html("Landfill")
+					}
+					$('#view_teleopComments').html(report.teleopComments)
+					$('#view_highestToteAuto').html(report.highestToteAuto)
+					$('#view_grayTotes').html(report.grayTotes)
+					$('#view_containers').html(report.containers)
+					$('#view_containerLitter').html(report.containerLitter)
+					$('#view_landfillLitter').html(report.landfillLitter)
+					$('#view_highestToteTeleop').html(report.highestToteTeleop)
+					$('#view_autoComments').html(report.autoComments)
+					$('#view_robotMoved').html(report.robotMoved.toString())
+					$('#view_toteMoved').html(report.toteMoved.toString())
+					$('#view_containerMoved').html(report.containerMoved.toString())
+					$('#view_toteStacked').html(report.toteStacked.toString())
+					$('#view_landfillContainer').html(report.landfillContainer.toString())
+					$('#view_coopertitionSet').html(report.coopertitionSet.toString())
+					$('#view_coopertitionStack').html(report.coopertitionStack.toString())
+				}
+			}
+		};
+
 		$('.report_table td').bind('touchstart',function(){
 			$(this).addClass('button_hovered_report')
 		});
@@ -333,6 +352,22 @@ if ('addEventListener' in document) {
 			$(this).toggleClass('button_hovered_report')
 		});
 		$('.report_table td').click(function(){
+			$('#view_nearDrivers').html("No Info")
+			$('#view_teleopComments').html("No Info")
+			$('#view_highestToteAuto').html("No Info")
+			$('#view_grayTotes').html("No Info")
+			$('#view_containers').html("No Info")
+			$('#view_containerLitter').html("No Info")
+			$('#view_landfillLitter').html("No Info")
+			$('#view_highestToteTeleop').html("No Info")
+			$('#view_autoComments').html("No Info")
+			$('#view_robotMoved').html("No Info")
+			$('#view_toteMoved').html("No Info")
+			$('#view_containerMoved').html("No Info")
+			$('#view_toteStacked').html("No Info")
+			$('#view_landfillContainer').html("No Info")
+			$('#view_coopertitionSet').html("No Info")
+			$('#view_coopertitionStack').html("No Info")
 			localStorage.removeItem('team');
 			localStorage.team = $(this).text();
 			$('td').removeClass('button_selected_report');
@@ -347,19 +382,28 @@ if ('addEventListener' in document) {
 			$('#scout_tab').removeClass('active');
 			$('#scout_form').hide();
 			$('#view_form').show();
+			viewData();
+			if(navigator.onLine){
+				autoSync();
+			}	
 		});
 		$('#scout_tab').click(function(){
 			$('#scout_tab').addClass("active");
 			$('#view_tab').removeClass('active');
 			$('#scout_form').show();
 			$("#view_form").hide();
+			$('#submit_match_report').html('Submit');
+			$('#submit_match_report').prop('disabled', false);
+			$('#submit_match_report').css({"background-color":"orange","color":"black"});
+			if(navigator.onLine){
+				autoSync();
+			}	
 		});
 		
 		localStorage.unSynced = "[]";
 		$('#submit_match_report').click(function(){
 
-			var arr = JSON.parse(localStorage.unSynced);
-			arr.push({
+			var report = {
 				"meta" : {
 					"team" : localStorage.team,
 					"match" : localStorage.match,
@@ -383,28 +427,28 @@ if ('addEventListener' in document) {
 					coopertitionSet : $('#coopertitionSet').is(':checked'),
 					coopertitionStack : $('#coopertitionStack').is(':checked')
 				}
-			});
+			};
+
+			var arr = JSON.parse(localStorage.unSynced);
+			arr.push(report);
 			localStorage.unSynced = JSON.stringify(arr);
 
-			ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
-				if(result.code == 0){
-					localStorage.data = result.data;
-					localStorage.matches = result.matches;
-					localStorage.teams = result.teams;
-					localStorage.unSynced = "[]";
-					alert("synced")
-				}else if(result.code == 1){
-					alert("log in first")
-					setTimeout(function() {
-						location = "login.html";
-					}, 1000);
-				}else{
-					alert('Internal Error');
-				}
-			}, function() {
-				alert('Error connecting to server');
-			});
+			var data = JSON.parse(localStorage.data);
+			if(!data[localStorage.team]) data[localStorage.team] = {};
+			if(!data[localStorage.team][localStorage.match]) data[localStorage.team][localStorage.match] = {};
+			if(!data[localStorage.team][localStorage.match][localStorage.user]) data[localStorage.team][localStorage.match][localStorage.user] = [];
+			data[localStorage.team][localStorage.match][localStorage.user].push(report);
+			localStorage.data = JSON.stringify(data);
 
+			if(navigator.onLine){
+				sync();
+				$('#submit_match_report').html('Done!');
+				$('#submit_match_report').prop('disabled', true);
+				$('#submit_match_report').removeClass('button_hovered');
+				$('#submit_match_report').css({"background-color":"black","color":"orange"});
+			} else {
+				alert("Data was saved. Sync when internet connection is available.")
+			}
 		});
 
 		var grayTotes = 0;

@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <title>Report Match</title>
+    <title>Sync</title>
 	<link rel="apple-touch-icon" sizes="180x180" href="img/MorIcon.png">
 	<link rel="apple-touch-startup-image" href="img/MorStartup.png" media="(device-width: 414px)">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
@@ -51,7 +51,7 @@
 <div class="sync">
 	<div class="container-fluid">
 		<div class="row">
-			<button id="sync_button" class="button">Sync Now</button>	 
+			<button id="sync_button" class="button"><span class="glyphicon glyphicon-export"></span> Sync Now</button>	 
 		</div>
 	</div>
 </div>
@@ -79,24 +79,7 @@ if ('addEventListener' in document) {
 		$('#sync_button').click(function(){
 			$(this).fadeOut(300);
 			$('#loading').fadeIn(300);
-			ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
-				if(result.code == 0){
-					localStorage.data = result.data;
-					localStorage.matches = result.matches;
-					localStorage.teams = result.teams;
-					localStorage.unSynced = "[]";
-					$('#loading').html("Done!");
-				}else if(result.code == 1){
-					$('#loading').html('Log in first!');
-					setTimeout(function() {
-						location = "login.html";
-					}, 1000);
-				}else{
-					$('#loading').html('Internal Error');
-				}
-			}, function() {
-				$('#loading').html('Error connecting to server');
-			});
+			sync();
 		});
 	});
 </script>

@@ -33,8 +33,53 @@ function ajax(url, get, post, cb, err) {
 	xhr.open("POST", url, true);
 	xhr.send(getQS(post));
 }
+function sync(){
+	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
+		if(result.code == 0){
+			localStorage.data = result.data;
+			localStorage.matches = result.matches;
+			localStorage.teams = result.teams;
+			localStorage.unSynced = "[]";
+			$('#loading').html("Done!");
+			console.log("synced");
+		}else if(result.code == 1){
+			$('#loading').html('Log in first!');
+			setTimeout(function() {
+				location = "login.html";
+			}, 1000);
+		}else{
+			$('#loading').html('Internal Error');
+		}
+	}, function() {
+		$('#loading').html('Error connecting to server');
+	});
+}
+function autoSync(){
+	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
+		if(result.code == 0){
+			localStorage.data = result.data;
+			localStorage.matches = result.matches;
+			localStorage.teams = result.teams;
+			localStorage.unSynced = "[]";
+			console.log("synced");
+		}else if(result.code == 1){
+			console.log("cant sync -> not logged in")
+		}else{
+			console.log("cant sync -> internal error")
+		}
+	}, function() {
+		$('#loading').html('Error connecting to server');
+	});
+}
+
+Array.prototype.last = function() {
+	return this[this.length - 1];
+};
 
 $(document).ready(function() {
+	if(navigator.onLine){
+		autoSync();
+	}	
 	if($(window).width()<768){
 		$('.current_page').show();
 	}else{
