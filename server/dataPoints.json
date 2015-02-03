@@ -1,5 +1,12 @@
 {
-	"string" : ["autoComments", "teleopComments"],
-	"number" : ["highestToteAuto", "grayTotes", "containers", "containerLitter", "landfillLitter", "highestToteTeleop"],
-	"boolean" : ["nearDrivers", "robotMoved", "toteMoved", "containerMoved", "toteStacked", "landfillContainer", "coopertitionSet", "coopertitionStack"]
+	"match" : {
+		"string" : ["autoComments", "teleopComments"],
+		"number" : ["highestToteAuto", "grayTotes", "containers", "containerLitter", "landfillLitter", "highestToteTeleop"],
+		"boolean" : ["nearDrivers", "robotMoved", "toteMoved", "containerMoved", "toteStacked", "landfillContainer", "coopertitionSet", "coopertitionStack"]
+	},
+	"pit" : {
+		"string" : ["driveTrain"],
+		"number" : ["speed", "maxHeight", "configSpeed", "cycleTime", "coopPoints", "stepGrabber"]
+		"boolean" : ["elevator", "toteGrabber", "arm", "containerGrabber", "toteHerder", "flipsTotes", "retainingCage", "conveyorBelt", "litterGrabber", "humanPlayerTote", "humanPlayerLitter", "singleToteStack", "bumpers", "toteFlipper", "binFlipper"]
+	}
 }

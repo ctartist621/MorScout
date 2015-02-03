@@ -22,7 +22,7 @@ function validEntry(entry) {
 	if(!entry.meta || typeof(entry.meta.team) != "string" || typeof(entry.meta.match) != "string" || typeof(entry.meta.time) != "number" || !entry.data) {
 		return false;
 	}
-	var data = readJSON("dataPoints.json");
+	var data = readJSON("dataPoints.json")[(entry.meta.match == "pit") ? "pit" : "match"];
 	if(JSON.stringify(Object.keys(entry.data).sort()) != JSON.stringify([].concat(data.string, data.number, data.boolean).sort())) {
 		return false;
 	}
