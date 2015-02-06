@@ -175,6 +175,16 @@ http.createServer(function(req, res) {
 						}
 						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN WRITING");
 						writeJSON("data.json", data);
+						var feedback = parseJSON(post.feedback);
+						if(feedback instanceof Array) {
+							var allFeedback = readJSON("feedback.json") || [];
+							for(var i = 0; i < feedback.length; i++) {
+								if(typeof(feedback[i].team) == "string" && typeof(feedback[i].msg == "string")) {
+									allFeedback.push(feedback[i]);
+								}
+							}
+							writeJSON("feedback.json", allFeedback);
+						}
 						sendQS(res, {"code" : 0, "data" : data, "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
 						log("sync:\t" + post.user + "\t" + timeString());
 					}
