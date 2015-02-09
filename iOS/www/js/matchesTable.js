@@ -46,9 +46,8 @@ function addMinutes(time, mins){
 
 
 $(document).ready(function() {
-	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX OR IE(BUT WHY WOULD YOU DO THAT)! CHROME DOES NOT ALLOW LOCAL AJAX
-	$.getJSON('json/matchesJson.json', function(jsonfile){
-		
+  if(localStorage.hasLoggedIn == "true"){
+		var jsonfile = JSON.parse(localStorage.matches);
 		var table = document.createElement('table');
 		
 		var header_row = document.createElement('tr');
@@ -109,8 +108,11 @@ $(document).ready(function() {
 				$(td9).addClass('matchesTableHide');
 
 				var text1 = document.createTextNode(real_match_number);
-				var text2 = document.createTextNode(jsonfile[real_match_number].time);
-				var text3 = document.createTextNode(jsonfile[real_match_number].scouted);
+				// var text2 = document.createTextNode(jsonfile[real_match_number].time);
+				var d = new Date();
+				var text2 = document.createTextNode(d.getHours()+":"+d.getMilliseconds()%60 + " PM");
+				// var text3 = document.createTextNode(jsonfile[real_match_number].scouted);
+				var text3 = document.createTextNode("No");
 				var text4 = document.createTextNode(jsonfile[real_match_number].red[0]);
 				var text5 = document.createTextNode(jsonfile[real_match_number].red[1]);
 				var text6 = document.createTextNode(jsonfile[real_match_number].red[2]);
@@ -140,7 +142,7 @@ $(document).ready(function() {
 
 				table.appendChild(tr);
 				
-				var time = new Date();
+				/*var time = new Date();
 				if(real_match_number_plus_one !== undefined){
 					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < toMilitary(jsonfile[real_match_number_plus_one].time)){
 						$(tr).addClass('current_match');
@@ -151,7 +153,7 @@ $(document).ready(function() {
 					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < addMinutes(toMilitary(jsonfile[real_match_number].time), 5)){
 						$(tr).addClass('current_match');
 					}
-				}
+				}*/
 		}
 		
 		document.body.appendChild(table);
@@ -183,15 +185,35 @@ $(document).ready(function() {
 		    location = "report.html?" + getQS({"match" : $(this).children(":first").text(), "time" : $(this).children(":first").next().text()});
 		});
 
-
-
 		if(window.innerWidth<630){
 			$('.matchesTableHide').hide();
 		}else{
 			$('.matchesTableHide').show();
 		}
-		
-	});
+
+		var $rows = $('.matches_table tr');
+		$('#search').keyup(function() {
+			$('tr').removeClass('odd_row');
+		    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+		    if(val==""){
+		    	$("tr:odd").addClass("odd_row");
+		    }
+
+		    $rows.show().filter(function() {
+		        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+		        return !~text.indexOf(val);
+		    }).hide();
+		    $(".first_row").show();
+		});
+
+  }else{
+  	$('#search').hide();
+	$('#loading').html('Log in first!');
+	setTimeout(function(){
+		location = "login.html";
+	}, 1000)
+  };	
+
 });
 
 $(window).resize(function() {

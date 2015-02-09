@@ -560,7 +560,7 @@ label:before {
 	}	
 .selectboxdiv{
  	height: 23px;
-    left: 7.5em;
+    left: 9.5em;
     margin-top: 0;
     position: absolute;
     width: 7em;
@@ -740,6 +740,81 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 
 /* END OF SETTINGS SCREEN STYLES */
 
+/* FEEDBACK PAGE STYLES */
+
+#feedback_form{
+	margin: 3em;
+}
+
+#feedback_name{
+	font-size: 3em;
+	font-family: 'Exo 2', sans-serif;
+	padding: 3px;
+	background-color: #c0c0c0;
+	color: black;
+	margin-top: 0.2em;
+	margin-bottom: 0.2em;
+	max-width: 14em;
+	width: 75%;
+}
+
+#feedback_name::-webkit-input-placeholder { 
+    color: gray; /* color of place holder text in settings text boxes */
+	opacity:0.8; /* opacity of place holder text in settings text boxes */
+	font-weight: bold; /* weight of place holder text in settings text boxes */
+}
+#feedback_name:-moz-placeholder {
+   color: gray; 
+   opacity:0.8; 
+   font-weight: bold; 
+}
+#feedback_name::-moz-placeholder { 
+   color: gray; 
+   opacity:0.8;
+   font-weight: bold;
+}
+#feedback_name:-ms-input-placeholder {
+   color: gray;
+   opacity:0.8;
+   font-weight: bold;
+}
+
+#feedback_box{
+	font-size: 3em;
+	font-family: 'Exo 2', sans-serif;
+	padding: 3px;
+	background-color: #c0c0c0;
+	color: black;
+	margin-top: 0.2em;
+	margin-bottom: 0.2em;
+	max-width: 18em;
+	height:7em;
+	width:95%;
+}
+
+#feedback_box::-webkit-input-placeholder { 
+    color: gray; /* color of place holder text in settings text boxes */
+	opacity:0.8; /* opacity of place holder text in settings text boxes */
+	font-weight: bold; /* weight of place holder text in settings text boxes */
+}
+#feedback_box:-moz-placeholder {
+   color: gray; 
+   opacity:0.8; 
+   font-weight: bold; 
+}
+#feedback_box::-moz-placeholder { 
+   color: gray; 
+   opacity:0.8;
+   font-weight: bold;
+}
+#feedback_box:-ms-input-placeholder {
+   color: gray;
+   opacity:0.8;
+   font-weight: bold;
+}
+
+/* END OF FEEDBACK PAGE STYLES */
+
 /* STYLES FOR SMALLER SCREENS */
 
 @media screen and (max-width: 420px){
@@ -761,7 +836,7 @@ margin-top: 4em; /* distance of grid of settings from top of page */
 @media screen and (max-width: 623px){
 	
 	.matches_table{
-		font-size: 2vw !important; /* scaling font size for text in all matches table 
+		font-size: 2vw !important; /* scaling font size for text in all matches table
 		line-height: 4vh; /* larger scaling line height for text in all matches table for easier match selecting on small screens 
 	}
 */

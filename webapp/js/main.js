@@ -1,3 +1,12 @@
+function parseJSON(str) {
+	try {
+		return JSON.parse(str);
+	}
+	catch(e) {
+		return undefined;
+	}
+}
+
 function getQS(obj) {
 	var arr = Object.keys(obj);
 	for(var i = 0; i < arr.length; i++) {
@@ -34,12 +43,18 @@ function ajax(url, get, post, cb, err) {
 	xhr.send(getQS(post));
 }
 function sync(){
-	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
+	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {
+		"user": localStorage.user || sessionStorage.user,
+		"token": localStorage.token || sessionStorage.token,
+		"data": localStorage.unSynced || "[]",
+		"feedback" : localStorage.feedback || "[]"
+	}, function(result){
 		if(result.code == 0){
 			localStorage.data = result.data;
 			localStorage.matches = result.matches;
 			localStorage.teams = result.teams;
 			localStorage.unSynced = "[]";
+			localStorage.feedback = "[]";
 			$('#loading').html("Done!");
 			console.log("synced");
 		}else if(result.code == 1){
@@ -54,13 +69,19 @@ function sync(){
 		$('#loading').html('Error connecting to server');
 	});
 }
-function autoSync(){
-	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
+function autoSync(){console.log(localStorage.feedback);
+	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {
+		"user": localStorage.user || sessionStorage.user,
+		"token": localStorage.token || sessionStorage.token,
+		"data": localStorage.unSynced || "[]",
+		"feedback" : localStorage.feedback || "[]"
+	}, function(result){
 		if(result.code == 0){
 			localStorage.data = result.data;
 			localStorage.matches = result.matches;
 			localStorage.teams = result.teams;
 			localStorage.unSynced = "[]";
+			localStorage.feedback = "[]";
 			console.log("synced");
 		}else if(result.code == 1){
 			console.log("cant sync -> not logged in")

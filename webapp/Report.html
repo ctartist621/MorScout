@@ -40,7 +40,7 @@
 		  </ul>
 		  <ul class="nav navbar-nav navbar-right">
 			<li><a class = "rightlinks" href="help.html" title="Need help?">Help</a></li>
-			<li><a class = "rightlinks" href="#" title="Give us your opinion!">Feedback</a></li>
+			<li><a class = "rightlinks" href="feedback.html" title="Give team 1515 your feedback!">Feedback</a></li>
 			<li id="UserDropdown" class="dropdown">
 				<a class = "rightlinks" href="login.html">Log in</a>
 			</li>
@@ -59,7 +59,6 @@
 			<h2 id="report_instruction">Choose a team to scout or view</h2>
 		</div>
 		<div class="row">
-			
 			<div class = "col-md-12">
 				<table class="report_table">
 					<tr>
@@ -79,8 +78,7 @@
 						<td id="b3"></td>
 					</tr>
 				</table>
-			</div>
-			
+			</div>	
 		</div>
 		<div class="row">
 			<div class="col-md-1 col-sm-0 col-xs-0">
@@ -94,7 +92,7 @@
 			<div class="col-md-1 col-sm-0 col-xs-0">
 			</div>
 		</div>			
-		<div id="scout_form" class="row">	
+		<div id="scout_form" class="row">
 			<div class="col-md-1 col-sm-0 col-xs-0">
 			</div>	
 			<div class="col-md-5 col-sm-6 col-xs-12">
@@ -169,29 +167,6 @@
 			</div>
 			<div class="col-md-1 col-sm-0 col-xs-0">
 			</div>		
-			<!-- <div class="col-md-4 col-sm-6 col-xs-12">
-				<div class="scout_div">
-				    <h3 class = "scout_div_title">Litter is thrown:</h3>  
-					<input class="report_check" type="checkbox" id="check31"></input><label id="report_text" for="check31">on other side</label><br/>
-					<input class="report_check" type="checkbox" id="check32"></input><label id="report_text" for="check32">on own side</label><br/>
-					<input class="report_check" type="checkbox" id="check33"></input><label id="report_text" for="check33">in landfill</label><br/>
-					<h3 class="scout_div_title">General</h3>
-	  	    		<input class="report_check" type="checkbox" id="check34"></input><label id="report_text" for="check34">Do they knock over totes?</label><br/>
-					<input class="report_check" type="checkbox" id="check35"></input><label id="report_text" for="check35">Litter in recycle bin?</label><br/>
-	  	    		<p id="report_text">Highest level tote: </p>
-	  	    		<input id="report_box_small" type="number"></input><br/>
-	  	    		<p id="report_text">Recycle bins stacked: </p>
-	  	    		<input id="report_box_small" type="number"></input><br/>
-	  	    		<p id="report_text">Recycle bins collected: </p>
-	  	    		<input id="report_box_small" type="number"></input><br/> 
-	  	    		<h3 class="scout_div_title">Autonomous</h3>  
-					<p id="report_text">yellow totes stacked: </p>
-	  	    		<input id="report_box_small" type="number"></input><br/>  
-					<input class="report_check" type="checkbox" id="check36"></input><label id="report_text" for="check36">tote set</label><br/>
-					<input class="report_check" type="checkbox" id="check37"></input><label id="report_text" for="check37">container set</label><br/>
-					<input class="report_check" type="checkbox" id="check38"></input><label id="report_text" for="check38">stacked tote set</label><br/>
-				</div>
-			</div> -->
 		</div>	
 		<div id="view_form" class="row">
 			<div class="col-md-1 col-sm-0 col-xs-0">
@@ -306,7 +281,7 @@ if ('addEventListener' in document) {
 		$('#view_form').hide();
 		$('#report_tabs').hide();
 		
-		var viewData = function() {
+		var viewDataMatch = function() {
 			var data = JSON.parse(localStorage.data);
 			if(data && data[localStorage.team] && data[localStorage.team][localStorage.match]){
 				var report;
@@ -382,7 +357,7 @@ if ('addEventListener' in document) {
 			$('#scout_tab').removeClass('active');
 			$('#scout_form').hide();
 			$('#view_form').show();
-			viewData();
+			viewDataMatch();
 			if(navigator.onLine){
 				autoSync();
 			}	
@@ -400,7 +375,6 @@ if ('addEventListener' in document) {
 			}	
 		});
 		
-		localStorage.unSynced = "[]";
 		$('#submit_match_report').click(function(){
 
 			var report = {
@@ -429,7 +403,7 @@ if ('addEventListener' in document) {
 				}
 			};
 
-			var arr = JSON.parse(localStorage.unSynced);
+			var arr = parseJSON(localStorage.unSynced) || [];
 			arr.push(report);
 			localStorage.unSynced = JSON.stringify(arr);
 

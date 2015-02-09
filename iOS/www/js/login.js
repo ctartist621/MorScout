@@ -28,6 +28,24 @@ function ajax(url, get, post, cb) {
 	xhr.open("POST", url, true);
 	xhr.send(getQS(post));
 }
+function autoSync(){
+	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
+		if(result.code == 0){
+			localStorage.data = result.data;
+			localStorage.matches = result.matches;
+			localStorage.teams = result.teams;
+			localStorage.unSynced = "[]";
+			console.log("synced");
+		}else if(result.code == 1){
+			console.log("cant sync -> not logged in")
+		}else{
+			console.log("cant sync -> internal error")
+		}
+	}, function() {
+		$('#loading').html('Error connecting to server');
+	});
+}
+
 document.getElementById("login_form").onsubmit = function() {
 	if($('#check_box').is(':checked')){
 
@@ -38,7 +56,9 @@ document.getElementById("login_form").onsubmit = function() {
 			if(result.code == 0) {
 				localStorage.user = result.user;
 				localStorage.token = result.token;
+				localStorage.hasLoggedIn = true;
 				location = "index.html";
+				autoSync();
 			}
 			else if(result.code == 1) {
 				alert("invalid username and password");
@@ -57,7 +77,9 @@ document.getElementById("login_form").onsubmit = function() {
 			if(result.code == 0) {
 				sessionStorage.user = result.user;
 				sessionStorage.token = result.token;
+				localStorage.hasLoggedIn = true;
 				location = "index.html";
+				autoSync();
 			}
 			else if(result.code == 1) {
 				alert("invalid username and password");

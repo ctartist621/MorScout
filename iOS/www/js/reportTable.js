@@ -11,8 +11,9 @@ $(document).ready(function() {
 	
 	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
 	
-	$.getJSON('json/matchesJson.json', function(jsonfile){
+	if(localStorage.hasLoggedIn){
 		
+		var jsonfile = JSON.parse(localStorage.matches)
 		var data = urlGet(String(location));
 		
 		var r1 = document.createTextNode(jsonfile[data.match].red[0]);
@@ -32,7 +33,7 @@ $(document).ready(function() {
 		$('#report_match_num').html(data.match);
 		$('#report_match_time').html(data.time);
  		
-	});
+	};
 
 });
 
