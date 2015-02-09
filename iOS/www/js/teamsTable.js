@@ -1,9 +1,8 @@
 $(document).ready(function() {
-	
-	// !!! VERY IMPORTANT !!! OPEN IN FIREFOX! CHROME DOES NOT ALLOW LOCAL AJAX
-	
-	$.getJSON('json/officialteams.json', function(jsonfile){
+	if(localStorage.hasLoggedIn == "true"){
 		
+		var jsonfile = JSON.parse(localStorage.teams);
+
 		var table = document.createElement('table');
 		
 		var header_row = document.createElement('tr');
@@ -30,8 +29,8 @@ $(document).ready(function() {
 			var td1 = document.createElement('td');
 			var td2 = document.createElement('td');
 
-			var text1 = document.createTextNode(jsonfile[real_match_number].team_number);
-			var text2 = document.createTextNode(jsonfile[real_match_number].nickname);
+			var text1 = document.createTextNode(real_match_number);
+			var text2 = document.createTextNode(jsonfile[real_match_number]);
 
 			td1.appendChild(text1);
 			td2.appendChild(text2);
@@ -72,7 +71,7 @@ $(document).ready(function() {
 		});
 
 		var $rows = $('.teams_table tr');
-		$('#team_search').keyup(function() {
+		$('#search').keyup(function() {
 			$('tr').removeClass('odd_row');
 		    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
 		    if(val==""){
@@ -85,5 +84,11 @@ $(document).ready(function() {
 		    }).hide();
 		});
 
-	});
+	} else {
+		$('#search').hide();
+		$('#loading').html('Log in first!');
+			setTimeout(function(){
+			location = "login.html";
+		}, 1000)
+	}
 });

@@ -1,3 +1,12 @@
+function parseJSON(str) {
+	try {
+		return JSON.parse(str);
+	}
+	catch(e) {
+		return undefined;
+	}
+}
+
 function getQS(obj) {
 	var arr = Object.keys(obj);
 	for(var i = 0; i < arr.length; i++) {
@@ -33,8 +42,63 @@ function ajax(url, get, post, cb, err) {
 	xhr.open("POST", url, true);
 	xhr.send(getQS(post));
 }
+function sync(){
+	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
+		if(result.code == 0){
+			localStorage.data = result.data;
+			localStorage.matches = result.matches;
+			localStorage.teams = result.teams;
+			localStorage.unSynced = "[]";
+			$('#loadingSync').html("Done!");
+			console.log("synced");
+		}else if(result.code == 1){
+			$('#loadingSync').html('Log in first!');
+			setTimeout(function() {
+				location = "login.html";
+			}, 1000);
+		}else{
+			$('#loadingSync').html('Internal Error');
+		}
+	}, function() {
+		$('#loading').html('Error connecting to server');
+	});
+}
+function autoSync(){
+	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {
+		"user": localStorage.user || sessionStorage.user,
+		"token": localStorage.token || sessionStorage.token,
+		"data": localStorage.unSynced || "[]",
+		"feedback" : localStorage.feedback || "[]"
+	}, function(result){
+		if(result.code == 0){
+			localStorage.data = result.data;
+			localStorage.matches = result.matches;
+			localStorage.teams = result.teams;
+			localStorage.unSynced = "[]";
+			console.log("synced");
+		}else if(result.code == 1){
+			console.log("cant sync -> not logged in")
+		}else{
+			console.log("cant sync -> internal error")
+		}
+	}, function() {
+		$('#loadingSync').html('Error connecting to server');
+	});
+}
+
+Array.prototype.last = function() {
+	return this[this.length - 1];
+};
 
 $(document).ready(function() {
+	if(navigator.onLine){
+		autoSync();
+	}	
+	if($(window).width()<768){
+		$('.current_page').show();
+	}else{
+		$('.current_page').hide();
+	}
 	if(localStorage.user !== undefined){
 	
 		var userD = document.createTextNode(" " + localStorage.user);
@@ -45,6 +109,7 @@ $(document).ready(function() {
 				if(result.code == 0) {
 					localStorage.removeItem('user');
 					localStorage.removeItem('token');
+					localStorage.hasLoggedIn = false;
 					location = "index.html";
 				}
 				else if(result.code == 1) {
@@ -70,6 +135,7 @@ $(document).ready(function() {
 				if(result.code == 0) {
 					sessionStorage.removeItem('user');
 					sessionStorage.removeItem('token');
+					localStorage.hasLoggedIn = false;
 					location = "index.html";
 				}
 				else if(result.code == 1) {
@@ -83,8 +149,10 @@ $(document).ready(function() {
 			
 		}
 		document.getElementById("view_prof").onclick = function() {
-			alert("Hello and have a good day, " + sessionStorage.user.substring(0,sessionStorage.user.length-1) + "\nToken: " + sessionStorage.token + "\nLogged in for 1 session.\nIP: " + localStorage.ip);
+			alert("Hello and have a good day, " + sessionStorage.user + "\nToken: " + sessionStorage.token + "\nLogged in for 1 session.\nIP: " + localStorage.ip);
 		}
+	} else {
+		localStorage.hasLoggedIn = false;
 	}
 		$('.button').hover(function(){
 			$(this).toggleClass('button_hovered')
