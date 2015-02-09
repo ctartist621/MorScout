@@ -38,7 +38,7 @@ function validEntry(entry) {
 
 function addEntry(entry, user, data) {
 	entry.meta.scout = user;
-	entry.meta.checksum = getChecksum(entry.data);
+	entry.meta.checksum = getHash(JSON.stringify(sortJSON(entry.data)));
 	var team = entry.meta.team;
 	var match = entry.meta.match;
 	var scout = entry.meta.scout;
@@ -71,8 +71,8 @@ function sortJSON(obj) {
 	return result;
 }
 
-function getChecksum(data) {
-	return crypto.createHash("md5").update(JSON.stringify(sortJSON(data))).digest("hex");
+function getHash(data) {
+	return crypto.createHash("md5").update(data).digest("hex");
 }
 
 function twoDigit(num) {
@@ -134,17 +134,17 @@ http.createServer(function(req, res) {
 	                var users = readJSON("users.json");
 	                var userFound = false;
 	                for(var username in users) {
-	                	if(user.toLowerCase() == username.toLowerCase() && users[username].pass == pass) {
+	                	if(user.toLowerCase() == username.toLowerCase() && users[username].pass == getHash(pass)) {
 		                	var token = getToken(32);
 		                	if(!users[username].tokens) {
 			                	users[username].tokens = [];
 		                	}
 		                	users[username].tokens.push(token);
 		                	writeJSON("users.json", users);
-		        		sendQS(res, {"code" : 0, "user" : username, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
-		        		log("login:\t" + username + "\t" + timeString());
-		        		userFound = true;
-		        		break;
+			        		sendQS(res, {"code" : 0, "user" : username, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
+			        		log("login:\t" + username + "\t" + timeString());
+			        		userFound = true;
+			        		break;
 	                	}
 	                }
 	                if(!userFound) {

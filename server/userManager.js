@@ -1,6 +1,7 @@
 var fs = require("fs");
+var crypto = require("crypto");
 
-function getInput() {
+(function getInput() {
 	process.stdout.write("> ");
 	process.stdin.resume();
 	process.stdin.once("data", function(data) {
@@ -18,37 +19,48 @@ function getInput() {
 			for(var key in users) {
 				users[key].tokens = [];
 			}
+			console.log("success");
 		}
 		else if(cmd == "logout") {
-			if(check(user) && validUser(users, user)) {
-				users[user].tokens = [];
+			if(user || console.log("usage: logout username")) {
+				if(users[user] || console.log("user not found")) {
+					users[user].tokens = [];
+					console.log("success");
+				}
 			}
 		}
 		else if(cmd == "add") {
-			if(check(user)) {
+			if(user || console.log("usage: add username")) {
 				if(users[user]) {
-					console.log("already exists");
+					console.log("user already exists");
 				}
 				else {
 					users[user] = {"pass" : "", "tokens" : []};
+					console.log("success");
 				}
 			}
 		}
 		else if(cmd == "remove") {
-			if(check(user) && validUser(users, user)) {
-				delete users[user];
+			if(user || console.log("usage: remove username")) {
+				if(users[user] || console.log("user not found")) {
+					delete users[user];
+					console.log("success");
+				}
 			}
 		}
 		else if(cmd == "changepass") {
-			if(check(user) && check(pass) && validUser(users, user)) {
-				users[user].pass = pass;
+			if((user && pass) || console.log("usage: changePass username password")) {
+				if(users[user] || console.log("user not found")) {
+					users[user].pass = getHash(pass);
+					console.log("success");
+				}
 			}
 		}
 		else if(cmd == "exit") {
 			process.exit();
 		}
 		else if(cmd == "help") {
-			console.log("list, logoutAll, logout, add, remove, changePass, exit, help");
+			console.log("commands: list, logoutAll, logout, add, remove, changePass, exit, help");
 		}
 		else {
 			console.log("use help");
@@ -57,22 +69,8 @@ function getInput() {
 		console.log("");
 		getInput();
 	});
-}
+})();
 
-function check(user) {
-	if(!user) {
-		console.log("please enter correct arguments");
-		return false;
-	}
-	return true;
+function getHash(data) {
+	return crypto.createHash("md5").update(data).digest("hex");
 }
-
-function validUser(users, user) {
-	if(!users[user]) {
-		console.log("user not found");
-		return false;
-	}
-	return true;
-}
-
-getInput();
