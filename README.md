@@ -29,11 +29,15 @@ Open the terminal or command prompt and navigate to the "server" folder and then
 $ node server
 ```
 1.  Record the ip address address printed.
-2.  Open "index.html" in your favorite browser.
+2.  Navigate to the "webapp" folder and open "index.html" in your favorite browser.
 3.  If the server is running on the machine being used to open "index.html" skip the next step. 
 4. Navigate to the settings page and enter the correct ip and port.
 5. Now you can log in to your account from the navigation page and start scouting!
 6. Remember to give Team 1515 your feedback. We would love to hear from you!!
+
+##How to set regional
+---
+Each team will be running their own server, so it is completely customizable. You can set your regional by going to the "url.json" file in the server folder and changing "2014calb" to the desired year and reginal code. Your regional code can be found on bluealliance.com.
 
 ##How to send feedback to team 1515
 ---
@@ -43,7 +47,3 @@ Just simply navigate to the feedback page from any morscout page and submit your
 $ node sendFeedback
 ```
 You are good to go!
-
-##How to set regional
----
-Each team will be running their own server, so it is completely customizable. You can set your regional by going to the "url.json" file in the server folder and changing "2014calb" to the desired year and reginal code. Your regional code can be found on bluealliance.com.
