@@ -43,3 +43,7 @@ Just simply navigate to the feedback page from any morscout page and submit your
 $ node sendFeedback
 ```
 You are good to go!
+
+##How to set regional
+---
+Each team will be running their own server, so it is completely customizable. You can set your regional by going to the "url.json" file in the server folder and changing "2014calb" to the desired year and reginal code. Your regional code can be found on bluealliance.com.
