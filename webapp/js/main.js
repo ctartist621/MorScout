@@ -69,7 +69,7 @@ function sync(){
 		$('#loading').html('Error connecting to server');
 	});
 }
-function autoSync(){console.log(localStorage.feedback);
+function autoSync(){
 	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {
 		"user": localStorage.user || sessionStorage.user,
 		"token": localStorage.token || sessionStorage.token,
@@ -161,15 +161,6 @@ $(document).ready(function() {
 	} else {
 		localStorage.hasLoggedIn = false;
 	}
-		$('.button').hover(function(){
-			$(this).toggleClass('button_hovered')
-		});
-		$('.button').bind('touchstart',function(){
-			$(this).addClass('button_hovered')
-		});
-		$('.button').bind('touchend',function(){
-			$(this).removeClass('button_hovered')
-		});
 	
 });
 $(window).resize(function(){

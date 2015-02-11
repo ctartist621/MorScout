@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Exo 2';
+    src: url('../fonts/Exo_2/Exo2-ExtraLight.ttf')  format('truetype');
+ }
+ @font-face {
+    font-family: 'Exo 2';
+    src: url('../fonts/Exo_2/Exo2-Regular.ttf')  format('truetype');
+    font-weight: bold;
+ }
 .hidden  {
     display: none; /* hides elements under class "hidden" (not to be changed)  */
 }
@@ -19,6 +28,9 @@ body {
 }
 
 /* NAVIGATION BAR STYLES */
+#morscout{
+	pointer-events: none;
+}
 
 .navbar-default .container-fluid {
   background-color: orange; /* color of nav bar */
@@ -109,6 +121,7 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 .main_welcome  {
 	margin-top: 20vh; /* sets welcome message distance from top of page  */
 	font-family: 'Exo 2', sans-serif; /* sets welcome message font */
+	font-weight: 400;
 }
 
 .main_welcome h1 {
@@ -218,10 +231,6 @@ th,td {
 	background-color: #EE7600; /* background color of current match row when hovered */
 }
 
-.table_hover{
-	color: white; /* color of text when any row is hovered over */
-	cursor: pointer; /* changes cursor to shape of hand when hovering over rows (not to be changed) */
-}
 
 #r1, #r2, #r3{
 	background-color: #B80000 ; /* background color of table cells of red teams */
@@ -235,9 +244,32 @@ th,td {
 #bh {
 	background-color: #001962; /* background color of table header cell of blue teams */
 }
+.redTeamHighlight{
+	background-color: #B80000 ;
+	color: #CCCCCC;
+}
+.blueTeamHighlight{
+	background-color: #0029A3;
+	color: #CCCCCC;
+}
+.redTeamHeader{
+	background-color: #760000;
+	color: #CCCCCC;
+}
+.blueTeamHeader{
+	background-color: #001962;
+	color: #CCCCCC;
+}
+.table_hover > td{
+	background-color: #C0C0C0 !important;
+	color: black !important; /* color of text when any row is hovered over */
+	cursor: pointer !important; /* changes cursor to shape of hand when hovering over rows (not to be changed) */
+}
 
 /* END OF TABLE STYLES */
 
+/* JON WROTE ALL OF THIS AND HE IS THE BEST WRITER. */
+/* I APPROVE -FARBOD */
 
 /* LOGIN PAGE STYLES */
 
@@ -571,9 +603,23 @@ label:before {
 	-moz-opacity: 0;
 	opacity: 0;
 	cursor:pointer;
-	}	
+}	
 
 .button{
+	font-size: 3em;
+	padding-left: .2em;
+	padding-right: .2em;
+	margin-bottom: 1em;
+	margin-top: 0.5em;
+	border-radius: .2em;
+	background-color: orange;
+	color: black;
+	font-family: 'Exo 2', sans-serif;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+	border-radius: 0;
+}
+.button_disabled{
 	font-size: 3em;
 	padding-left: .2em;
 	padding-right: .2em;
@@ -718,7 +764,7 @@ label:before {
 	background-color: gray; /* background color of button */
 }
 
-.button_hovered{
+.button:hover{
 	background-color: #EE7600 !important; /* background color of button when hovered */
 	cursor: pointer; /* changes cursor to hand (not to be changed) */
 }

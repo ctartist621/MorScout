@@ -62,6 +62,10 @@ $(document).ready(function() {
 
 		$(th4).addClass('matchesTableHide');
 		$(th5).addClass('matchesTableHide');
+		$(th4).addClass('redTeamHeader');
+		$(th5).addClass('blueTeamHeader');
+
+
 		
 		var th_text1 = document.createTextNode("#");
 		var th_text2 = document.createTextNode("Time");
@@ -106,6 +110,14 @@ $(document).ready(function() {
 				$(td7).addClass('matchesTableHide');
 				$(td8).addClass('matchesTableHide');
 				$(td9).addClass('matchesTableHide');
+
+				$(td4).addClass('redTeamHighlight');
+				$(td5).addClass('redTeamHighlight');
+				$(td6).addClass('redTeamHighlight');
+
+				$(td7).addClass('blueTeamHighlight');
+				$(td8).addClass('blueTeamHighlight');
+				$(td9).addClass('blueTeamHighlight');
 
 				var text1 = document.createTextNode(real_match_number);
 				// var text2 = document.createTextNode(jsonfile[real_match_number].time);
