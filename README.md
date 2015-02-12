@@ -7,6 +7,10 @@
 - [X] Android Client
 - [X] iOS Client
 
+##Getting Started
+---
+In order to run the MorScout server, you need to have node.js installed on the computer you are planning to run your personal server. To install node.js, go to http://nodejs.org and click on install.
+
 ##How to Make an Account
 ---
 Open the terminal or command prompt and navigate to the "server" folder and then enter the following line of code:
