@@ -29,6 +29,7 @@ function validEntry(entry) {
 	for(var key in data) {
 		for(var i = 0; i < data[key].length; i++) {
 			if(typeof(entry.data[data[key][i]]) != key) {
+				console.log(data[key][i]);
 				return false;
 			}
 		}

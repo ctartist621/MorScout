@@ -6,7 +6,7 @@
 	},
 	"pit" : {
 		"string" : ["driveTrain"],
-		"number" : ["speed", "maxHeight", "configSpeed", "cycleTime", "coopPoints", "stepGrabber"]
-		"boolean" : ["elevator", "toteGrabber", "arm", "containerGrabber", "toteHerder", "flipsTotes", "retainingCage", "conveyorBelt", "litterGrabber", "humanPlayerTote", "humanPlayerLitter", "singleToteStack", "bumpers", "toteFlipper", "binFlipper"]
+		"number" : ["speed", "maxHeight", "configSpeed", "cycleTime", "coopPoints", "stepGrabber", "toteBinFlipper"],
+		"boolean" : ["elevator", "toteGrabber", "arm", "containerGrabber", "toteHerder", "retainingCage", "conveyorBelt", "litterGrabber", "humanPlayerTote", "humanPlayerLitter", "singleToteStack", "bumpers"]
 	}
 }
