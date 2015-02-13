@@ -265,6 +265,11 @@ th,td {
 	color: black !important; /* color of text when any row is hovered over */
 	cursor: pointer !important; /* changes cursor to shape of hand when hovering over rows (not to be changed) */
 }
+.table_head{
+	background-color: #303030 !important;
+	white-space: nowrap;
+}
+
 
 /* END OF TABLE STYLES */
 
@@ -358,6 +363,10 @@ input:focus {
 	background-color: black; /* background color of username and password text boxes */
 }
 
+#login_button:hover{
+	background-color: 
+}
+
 /* END OF LOGIN PAGE STYLES */
 
 
@@ -429,6 +438,7 @@ input:focus {
 	margin-top: 3em;
 	padding: 0.7em;
 	width: 90%;
+	overflow-x: scroll; 
 
 	/* background-color: #B0C4DE; */
 }
@@ -687,6 +697,31 @@ label:before {
 #view_table{
 	width: 100%;
 }
+.viewMatchInTeam{
+	display: inline;
+	border: 1px;
+	border-collapse: separate;
+}
+.fixed_col{
+	position: absolute;
+	width:18em;
+	left:0;
+	background-color: black;
+}
+.fixed_col_table{
+	margin-left: 33em;
+	width:100% !important;
+}
+.viewMatchInTeam > td{
+	white-space: nowrap;
+}
+.reg_col{
+	
+}
+#viewMatches_form{
+	width:73%;
+	text-align: center;
+}
 /* END OF REPORT SCREEN STYLES */
 
 /* SYNC PAGE STYLES */
@@ -766,6 +801,7 @@ label:before {
 
 .button:hover{
 	background-color: #EE7600 !important; /* background color of button when hovered */
+	border-color: #EE7600 !important;
 	cursor: pointer; /* changes cursor to hand (not to be changed) */
 }
 

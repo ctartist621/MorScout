@@ -56,6 +56,7 @@ function sync(){
 			localStorage.unSynced = "[]";
 			localStorage.feedback = "[]";
 			$('#loading').html("Done!");
+			localStorage.hasSynced = true;
 			console.log("synced");
 		}else if(result.code == 1){
 			$('#loading').html('Log in first!');
@@ -82,6 +83,7 @@ function autoSync(){
 			localStorage.teams = result.teams;
 			localStorage.unSynced = "[]";
 			localStorage.feedback = "[]";
+			localStorage.hasSynced = true;
 			console.log("synced");
 		}else if(result.code == 1){
 			console.log("cant sync -> not logged in")

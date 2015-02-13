@@ -46,7 +46,7 @@ function addMinutes(time, mins){
 
 
 $(document).ready(function() {
-  if(localStorage.hasLoggedIn == "true"){
+  if(localStorage.hasSynced == "true"){
 		var jsonfile = JSON.parse(localStorage.matches);
 		var table = document.createElement('table');
 		
@@ -64,9 +64,7 @@ $(document).ready(function() {
 		$(th5).addClass('matchesTableHide');
 		$(th4).addClass('redTeamHeader');
 		$(th5).addClass('blueTeamHeader');
-
-
-		
+	
 		var th_text1 = document.createTextNode("#");
 		var th_text2 = document.createTextNode("Time");
 		var th_text3 = document.createTextNode("Scouted");

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	if(localStorage.hasLoggedIn == "true"){
+	if(localStorage.hasSynced == "true"){
 		
 		var jsonfile = JSON.parse(localStorage.teams);
 
@@ -67,6 +67,7 @@ $(document).ready(function() {
 		});
 		
 		$('tr').not(".first_row").click( function(){
+			localStorage.pitTeam = $(this).children(":first").text();
 			location = "reportTeam.html?" + getQS({"team" : $(this).children(":first").text(), "name" : $(this).children(":first").next().text()});
 		});
 

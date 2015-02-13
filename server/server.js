@@ -168,12 +168,15 @@ http.createServer(function(req, res) {
 					if(entries instanceof Array) {
 						var data = readJSON("data.json");
 						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN READING");
+						var count = 0;
 						for(var i = 0; i < entries.length; i++) {
 							var entry = entries[i];
 							if(validEntry(entry)) {
 								data = addEntry(entry, post.user, data);
+								count++;
 							}
 						}
+						if(count > 0) console.log(count + " entr" + (count == 1 ? "y" : "ies") + " received");
 						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN WRITING");
 						writeJSON("data.json", data);
 						var feedback = parseJSON(post.feedback);

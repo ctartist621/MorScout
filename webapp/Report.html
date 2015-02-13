@@ -415,9 +415,10 @@ if ('addEventListener' in document) {
 			if(!data[localStorage.team][localStorage.match][localStorage.user]) data[localStorage.team][localStorage.match][localStorage.user] = [];
 			data[localStorage.team][localStorage.match][localStorage.user].push(report);
 			localStorage.data = JSON.stringify(data);
+			console.log(localStorage.data);
 
 			if(navigator.onLine){
-				sync();
+				autoSync();
 				$('#submit_match_report').html('Done!');
 				$('#submit_match_report').prop('disabled', true);
 				$('#submit_match_report').removeClass('button_hovered');
