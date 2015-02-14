@@ -70,11 +70,12 @@ function getHash(data) {
 }
 
 function timeString() {
+	var twoDigits = num => (num < 10 ? "0" : "") + num;
 	var date = new Date();
 	var hours = ((date.getHours() + 11) % 12 + 1);
 	var minutes = date.getMinutes();
 	var seconds = date.getSeconds();
-	return hours.toFixed(2) + ":" + minutes.toFixed(2) + ":" + seconds.toFixed(2);
+	return twoDigits(hours) + ":" + twoDigits(minutes) + ":" + twoDigits(seconds);
 }
 
 function parseJSON(str) {
