@@ -1,31 +1,42 @@
 var http = require("http");
 var fs = require("fs");
+var qs = require("querystring");
 
 var feedback = JSON.parse(fs.readFileSync("feedback.json"));
+var finished = Array(feedback.length).fill(false);
 var success = true;
 for(var i = 0; i < feedback.length; i++) {
+	var index = i;
 	http.request({
 		host : "thevoidpigeon.heliohost.org",
-		path : "/morscout.php?team=" + escape(feedback[i].team) + "&msg=" + escape(feedback[i].msg)
+		path : "/morscout.php?" + qs.stringify({
+			team: feedback[i].team,
+			msg: feedback[i].msg
+		})
 	}, function(res) {
 		var data = "";
 		res.on("data", function(chunk) {
 			data += chunk;
 		});
 		res.on("end", function() {
+			finished[index] = true;
 			if(data != "success") {
 				success = false;
+			}
+			if(finished.every(x => x)) {
+				if(success) {
+					console.log("success");
+					fs.writeFile("feedback.json", "[]");
+				}
+				else {
+					console.log("error");
+				}
 			}
 		});
 	}).end();
 }
-
-if(success) {
+if(feedback.length == 0) {
 	console.log("success");
-	fs.writeFile("feedback.json", "[]");
-}
-else {
-	console.log("error");
 }
 
 /* thevoidpigeon.heliohost.org/morscout.php

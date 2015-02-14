@@ -13,14 +13,10 @@ http.request({
 	res.on("end", function() {
 		data = JSON.parse(data);
 		var result = {};
-		for(var i = 0; i < data.length; i++) {
-			result[data[i].match_number] = {
-				"red" : data[i].alliances.red.teams.map(function(str) {
-					return str.substring(3);
-				}),
-				"blue" : data[i].alliances.blue.teams.map(function(str) {
-					return str.substring(3);
-				})
+		for(var match of data) {
+			result[match.match_number] = {
+				red : match.alliances.red.teams.map(str => str.substring(3)),
+				blue : match.alliances.blue.teams.map(str => str.substring(3))
 			};
 		}
 		fs.writeFile("matches.json", JSON.stringify(result));

@@ -13,8 +13,8 @@ http.request({
 	res.on("end", function() {
 		data = JSON.parse(data);
 		var result = {};
-		for(var i = 0; i < data.length; i++) {
-			result[data[i].team_number] = data[i].nickname;
+		for(var team of data) {
+			result[team.team_number] = team.nickname;
 		}
 		fs.writeFile("teams.json", JSON.stringify(result));
 	});

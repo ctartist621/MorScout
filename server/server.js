@@ -27,9 +27,9 @@ function validEntry(entry) {
 		return false;
 	}
 	for(var key in data) {
-		for(var i = 0; i < data[key].length; i++) {
-			if(typeof(entry.data[data[key][i]]) != key) {
-				console.log(data[key][i]);
+		for(var dataPoint of data[key]) {
+			if(typeof(entry.data[dataPoint]) != key) {
+				console.log(dataPoint);
 				return false;
 			}
 		}
@@ -47,14 +47,7 @@ function addEntry(entry, user, data) {
 	data[team] = data[team] || {};
 	data[team][match] = data[team][match] || {};
 	data[team][match][scout] = data[team][match][scout] || [];
-	var any = false;
-	for(var i = 0; i < data[team][match][scout].length; i++) {
-		if(data[team][match][scout][i].meta.checksum == entry.meta.checksum) {
-			any = true;
-			break;
-		}
-	}
-	if(!any) {
+	if(!data[team][match][scout].some(report => report.meta.checksum == entry.meta.checksum)) {
 		data[team][match][scout].push(entry);
 	}
 	return data;
@@ -66,8 +59,8 @@ function sortJSON(obj) {
 	}
 	var arr = Object.keys(obj).sort();
 	var result = {};
-	for(var i = 0; i < arr.length; i++) {
-		result[arr[i]] = sortJSON(obj[arr[i]]);
+	for(var elem of arr) {
+		result[elem] = sortJSON(obj[elem]);
 	}
 	return result;
 }
@@ -76,16 +69,12 @@ function getHash(data) {
 	return crypto.createHash("md5").update(data).digest("hex");
 }
 
-function twoDigit(num) {
-	return (num < 10 ? "0" : "") + num;
-}
-
 function timeString() {
 	var date = new Date();
 	var hours = ((date.getHours() + 11) % 12 + 1);
 	var minutes = date.getMinutes();
 	var seconds = date.getSeconds();
-	return twoDigit(hours) + ":" + twoDigit(minutes) + ":" + twoDigit(seconds);
+	return hours.toFixed(2) + ":" + minutes.toFixed(2) + ":" + seconds.toFixed(2);
 }
 
 function parseJSON(str) {
@@ -116,7 +105,7 @@ function writeJSON(file, json) {
 
 function log(line) {
 	console.log(line);
-	fs.writeFile("log.txt", fs.readFileSync("log.txt") + line + "\n");
+	fs.appendFile("log.txt", line + "\n");
 }
 
 http.createServer(function(req, res) {
@@ -169,8 +158,7 @@ http.createServer(function(req, res) {
 						var data = readJSON("data.json");
 						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN READING");
 						var count = 0;
-						for(var i = 0; i < entries.length; i++) {
-							var entry = entries[i];
+						for(var entry of entries) {
 							if(validEntry(entry)) {
 								data = addEntry(entry, post.user, data);
 								count++;
@@ -182,9 +170,9 @@ http.createServer(function(req, res) {
 						var feedback = parseJSON(post.feedback);
 						if(feedback instanceof Array) {
 							var allFeedback = readJSON("feedback.json") || [];
-							for(var i = 0; i < feedback.length; i++) {
-								if(typeof(feedback[i].team) == "string" && typeof(feedback[i].msg == "string")) {
-									allFeedback.push(feedback[i]);
+							for(var item of feedback) {
+								if(typeof(item.team) == "string" && typeof(item.msg == "string")) {
+									allFeedback.push(item);
 								}
 							}
 							writeJSON("feedback.json", allFeedback);
@@ -213,9 +201,9 @@ http.createServer(function(req, res) {
 (function() {
 	var obj = require("os").networkInterfaces();
 	for(var key in obj) {
-		for(var i = 0; i < obj[key].length; i++) {
-			if(obj[key][i].family == "IPv4" && obj[key][i].address != "127.0.0.1") {
-				console.log(obj[key][i].address);
+		for(var elem of obj[key]) {
+			if(elem.family == "IPv4" && elem.address != "127.0.0.1") {
+				console.log(elem.address);
 			}
 		}
 	}
