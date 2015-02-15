@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+  <head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>MorScout</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <script>
+    $(document).on('mobileinit', function () {
+        $.mobile.ignoreContentEnabled = true;
+    });
+    </script>
+    
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <script id="panel-init">
+    $(function() {
+      $( "body>[data-role='panel']" ).panel().enhanceWithin();
+    });
+    </script>
+    
+    <script src="js/main.js" type="text/javascript"></script>
+
+  </head>
+ 
+<body>
+<div data-role="page" class="page" id="reportTeamPage" data-theme="b">
+
+  <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <a href="#leftPanel" class="ui-btn" id="bars"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+      <h1>Report</h1>
+      <a href="#" class="ui-btn nameDisplay" id="bars"></a>
+  </div>
+
+	<div data-role="content" class="ui-content" data-enhance="false">	 
+		<div class = "report">
+			<div class = "container-fluid">
+				<div id="report_title" class="page_title">
+					<h2 class="page_title">Team </h2>
+					<h2 class="page_title" id="report_team_num"></h2>
+					<h2 id="dash"> - </h2>
+					<h2 class="page_title" id="report_team_name"></h2>
+				</div>
+				<div class="row">
+					<div class="col-md-1 col-sm-0 col-xs-0">
+					</div>	
+					<div class="col-md-10 col-sm-12 col-xs-12">
+						<ul id="report_tabs" class="nav nav-tabs">
+						  <li id="scout_tab" class="active"><a href="javascript: void(0);">Scout</a></li>
+						  <li id="view_tab"><a href="javascript: void(0);">View</a></li>
+						  <li id="viewMatches_tab"><a href="javascript: void(0);">View Matches</a></li>
+						</ul>	
+					</div>
+					<div class="col-md-1 col-sm-0 col-xs-0">
+					</div>
+				</div>	
+				<div id="scout_form" class="row">
+					<div class="col-md-1 col-sm-0 col-xs-0">
+					</div>
+					<div class="col-md-5 col-sm-6 col-xs-12">
+			  	    	<div class="scout_div"> 
+			  	    		<h3 class="scout_div_title">General</h3> 
+			  	    		<p id="report_text">Drive Train: </p>
+			  	    		<div class="selectdiv" > 
+						      <select class="selectboxdiv" id="driveTrain">
+						        <option>choose...</option>
+						        <option value="Mecanum">Mecanum</option>
+						        <option value="Swerve">Swerve</option>
+						        <option value="West Coast">West Coast</option>
+						        <option value="Octocanum">Octocanum</option>
+						        <option value="Slide">Slide</option>
+						        <option value="Crab">Crab</option>
+						      </select>
+						      <div style="display:inline;" class="out">XCZXCzxcxz</div>
+						  	</div><br/> 
+			  	    		<p id="report_text">Cycle time (sec): </p>
+			  	    		<input id="report_box_small" type="number" class="cycleTime"></input><br/>
+			  	    		<p id="report_text">Co-op points: </p>
+			  	    		<input id="report_box_small" type="number" class="coopPoints"></input><br/>  
+			  	    		<p id="report_text">Speed: </p>
+			  	    		<input id="report_box_small" type="number" class="speed"></input><br/> 
+			  	    		<p id="report_text">Max height: </p>
+			  	    		<input id="report_box_small" type="number" class="maxHeight"></input><br/> 
+			  	    		<p id="report_text">Field configuration speed (sec): </p>
+			  	    		<input id="report_box_small" type="number" class="configSpeed"></input><br/> 
+			  	    		<input class="report_check" type="checkbox" id="bumpers"></input>
+			  	    		<label id="report_text" for="bumpers" class="report_radio_check">Bumpers?</label><br/> 
+			  	    	</div>	
+					</div>
+					<div class="col-md-5 col-sm-6 col-xs-12">
+			  	    	<div class="scout_div"> 
+			  	    		<h3 class="scout_div_title">Manipulators</h3> 
+			  	    		<input class="report_check" type="checkbox" id="elevator"></input>
+			  	    		<label id="report_text" for="elevator" class="report_radio_check">Elevator</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="toteGrabber"></input>
+			  	    		<label id="report_text" for="toteGrabber" class="report_radio_check">Tote grabber</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="arm"></input>
+			  	    		<label id="report_text" for="arm" class="report_radio_check">Arm</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="containerGrabber"></input>
+			  	    		<label id="report_text" for="containerGrabber" class="report_radio_check">Container grabber</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="toteHerder"></input>
+			  	    		<label id="report_text" for="toteHerder" class="report_radio_check">Tote herder</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="stepGrabber"></input>
+			  	    		<label id="report_text" for="stepGrabber" class="report_radio_check">Step container grabber</label><br/>
+
+			  	    		<p id="report_text" for="toteBinFlipper" class="report_radio_check">Tote/bin flipper</p>
+			  	    		<input id="report_box_small" type="number" value="0" class="toteBinFlipper"></input><br/>
+
+			  	    		<input class="report_check" type="checkbox" id="retainingCage"></input>
+			  	    		<label id="report_text" for="retainingCage" class="report_radio_check">Retaining cage</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="conveyorBelt"></input>
+			  	    		<label id="report_text" for="conveyorBelt" class="report_radio_check">Conveyer belt</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="litterGrabber"></input>
+			  	    		<label id="report_text" for="litterGrabber" class="report_radio_check">Litter grabber</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="humanPlayerTote"></input>
+			  	    		<label id="report_text" for="humanPlayerTote" class="report_radio_check">Human player tote intake</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="humanPlayerLitter"></input>
+			  	    		<label id="report_text" for="humanPlayerLitter" class="report_radio_check">Human player litter intake</label><br/>
+			  	    		<input class="report_check" type="checkbox" id="singleToteStack"></input>
+			  	    		<label id="report_text" for="singleToteStack" class="report_radio_check">Single tote stack</label><br/>
+			  	    	</div>
+			  	    	<div class="submit_match">
+							<button id="submit_match_report" class="button">Submit</button>
+						</div>	
+					</div>
+					<div class="col-md-1 col-sm-0 col-xs-0">
+					</div>
+				</div>
+				<div id="view_form" class="row">
+					<div class="col-md-1 col-sm-0 col-xs-0">
+					</div>
+					<div class="col-md-5 col-sm-6 col-xs-12">
+						<div class="scout_div">
+							<h3 class="scout_div_title view_title">General</h3>
+							<table id="view_table">
+								<tr>
+									<td>Drive Train</td>
+									<td id="view_driveTrain">No Info</td>
+								</tr>
+								<tr>
+									<td>Cycle Time (seconds)</td>
+									<td id="view_cycleTime">No Info</td>
+								</tr>
+								<tr>
+									<td>Co-op Points</td>
+									<td id="view_coopPoints">No Info</td>
+								</tr>
+								<tr>
+									<td>Speed</td>
+									<td id="view_speed">No Info</td>
+								</tr>
+								<tr>
+									<td>Max height</td>
+									<td id="view_maxHeight">No Info</td>
+								</tr>
+								<tr>
+									<td>Field config speed (sec)</td>
+									<td id="view_configSpeed">No Info</td>
+								</tr>
+								<tr>
+									<td>Has bumpers</td>
+									<td id="view_bumpers">No Info</td>
+								</tr>
+							</table>
+						</div>	
+					</div>
+					<div class="col-md-5 col-sm-6 col-xs-12">
+						<div class="scout_div">
+							<h3 class="scout_div_title view_title">Manipulators</h3>
+							<table id="view_table">
+								<tr>
+									<td>Elevator</td>
+									<td id="view_elevator">No Info</td>
+								</tr>
+								<tr>
+									<td>Tote grabber</td>
+									<td id="view_toteGrabber">No Info</td>
+								</tr>
+								<tr>
+									<td>Arm</td>
+									<td id="view_arm">No Info</td>
+								</tr>
+								<tr>
+									<td>Container grabber</td>
+									<td id="view_containerGrabber">No Info</td>
+								</tr>
+								<tr>
+									<td>Tote herder</td>
+									<td id="view_toteHerder">No Info</td>
+								</tr>
+								<tr>
+									<td>Step container grabber</td>
+									<td id="view_stepGrabber">No Info</td>
+								</tr>
+								<tr>
+									<td>Tote/bin flipper</td>
+									<td id="view_toteBinFlipper">No Info</td>
+								</tr>
+								<tr>
+									<td>Retaining cage</td>
+									<td id="view_retainingCage">No Info</td>
+								</tr>
+								<tr>
+									<td>Conveyor belt</td>
+									<td id="view_conveyorBelt">No Info</td>
+								</tr>
+								<tr>
+									<td>Litter grabber</td>
+									<td id="view_litterGrabber">No Info</td>
+								</tr>
+								<tr>
+									<td>Human player tote intake</td>
+									<td id="view_humanPlayerTote">No Info</td>
+								</tr>
+								<tr>
+									<td>Human player litter intake</td>
+									<td id="view_humanPlayerLitter">No Info</td>
+								</tr>
+								<tr>
+									<td>Single tote stack</td>
+									<td id="view_singleToteStack">No Info</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="col-md-1 col-sm-0 col-xs-0">
+					</div>
+				</div>	
+			    <div id="viewMatches_form" class="row">
+			    	<div class="col-md-1 col-sm-0 col-xs-0">
+					</div>
+			    	<div class="col-md-10 col-sm-12 col-xs-12">
+			    		<div class="scout_div fixed_col_table" id="view_table">
+			    			<h3 class="scout_div_title view_title">All Matches for This Team </h3>
+			    			<table class="viewMatchInTeam">
+			    				<tr>
+			    					<th class="table_head fixed_col">Data Points</th>
+			    					<th class="table_head">Match 1</th>
+			    					<th class="table_head">Match 2</th>
+			    					<th class="table_head">Match 3</th>
+			    					<th class="table_head">Match 4</th>
+			    					<th class="table_head">Match 5</th>
+			    					<th class="table_head">Match 6</th>
+			    					<th class="table_head">Match 7</th>
+			    					<th class="table_head">Match 8</th>
+			    					<th class="table_head">Match 9</th>
+			    					<th class="table_head">Match 10</th>
+			    					<th class="table_head">Match 11</th>
+			    					<th class="table_head">Match 12</th>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Started near</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Robot moved to auto zone</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Tote set on auto zone</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Container set on auto zone</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Totes stacked on auto zone</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Highest level tote stacked in auto</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Can get container from landfill</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Comments in autonomous</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Gray totes scored</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Containers scored</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Litter in containers</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Litter put in landfill</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Highest level tote stacked in teleop</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Coopertition set</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Coopertition stack</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    				<tr>
+			    					<td class="fixed_col">Comments in teleop</td>
+			    					<td class="reg_col">true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    					<td>true</td>
+			    				</tr>
+			    			</table>
+			    		</div>
+			    	</div>
+			    	<div class="col-md-1 col-sm-0 col-xs-0">
+					</div>	
+			    </div>		
+			</div>
+		</div>
+	</div>
+</div>	
+
+</body>
+</html>

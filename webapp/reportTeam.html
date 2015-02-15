@@ -609,6 +609,7 @@ if ('addEventListener' in document) {
 			$('#scout_tab').removeClass('active');
 			$('#viewMatches_tab').removeClass('active');
 			$('#scout_form').hide();
+			$('#viewMatches_form').hide();  
 			$('#view_form').show();
 			viewDataPit();
 			if(navigator.onLine){
@@ -621,6 +622,7 @@ if ('addEventListener' in document) {
 			$('#viewMatches_tab').removeClass('active');
 			$('#scout_form').show();
 			$("#view_form").hide();
+			$('#viewMatches_form').hide();  
 			$('#submit_match_report').html('Submit');
 			$('#submit_match_report').prop('disabled', false);
 			$('#submit_match_report').css({"background-color":"orange","color":"black"});
