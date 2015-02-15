@@ -1,22 +1,24 @@
-var fs = require("fs");
-var crypto = require("crypto");
+"use strict"
+
+let fs = require("fs");
+let crypto = require("crypto");
 
 (function getInput() {
 	process.stdout.write("> ");
 	process.stdin.resume();
 	process.stdin.once("data", function(data) {
-		var input = String(data).trim().split(" ");
-		var cmd = input[0].toLowerCase();
-		var user = input[1];
-		var pass = input[2];
-		var users = JSON.parse(fs.readFileSync("users.json"));
+		let input = String(data).trim().split(" ");
+		let cmd = input[0].toLowerCase();
+		let user = input[1];
+		let pass = input[2];
+		let users = JSON.parse(fs.readFileSync("users.json"));
 		if(cmd == "list") {
-			for(var key in users) {
+			for(let key in users) {
 				console.log(key);
 			}
 		}
 		else if(cmd == "logoutall") {
-			for(var key in users) {
+			for(let key in users) {
 				users[key].tokens = [];
 			}
 			console.log("success");

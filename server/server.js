@@ -1,20 +1,22 @@
-var http = require("http");
-var url = require("url");
-var fs = require("fs");
-var qs = require("querystring");
-var crypto = require("crypto");
+"use strict"
+
+let http = require("http");
+let url = require("url");
+let fs = require("fs");
+let qs = require("querystring");
+let crypto = require("crypto");
 
 function getToken(size) {
-	var token = "";
-	for(var i = 0; i < size; i++) {
-		var rand = Math.floor(Math.random() * 62);
+	let token = "";
+	for(let i = 0; i < size; i++) {
+		let rand = Math.floor(Math.random() * 62);
 		token += String.fromCharCode(rand + ((rand < 26) ? 97 : ((rand < 52) ? 39 : -4)));
 	}
 	return token;
 }
 
 function validToken(user, token) {
-	var users = readJSON("users.json");
+	let users = readJSON("users.json");
 	return users[user] && users[user].tokens && ~users[user].tokens.indexOf(token);
 }
 
@@ -22,12 +24,12 @@ function validEntry(entry) {
 	if(!entry.meta || typeof(entry.meta.team) != "string" || typeof(entry.meta.match) != "string" || typeof(entry.meta.time) != "number" || !entry.data) {
 		return false;
 	}
-	var data = readJSON("dataPoints.json")[(entry.meta.match == "pit") ? "pit" : "match"];
+	let data = readJSON("dataPoints.json")[(entry.meta.match == "pit") ? "pit" : "match"];
 	if(JSON.stringify(Object.keys(entry.data).sort()) != JSON.stringify([].concat(data.string, data.number, data.boolean).sort())) {
 		return false;
 	}
-	for(var key in data) {
-		for(var dataPoint of data[key]) {
+	for(let key in data) {
+		for(let dataPoint of data[key]) {
 			if(typeof(entry.data[dataPoint]) != key) {
 				console.log(dataPoint);
 				return false;
@@ -40,9 +42,9 @@ function validEntry(entry) {
 function addEntry(entry, user, data) {
 	entry.meta.scout = user;
 	entry.meta.checksum = getHash(JSON.stringify(sortJSON(entry.data)));
-	var team = entry.meta.team;
-	var match = entry.meta.match;
-	var scout = entry.meta.scout;
+	let team = entry.meta.team;
+	let match = entry.meta.match;
+	let scout = entry.meta.scout;
 	data = data || {};
 	data[team] = data[team] || {};
 	data[team][match] = data[team][match] || {};
@@ -57,9 +59,9 @@ function sortJSON(obj) {
 	if(typeof(obj) != "object" || obj instanceof Array) {
 		return obj;
 	}
-	var arr = Object.keys(obj).sort();
-	var result = {};
-	for(var elem of arr) {
+	let arr = Object.keys(obj).sort();
+	let result = {};
+	for(let elem of arr) {
 		result[elem] = sortJSON(obj[elem]);
 	}
 	return result;
@@ -70,11 +72,11 @@ function getHash(data) {
 }
 
 function timeString() {
-	var twoDigits = num => (num < 10 ? "0" : "") + num;
-	var date = new Date();
-	var hours = ((date.getHours() + 11) % 12 + 1);
-	var minutes = date.getMinutes();
-	var seconds = date.getSeconds();
+	let twoDigits = num => (num < 10 ? "0" : "") + num;
+	let date = new Date();
+	let hours = ((date.getHours() + 11) % 12 + 1);
+	let minutes = date.getMinutes();
+	let seconds = date.getSeconds();
 	return twoDigits(hours) + ":" + twoDigits(minutes) + ":" + twoDigits(seconds);
 }
 
@@ -88,7 +90,7 @@ function parseJSON(str) {
 }
 
 function sendQS(res, json) {
-	for(var key in json) {
+	for(let key in json) {
 		if(typeof(json[key]) == "object") {
 			json[key] = JSON.stringify(json[key]);
 		}
@@ -111,22 +113,22 @@ function log(line) {
 
 http.createServer(function(req, res) {
 	res.writeHead(200, {"Access-Control-Allow-Headers" : "Content-Type", "Access-Control-Allow-Origin" : "*"});
-	var path = url.parse(req.url, true).pathname;
+	let path = url.parse(req.url, true).pathname;
 	if(req.method == "POST") {
 		req.on("data", function(post) {
             post = qs.parse(String(post));
 			if(path == "/login") {
-				var user = post.user;
-				var pass = post.pass;
+				let user = post.user;
+				let pass = post.pass;
                 if(!user || !pass) {
 	                sendQS(res, {"code" : 2});
                 }
                 else {
-	                var users = readJSON("users.json");
-	                var userFound = false;
-	                for(var username in users) {
+	                let users = readJSON("users.json");
+	                let userFound = false;
+	                for(let username in users) {
 	                	if(user.toLowerCase() == username.toLowerCase() && users[username].pass == getHash(pass)) {
-		                	var token = getToken(32);
+		                	let token = getToken(32);
 		                	if(!users[username].tokens) {
 			                	users[username].tokens = [];
 		                	}
@@ -145,21 +147,21 @@ http.createServer(function(req, res) {
 			}
 			else if(validToken(post.user, post.token)) {
 				if(path == "/logout") {
-					var users = readJSON("users.json");
-					var user = post.user;
-					var token = post.token;
+					let users = readJSON("users.json");
+					let user = post.user;
+					let token = post.token;
 					users[user].tokens.splice(users[user].tokens.indexOf(token), 1);
 					writeJSON("users.json", users);
 					sendQS(res, {"code" : 0});
 					log("logout:\t" + post.user +"\t" + timeString());
 				}
 				else if(path == "/sync") {
-					var entries = parseJSON(post.data);
+					let entries = parseJSON(post.data);
 					if(entries instanceof Array) {
-						var data = readJSON("data.json");
+						let data = readJSON("data.json");
 						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN READING");
-						var count = 0;
-						for(var entry of entries) {
+						let count = 0;
+						for(let entry of entries) {
 							if(validEntry(entry)) {
 								data = addEntry(entry, post.user, data);
 								count++;
@@ -168,10 +170,10 @@ http.createServer(function(req, res) {
 						if(count > 0) console.log(count + " entr" + (count == 1 ? "y" : "ies") + " received");
 						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN WRITING");
 						writeJSON("data.json", data);
-						var feedback = parseJSON(post.feedback);
+						let feedback = parseJSON(post.feedback);
 						if(feedback instanceof Array) {
-							var allFeedback = readJSON("feedback.json") || [];
-							for(var item of feedback) {
+							let allFeedback = readJSON("feedback.json") || [];
+							for(let item of feedback) {
 								if(typeof(item.team) == "string" && typeof(item.msg == "string")) {
 									allFeedback.push(item);
 								}
@@ -200,9 +202,9 @@ http.createServer(function(req, res) {
 }).listen(8080, "0.0.0.0");
 
 (function() {
-	var obj = require("os").networkInterfaces();
-	for(var key in obj) {
-		for(var elem of obj[key]) {
+	let obj = require("os").networkInterfaces();
+	for(let key in obj) {
+		for(let elem of obj[key]) {
 			if(elem.family == "IPv4" && elem.address != "127.0.0.1") {
 				console.log(elem.address);
 			}

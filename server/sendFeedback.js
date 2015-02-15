@@ -1,12 +1,13 @@
-var http = require("http");
-var fs = require("fs");
-var qs = require("querystring");
+"use strict"
 
-var feedback = JSON.parse(fs.readFileSync("feedback.json"));
-var finished = Array(feedback.length).fill(false);
-var success = true;
-for(var i = 0; i < feedback.length; i++) {
-	var index = i;
+let http = require("http");
+let fs = require("fs");
+let qs = require("querystring");
+
+let feedback = JSON.parse(fs.readFileSync("feedback.json"));
+let finished = Array(feedback.length).fill(false);
+let success = true;
+for(let i = 0; i < feedback.length; i++) {
 	http.request({
 		host : "thevoidpigeon.heliohost.org",
 		path : "/morscout.php?" + qs.stringify({
@@ -14,12 +15,12 @@ for(var i = 0; i < feedback.length; i++) {
 			msg: feedback[i].msg
 		})
 	}, function(res) {
-		var data = "";
+		let data = "";
 		res.on("data", function(chunk) {
 			data += chunk;
 		});
 		res.on("end", function() {
-			finished[index] = true;
+			finished[i] = true;
 			if(data != "success") {
 				success = false;
 			}
