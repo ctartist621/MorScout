@@ -9,7 +9,7 @@
 
 ##Getting Started
 ---
-In order to run the MorScout server, you need to have node.js installed on the computer you are planning to run your personal server. To install node.js, go to http://nodejs.org and click on install.
+In order to run the MorScout server, you need to have the latest version of node.js installed on the computer you are planning to run your personal server. To install node.js, go to http://nodejs.org and click on install.
 
 ##How to Make an Account
 ---
@@ -30,7 +30,7 @@ Additionally you can type help if you are having trouble.
 ---
 Open the terminal or command prompt and navigate to the "server" folder and then, enter this line of code:
 ```sh
-$ node server
+$ node --harmony server
 ```
 1.  Record the ip address address printed.
 2.  Navigate to the "webapp" folder and open "index.html" in your favorite browser.
