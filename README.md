@@ -15,7 +15,7 @@ In order to run the MorScout server, you need to have the latest version of node
 ---
 Open the terminal or command prompt and navigate to the "server" folder and then enter the following line of code:
 ```sh
-$ node userManager
+$ node --harmony userManager
 ```
 now enter your desired username after the word "add". For example:
 ```sh
@@ -48,6 +48,6 @@ Each team will be running their own server, so it is completely customizable. Yo
 Sending feedback is simple! Because MorScout is still in beta we rely on your feedback to make the best scouting app ever!
 Just simply navigate to the feedback page from any morscout page and submit your feedback. Then navigate to the server folder in the terminal or command prompt and type:
 ```sh
-$ node sendFeedback
+$ node --harmony sendFeedback
 ```
 You are good to go!
