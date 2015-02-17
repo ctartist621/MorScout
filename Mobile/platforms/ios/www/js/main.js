@@ -51,10 +51,11 @@ function sync(){
 			localStorage.unSynced = "[]";
 			$('#loadingSync').html("Done!");
 			console.log("synced");
+			localStorage.hasSynced = true;
 		}else if(result.code == 1){
 			$('#loadingSync').html('Log in first!');
 			setTimeout(function() {
-				location = "login.html";
+				$(':mobile-pagecontainer').pagecontainer('change', 'login.html', {transition: "none"});
 			}, 1000);
 		}else{
 			$('#loadingSync').html('Internal Error');
@@ -76,6 +77,7 @@ function autoSync(){
 			localStorage.teams = result.teams;
 			localStorage.unSynced = "[]";
 			console.log("synced");
+			localStorage.hasSynced = true;
 		}else if(result.code == 1){
 			console.log("cant sync -> not logged in")
 		}else{
@@ -93,7 +95,12 @@ Array.prototype.last = function() {
 $(document).ready(function() {
 	if(navigator.onLine){
 		autoSync();
-	}	
+	}
+
+	$('.panelLink').click(function(){
+		$("[data-role=panel]").panel("close");
+	});
+
 	if(localStorage.user !== undefined){
 	
 		var userD = document.createTextNode(" " + localStorage.user);
@@ -107,12 +114,11 @@ $(document).ready(function() {
 				if(result.code == 0) {
 					localStorage.removeItem('user');
 					localStorage.removeItem('token');
-					localStorage.hasLoggedIn = false;
 					$('.loginLink').html('Log In');;
 	                $('.loginLink').removeAttr('id');
 	                $('.loginLink').attr('href', "login.html" );
 	                $('.nameDisplay').html("");
-	                location="index.html";
+	                location = "index.html";
 				}
 				else if(result.code == 1) {
 					alert("invalid token");
@@ -141,12 +147,11 @@ $(document).ready(function() {
 				if(result.code == 0) {
 					sessionStorage.removeItem('user');
 					sessionStorage.removeItem('token');
-					localStorage.hasLoggedIn = false;
 					$('.loginLink').html('Log In');;
 		            $('.loginLink').removeAttr('id');
 		            $('.loginLink').attr('href', "login.html" );
 		            $('.nameDisplay').html("");
-		            location="index.html";
+		            location = "index.html";
 				}
 				else if(result.code == 1) {
 					alert("invalid token");
@@ -159,7 +164,6 @@ $(document).ready(function() {
 			
 		}
 	} else {
-		localStorage.hasLoggedIn = false;
 	}
 		$('.button').hover(function(){
 			$(this).toggleClass('button_hovered')

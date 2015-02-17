@@ -14,4 +14,9 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <icon src="www/img/MorIcon.png" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="StatusBarBackgroundColor" value="#ff8c00" />
 </widget>

@@ -16,6 +16,7 @@
 	padding:0em; /* removes default paddings of HTML elements (not to be changed) */
 	border: 0em; /* removes default borders of HTML elements (not to be changed) */
 	-webkit-border-radius: 0px; /* sharp angles for text boxes in safari (not to be changed) */
+	text-shadow: none;
 }
 
 html{
@@ -391,6 +392,10 @@ input:focus {
 
 	/* background-color: #B0C4DE; */
 }
+.fixed_col_table{
+	overflow-x: scroll;
+	width: 55vw;
+}
 .scout_div p{
 	margin-left: .3em;
 	font-size: 1.9em !important;
@@ -616,7 +621,7 @@ label:before {
 }
 
 #report_tabs a{
-	font-size: 2em;
+	font-size: 1.3em;
 	color: DarkOrange;
 	font-family: 'Exo 2', sans-serif;
 }
@@ -625,7 +630,7 @@ label:before {
 	color: black;
 }
 #report_tabs .active a{
-	font-size: 2em;
+	font-size: 1.3em;
 	color: black;
 	font-family: 'Exo 2', sans-serif;
 	background-color: DarkOrange;
@@ -645,6 +650,23 @@ label:before {
 
 #view_table{
 	width: 100%;
+	font-size: 1.7em !important;
+	font-weight: bold;
+}
+
+.fixed_col{
+	position: absolute;
+	width: 12em;
+	left:0;
+	background-color: black;
+	white-space: normal;
+}
+.fixed_col_table{
+	margin-left: 15.8em;
+	width:55vw !important;
+}
+.table_head {
+	white-space: nowrap;
 }
 /* END OF REPORT SCREEN STYLES */
 
@@ -752,11 +774,12 @@ margin-top: 2em; /* distance of grid of settings from top of page */
 /* FEEDBACK PAGE STYLES */
 
 #feedback_form{
-	margin: 3em;
+	margin: .5em;
+	font-size: .8em !important;
 }
 
 #feedback_name{
-	font-size: 3em;
+	font-size: 2em;
 	font-family: 'Exo 2', sans-serif;
 	padding: 3px;
 	background-color: #c0c0c0;

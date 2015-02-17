@@ -35,6 +35,7 @@ function autoSync(){
 			localStorage.matches = result.matches;
 			localStorage.teams = result.teams;
 			localStorage.unSynced = "[]";
+			localStorage.hasSynced = true;
 			console.log("synced");
 		}else if(result.code == 1){
 			console.log("cant sync -> not logged in")
@@ -56,7 +57,6 @@ document.getElementById("login_form").onsubmit = function() {
 			if(result.code == 0) {
 				localStorage.user = result.user;
 				localStorage.token = result.token;
-				localStorage.hasLoggedIn = true;
 				location = "index.html";
 				autoSync();
 			}
@@ -77,7 +77,7 @@ document.getElementById("login_form").onsubmit = function() {
 			if(result.code == 0) {
 				sessionStorage.user = result.user;
 				sessionStorage.token = result.token;
-				localStorage.hasLoggedIn = true;
+				localStorage.hasSynced = true;
 				location = "index.html";
 				autoSync();
 			}

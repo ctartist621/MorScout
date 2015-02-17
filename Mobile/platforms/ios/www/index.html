@@ -20,6 +20,15 @@
 
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 
+    <script type='application/javascript' src='js/fastclick.js'></script>
+    <script>
+      if ('addEventListener' in document) {
+        document.addEventListener('DOMContentLoaded', function() {
+          FastClick.attach(document.body);
+        }, false);
+      }
+    </script>
+
     <script>
     $(document).on('mobileinit', function () {
         $.mobile.ignoreContentEnabled = true;
@@ -39,7 +48,7 @@
     });
     $(document).on('pagebeforeshow', '#matchesPage', function(){ 
       $(".teams_table").remove();
-      if(localStorage.hasLoggedIn == "true"){
+      if(localStorage.hasSynced == "true"){
           var jsonfile = JSON.parse(localStorage.matches);
           var table = document.createElement('table');
           
@@ -245,8 +254,8 @@
         });
     });
     $(document).on('pagebeforeshow', '#teamsPage', function(){
-        $(".matches_table").remove();
-        if(localStorage.hasLoggedIn == "true"){
+      $(".matches_table").remove();
+      if(localStorage.hasSynced == "true"){
     
         var jsonfile = JSON.parse(localStorage.teams);
 
@@ -300,8 +309,8 @@
         $('tr').not(".first_row").addClass('table_hover');
         
         $('tr').not(".first_row").click( function(){
-          localStorage.pitNum = $(this).children(":first").text();
-          localStorage.pitTeam = $(this).children(":first").next().text();
+          localStorage.pitTeam = $(this).children(":first").text();
+          localStorage.pitName = $(this).children(":first").next().text();
           $(':mobile-pagecontainer').pagecontainer('change', 'reportTeam.html', {transition: "slide"});
         });
 
@@ -323,7 +332,7 @@
         $('#search').hide();
         $('#loadingTeams').html('Log in first!');
           setTimeout(function(){
-          location = "login.html";
+          $(':mobile-pagecontainer').pagecontainer('change', 'login.html', {transition: "none"});
         }, 1000)
       }
     });
@@ -451,7 +460,7 @@
     });
     $(document).on('pagebeforeshow', '#reportPage', function(){
       
-      if(localStorage.hasLoggedIn){
+      if(localStorage.hasSynced){
         
         var jsonfile = JSON.parse(localStorage.matches)
         
@@ -634,7 +643,19 @@
               $('#submit_match_report').removeClass('button_disabled');
             }, 1000);
           } else {
-            alert("Data was saved. Sync when internet connection is available.")
+            $('#submit_match_report').html('Data was saved! Sync when server connection is available.');
+            $('#submit_match_report').prop('disabled', true);
+            $('#submit_match_report').removeClass('button_hovered');
+            $('#submit_match_report').removeClass('button');
+            $('#submit_match_report').addClass('button_disabled');
+            $('#submit_match_report').css({"background-color":"black","color":"orange"});
+            setTimeout(function() {
+              $('#submit_match_report').html('Submit');
+              $('#submit_match_report').prop('disabled', false);
+              $('#submit_match_report').css({"background-color":"orange","color":"black"});
+              $('#submit_match_report').addClass('button');
+              $('#submit_match_report').removeClass('button_disabled');
+            }, 2000);
           }
         });
 
@@ -707,11 +728,15 @@
       });
 
       $('#view_form').hide();
-      $('#viewMatches_form').hide();  
+      $('#viewMatches_form').hide(); 
+
+      if($(window).width() < 710){
+        $("#viewMatches_tab").hide();
+      } 
 
       if(localStorage.pitTeam){
-        $('#report_team_num').html(localStorage.pitNum);
-        $('#report_team_name').html(localStorage.pitTeam);
+        $('#report_team_num').html(localStorage.pitTeam);
+        $('#report_team_name').html(localStorage.pitName);
       }else{
         $('#report_team_num').html(localStorage.pitNum);
         $("#dash").hide();
@@ -862,10 +887,49 @@
             $('#submit_match_report').removeClass('button_disabled');
           }, 1000);
         } else {
-          alert("Data was saved. Sync when internet connection is available.")
+          $('#submit_match_report').html('Data was saved! Sync when server connection is available.');
+          $('#submit_match_report').prop('disabled', true);
+          $('#submit_match_report').removeClass('button_hovered');
+          $('#submit_match_report').removeClass('button');
+          $('#submit_match_report').addClass('button_disabled');
+          $('#submit_match_report').css({"background-color":"black","color":"orange"});
+          setTimeout(function() {
+            $('#submit_match_report').html('Submit');
+            $('#submit_match_report').prop('disabled', false);
+            $('#submit_match_report').css({"background-color":"orange","color":"black"});
+            $('#submit_match_report').addClass('button');
+            $('#submit_match_report').removeClass('button_disabled');
+          }, 2000);
         }
       });
-    }); 
+    });
+
+    $(document).on('pagecreate', '#feedbackPage', function(){     
+        $( document ).on( "swiperight", "#feedbackPage", function( e ) {
+          if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
+            if (e.type === "swiperight") {
+                console.log("swipe");
+                $( "#leftPanel" ).panel( "open" );
+            }  
+          }        
+        }); 
+        if(localStorage.user == "GabeG" || sessionStorage.user == "GabeG"){
+          $('#feedback_form').hide();
+          alert("We're sorry, but there was an error in sending the feedback");
+        }
+        $("#submit_match_report").click(function() {
+          var feedback = parseJSON(localStorage.feedback);
+          feedback.push({
+            "team" : $('#feedback_name').val(),
+            "msg" : $('#feedback_box').val()
+          });
+          localStorage.feedback = JSON.stringify(feedback);
+          $("#feedback_name").val("");
+          $("#feedback_box").val("");
+          autoSync();
+
+        });
+      });  
 
     $(document).on('pagecreate', '.page', function(){
       if(navigator.onLine){
