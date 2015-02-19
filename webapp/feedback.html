@@ -77,7 +77,7 @@
 </script>
 <script>
 	$(document).ready(function(){
-		if(localStorage.user == "GabeG"){
+		if(localStorage.user == "GabeG" || sessionStorage.user == "GabeG"){
 			$('#feedback_form').hide();
 			alert("We're sorry, but there was an error in sending the feedback");
 		}

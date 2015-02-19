@@ -196,7 +196,7 @@
 
         }else{
           $('#search').hide();
-        $('#loadingMatches').html('Log in first!');
+          $('#loadingMatches').html('Log in first!');
           setTimeout(function(){
             $('.loginLink').trigger('click');
           }, 1000)
@@ -935,6 +935,21 @@
       if(navigator.onLine){
         autoSync();
       }
+      var $rows = $('tr');
+        $('#search').keyup(function() {
+          console.log("a");
+          $('tr').removeClass('odd_row');
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            if(val==""){
+              $("tr:odd").addClass("odd_row");
+            }
+
+            $rows.show().filter(function() {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+            $(".first_row").show();
+        });
     });   
     </script>
 

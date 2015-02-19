@@ -437,10 +437,11 @@ input:focus {
 	font-family: 'Exo 2', sans-serif; 
 	margin-top: 3em;
 	padding: 0.7em;
-	width: 90%;
-	overflow-x: scroll; 
 
 	/* background-color: #B0C4DE; */
+}
+.fixed_col_table{
+	overflow-x: scroll;
 }
 .scout_div p{
 	margin-left: .3em;

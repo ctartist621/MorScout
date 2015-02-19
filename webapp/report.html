@@ -433,7 +433,19 @@ if ('addEventListener' in document) {
 					$('#submit_match_report').removeClass('button_disabled');
 				}, 1000);
 			} else {
-				alert("Data was saved. Sync when internet connection is available.")
+				$('#submit_match_report').html('Data was saved! Sync when server connection is available.');
+				$('#submit_match_report').prop('disabled', true);
+				$('#submit_match_report').removeClass('button_hovered');
+				$('#submit_match_report').removeClass('button');
+				$('#submit_match_report').addClass('button_disabled');
+				$('#submit_match_report').css({"background-color":"black","color":"orange"});
+				setTimeout(function() {
+					$('#submit_match_report').html('Submit');
+					$('#submit_match_report').prop('disabled', false);
+					$('#submit_match_report').css({"background-color":"orange","color":"black"});
+					$('#submit_match_report').addClass('button');
+					$('#submit_match_report').removeClass('button_disabled');
+				}, 2000);
 			}
 		});
 
