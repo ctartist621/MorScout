@@ -1,10 +1,12 @@
-"use strict"
+"use strict";
 
 let http = require("http");
 let url = require("url");
 let fs = require("fs");
 let qs = require("querystring");
 let crypto = require("crypto");
+
+let port = process.argv.length > 2 ? process.argv[2] : 8080;
 
 function getToken(size) {
 	let token = "";
@@ -199,14 +201,14 @@ http.createServer(function(req, res) {
 	else {
 		sendQS(res, {"code" : 2});
 	}
-}).listen(8080, "0.0.0.0");
+}).listen(port, "0.0.0.0");
 
 (function() {
 	let obj = require("os").networkInterfaces();
 	for(let key in obj) {
 		for(let elem of obj[key]) {
 			if(elem.family == "IPv4" && elem.address != "127.0.0.1") {
-				console.log(elem.address);
+				console.log(elem.address + ":" + port);
 			}
 		}
 	}
