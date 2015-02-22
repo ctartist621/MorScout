@@ -136,11 +136,18 @@ body{
 	margin-top: 2em; /* distance of general writing from top of page */
 }
 .QApair{
-	margin: 0em; /* margin of question and answer pair on help page */
-	margin-bottom: 3em; /* bottom margin of question and answer pair on help page */
+	margin: 1em; /* margin of question and answer pair on help page */
+	margin-bottom: 2em; /* bottom margin of question and answer pair on help page */
 	border: 0.1em solid DarkOrange; /* border of question and answer pair on help page */
+	max-width: 35em;
+	margin-left: auto;
+	margin-right: auto;
 
 }
+#help_container{
+	margin: 1em;
+}
+
 .q{
 	font-weight: bold;
 	color: #EE7600 !important;
@@ -209,12 +216,6 @@ th,td {
 	background-color: #EE7600; /* background color of current match row when hovered */
 }
 
-.table_hover:hover{
-	background-color: #C0C0C0 !important;
-	color: black !important; /* color of text when any row is hovered over */
-	cursor: pointer !important; /* changes cursor to shape of hand when hovering over rows (not to be changed) */
-}
-
 #r1, #r2, #r3{
 	background-color: #B80000 ; /* background color of table cells of red teams */
 }
@@ -227,6 +228,27 @@ th,td {
 #bh {
 	background-color: #001962; /* background color of table header cell of blue teams */
 }
+.redTeamHighlight{
+	background-color: #B80000 ;
+	color: #CCCCCC;
+}
+.blueTeamHighlight{
+	background-color: #0029A3;
+	color: #CCCCCC;
+}
+.redTeamHeader{
+	background-color: #760000;
+	color: #CCCCCC;
+}
+.blueTeamHeader{
+	background-color: #001962;
+	color: #CCCCCC;
+}
+.hoverable_row:hover > td{
+	background-color: #C0C0C0 !important;
+	color: black !important; /* color of text when any row is hovered over */
+	cursor: pointer !important; /* changes cursor to shape of hand when hovering over rows (not to be changed) */
+}
 
 /* END OF TABLE STYLES */
 
@@ -234,7 +256,7 @@ th,td {
 /* LOGIN PAGE STYLES */
 
 #login_form {
-	font-family: 'Open Sans', sans-serif; /* font for login form */
+	font-family: 'Open Sans', sans-serif !important; /* font for login form */
 	font-weight: 300; /* font thickness for login form */
 	text-align: center; /* horizontal alignment of the whole login form */
 }
@@ -247,6 +269,7 @@ th,td {
 	font-size: 1.35em; /* font size of button */
 	background-color: DarkOrange; /* background color of button */
 	margin-top:.3em; /* top margin of button */
+	font-family: 'Open Sans', sans-serif !important; /* font for login form */
 }
 
 .check {
@@ -261,6 +284,7 @@ th,td {
 	width:25.7em;
 	text-align: left; /* horizontal alignment of "remember me" text */
 	font-family: "Exo 2", sans-serif;
+	font-size: .68em;
 }
 
 #check_box{
@@ -492,7 +516,7 @@ label:before {
 input[type=radio]:checked + label:before {  
 	position: absolute;
     content: "\2022";  
-    font-size: 2.3em;  
+    font-size: 1.3em;  
     color: DarkOrange;  
     text-align: center;  
     line-height: .130em; 
@@ -909,7 +933,8 @@ margin-top: 2em; /* distance of grid of settings from top of page */
 	    line-height: 4.5vw;    
 	}
 	input[type=radio]:checked + label:before {    
-	    line-height: 2vw;    
+	    line-height: 2vw; 
+	    font-size: 2.3em;     
 	}
 	.report_area{
 		width: 94%; /* width of report boxes */

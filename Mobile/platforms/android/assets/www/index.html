@@ -64,6 +64,8 @@
 
           $(th4).addClass('matchesTableHide');
           $(th5).addClass('matchesTableHide');
+          $(th4).addClass('redTeamHeader');
+          $(th5).addClass('blueTeamHeader');
           
           var th_text1 = document.createTextNode("#");
           var th_text2 = document.createTextNode("Time");
@@ -91,6 +93,8 @@
               var real_match_number_plus_one = Object.keys(jsonfile)[match_number+1];
               
               var tr = document.createElement('tr');
+
+              $(tr).addClass("hoverable_row")
                
               var td1 = document.createElement('td');
               var td2 = document.createElement('td');
@@ -108,6 +112,15 @@
               $(td7).addClass('matchesTableHide');
               $(td8).addClass('matchesTableHide');
               $(td9).addClass('matchesTableHide');
+              
+              $(td4).addClass('redTeamHighlight');
+              $(td5).addClass('redTeamHighlight');
+              $(td6).addClass('redTeamHighlight');
+
+              $(td7).addClass('blueTeamHighlight');
+              $(td8).addClass('blueTeamHighlight');
+              $(td9).addClass('blueTeamHighlight');
+
 
               var text1 = document.createTextNode(real_match_number);
               // var text2 = document.createTextNode(jsonfile[real_match_number].time);
@@ -196,7 +209,7 @@
 
         }else{
           $('#search').hide();
-        $('#loadingMatches').html('Log in first!');
+          $('#loadingMatches').html('Log in first!');
           setTimeout(function(){
             $('.loginLink').trigger('click');
           }, 1000)
@@ -281,6 +294,7 @@
             
           var real_match_number = Object.keys(jsonfile)[match_number];
           var tr = document.createElement('tr');
+          $(tr).addClass("hoverable_row")
 
           var td1 = document.createElement('td');
           var td2 = document.createElement('td');
@@ -494,6 +508,8 @@
             }  
           }        
         });
+        $(".matches_table").remove();
+        $(".teams_table").remove();
 
         $('#scout_form').hide();
         $('#view_form').hide();
@@ -579,7 +595,7 @@
           $("#view_form").hide();
           $('#submit_match_report').html('Submit');
           $('#submit_match_report').prop('disabled', false);
-          $('#submit_match_report').css({"background-color":"orange","color":"black"});
+          $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
           $('#submit_match_report').addClass('button');
           $('#submit_match_report').removeClass('button_disabled');
           if(navigator.onLine){
@@ -634,11 +650,11 @@
             $('#submit_match_report').removeClass('button_hovered');
             $('#submit_match_report').removeClass('button');
             $('#submit_match_report').addClass('button_disabled');
-            $('#submit_match_report').css({"background-color":"black","color":"orange"});
+            $('#submit_match_report').css({"background-color":"black","color":"DarkOrange"});
             setTimeout(function() {
               $('#submit_match_report').html('Submit');
               $('#submit_match_report').prop('disabled', false);
-              $('#submit_match_report').css({"background-color":"orange","color":"black"});
+              $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
               $('#submit_match_report').addClass('button');
               $('#submit_match_report').removeClass('button_disabled');
             }, 1000);
@@ -648,11 +664,11 @@
             $('#submit_match_report').removeClass('button_hovered');
             $('#submit_match_report').removeClass('button');
             $('#submit_match_report').addClass('button_disabled');
-            $('#submit_match_report').css({"background-color":"black","color":"orange"});
+            $('#submit_match_report').css({"background-color":"black","color":"DarkOrange"});
             setTimeout(function() {
               $('#submit_match_report').html('Submit');
               $('#submit_match_report').prop('disabled', false);
-              $('#submit_match_report').css({"background-color":"orange","color":"black"});
+              $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
               $('#submit_match_report').addClass('button');
               $('#submit_match_report').removeClass('button_disabled');
             }, 2000);
@@ -726,13 +742,15 @@
             }  
           }        
       });
+      $(".matches_table").remove();
+      $(".teams_table").remove();
 
       $('#view_form').hide();
       $('#viewMatches_form').hide(); 
 
-      if($(window).width() < 710){
+      // if($(window).width() < 710){
         $("#viewMatches_tab").hide();
-      } 
+      // } 
 
       if(localStorage.pitTeam){
         $('#report_team_num').html(localStorage.pitTeam);
@@ -777,8 +795,8 @@
             $('#view_arm').html(report.arm.toString())
             $('#view_containerGrabber').html(report.containerGrabber.toString())
             $('#view_toteHerder').html(report.toteHerder.toString())
-            $('#view_stepGrabber').html(report.stepGrabber.toString())
-            $('#view_toteBinFlipper').html(report.toteBinFlipper)
+            $('#view_stepGrabber').html(report.stepGrabber)
+            $('#view_toteBinFlipper').html(report.toteBinFlipper.toString())
             $('#view_retainingCage').html(report.retainingCage.toString())
             $('#view_conveyorBelt').html(report.conveyorBelt.toString())
             $('#view_litterGrabber').html(report.litterGrabber.toString())
@@ -810,7 +828,7 @@
         $('#viewMatches_form').hide();  
         $('#submit_match_report').html('Submit');
         $('#submit_match_report').prop('disabled', false);
-        $('#submit_match_report').css({"background-color":"orange","color":"black"});
+        $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
         if(navigator.onLine){
           autoSync();
         }
@@ -848,8 +866,8 @@
             arm : $('#arm').is(':checked'),
             containerGrabber : $('#containerGrabber').is(':checked'),
             toteHerder : $('#toteHerder').is(':checked'),
-            stepGrabber : parseInt($('#stepGrabber').val()) || 0,
-            toteBinFlipper : parseInt($('.toteBinFlipper').val()) || 0,
+            stepGrabber : parseInt($('.stepGrabber').val()) || 0,
+            toteBinFlipper : $('#toteBinFlipper').is(':checked'),
             retainingCage : $('#retainingCage').is(':checked'),
             conveyorBelt : $('#conveyorBelt').is(':checked'),
             litterGrabber : $('#litterGrabber').is(':checked'),
@@ -878,11 +896,11 @@
           $('#submit_match_report').removeClass('button_hovered');
           $('#submit_match_report').removeClass('button');
           $('#submit_match_report').addClass('button_disabled');
-          $('#submit_match_report').css({"background-color":"black","color":"orange"});
+          $('#submit_match_report').css({"background-color":"black","color":"DarkOrange"});
           setTimeout(function() {
             $('#submit_match_report').html('Submit');
             $('#submit_match_report').prop('disabled', false);
-            $('#submit_match_report').css({"background-color":"orange","color":"black"});
+            $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
             $('#submit_match_report').addClass('button');
             $('#submit_match_report').removeClass('button_disabled');
           }, 1000);
@@ -892,11 +910,11 @@
           $('#submit_match_report').removeClass('button_hovered');
           $('#submit_match_report').removeClass('button');
           $('#submit_match_report').addClass('button_disabled');
-          $('#submit_match_report').css({"background-color":"black","color":"orange"});
+          $('#submit_match_report').css({"background-color":"black","color":"DarkOrange"});
           setTimeout(function() {
             $('#submit_match_report').html('Submit');
             $('#submit_match_report').prop('disabled', false);
-            $('#submit_match_report').css({"background-color":"orange","color":"black"});
+            $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
             $('#submit_match_report').addClass('button');
             $('#submit_match_report').removeClass('button_disabled');
           }, 2000);
@@ -935,6 +953,21 @@
       if(navigator.onLine){
         autoSync();
       }
+      var $rows = $('tr');
+        $('#search').keyup(function() {
+          console.log("a");
+          $('tr').removeClass('odd_row');
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            if(val==""){
+              $("tr:odd").addClass("odd_row");
+            }
+
+            $rows.show().filter(function() {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+            $(".first_row").show();
+        });
     });   
     </script>
 

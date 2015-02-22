@@ -61,10 +61,10 @@ document.getElementById("login_form").onsubmit = function() {
 				autoSync();
 			}
 			else if(result.code == 1) {
-				alert("invalid username and password");
+				$('#login_message').html("invalid username and password");
 			}
 			else {
-				alert("oops");
+				$('#login_message').html("oops, something went wrong");
 			}
 		});
 		
@@ -82,10 +82,10 @@ document.getElementById("login_form").onsubmit = function() {
 				autoSync();
 			}
 			else if(result.code == 1) {
-				alert("invalid username and password");
+				$('#login_message').html("invalid username and password");
 			}
 			else {
-				alert("oops");
+				$('#login_message').html("oops, something went wrong");
 			}
 		});
 

@@ -167,7 +167,13 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 	margin: 1em; /* margin of question and answer pair on help page */
 	margin-bottom: 3em; /* bottom margin of question and answer pair on help page */
 	border: 0.1em solid orange; /* border of question and answer pair on help page */
+	max-width: 55em;
+	margin-left: auto;
+	margin-right: auto;
 
+}
+#help_container{
+	margin: 1em;
 }
 .q{
 	font-weight: bold;

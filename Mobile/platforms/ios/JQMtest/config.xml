@@ -24,6 +24,9 @@
         <param name="onload" value="true" />
     </feature>
     <preference name="StatusBarOverlaysWebView" value="true" />
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
     <splash height="480" src="res/screen/ios/Default~iphone.png" width="320" />
     <splash height="960" src="res/screen/ios/Default@2x~iphone.png" width="640" />
     <splash height="1024" src="res/screen/ios/Default-Portrait~ipad.png" width="768" />

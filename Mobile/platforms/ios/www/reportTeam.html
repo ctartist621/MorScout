@@ -58,22 +58,16 @@
 					<h2 class="page_title" id="report_team_name"></h2>
 				</div>
 				<div class="row">
-					<div class="col-md-1 col-sm-0 col-xs-0">
-					</div>	
-					<div class="col-md-10 col-sm-12 col-xs-12">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 						<ul id="report_tabs" class="nav nav-tabs">
 						  <li id="scout_tab" class="active"><a href="javascript: void(0);">Scout</a></li>
 						  <li id="view_tab"><a href="javascript: void(0);">View</a></li>
 						  <li id="viewMatches_tab"><a href="javascript: void(0);">View Matches</a></li>
 						</ul>	
 					</div>
-					<div class="col-md-1 col-sm-0 col-xs-0">
-					</div>
 				</div>	
 				<div id="scout_form" class="row">
-					<div class="col-md-1 col-sm-0 col-xs-0">
-					</div>
-					<div class="col-md-10 col-sm-12 col-xs-12">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 			  	    	<div class="scout_div"> 
 			  	    		<h3 class="scout_div_title">General</h3> 
 			  	    		<p id="report_text">Drive Train: </p>
@@ -103,7 +97,7 @@
 			  	    		<label id="report_text" for="bumpers" class="report_radio_check">Bumpers?</label><br/> 
 			  	    	</div>	
 					</div>
-					<div class="col-md-10 col-sm-12 col-xs-12">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 			  	    	<div class="scout_div"> 
 			  	    		<h3 class="scout_div_title">Manipulators</h3> 
 			  	    		<input class="report_check" type="checkbox" id="elevator"></input>
@@ -116,12 +110,10 @@
 			  	    		<label id="report_text" for="containerGrabber" class="report_radio_check">Container grabber</label><br/>
 			  	    		<input class="report_check" type="checkbox" id="toteHerder"></input>
 			  	    		<label id="report_text" for="toteHerder" class="report_radio_check">Tote herder</label><br/>
-			  	    		<input class="report_check" type="checkbox" id="stepGrabber"></input>
-			  	    		<label id="report_text" for="stepGrabber" class="report_radio_check">Step container grabber</label><br/>
-
-			  	    		<p id="report_text" for="toteBinFlipper" class="report_radio_check">Tote/bin flipper</p>
-			  	    		<input id="report_box_small" type="number" value="0" class="toteBinFlipper"></input><br/>
-
+			  	    		<p id="report_text" for="stepGrabber" class="report_radio_check">Step container grabber</p>
+			  	    		<input id="report_box_small" type="number" value="0" class="stepGrabber"></input><br/>
+			  	    		<input class="report_check" type="checkbox" id="toteBinFlipper"></input>
+			  	    		<label id="report_text" for="toteBinFlipper" class="report_radio_check">Tote/bin flipper</label><br/>
 			  	    		<input class="report_check" type="checkbox" id="retainingCage"></input>
 			  	    		<label id="report_text" for="retainingCage" class="report_radio_check">Retaining cage</label><br/>
 			  	    		<input class="report_check" type="checkbox" id="conveyorBelt"></input>
@@ -139,13 +131,9 @@
 							<button id="submit_match_report" class="button">Submit</button>
 						</div>	
 					</div>
-					<div class="col-md-1 col-sm-0 col-xs-0">
-					</div>
 				</div>
 				<div id="view_form" class="row">
-					<div class="col-md-1 col-sm-0 col-xs-0">
-					</div>
-					<div class="col-md-10 col-sm-12 col-xs-12">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="scout_div">
 							<h3 class="scout_div_title view_title">General</h3>
 							<table id="view_table">
@@ -180,7 +168,7 @@
 							</table>
 						</div>	
 					</div>
-					<div class="col-md-10 col-sm-12 col-xs-12">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="scout_div">
 							<h3 class="scout_div_title view_title">Manipulators</h3>
 							<table id="view_table">
@@ -239,13 +227,9 @@
 							</table>
 						</div>
 					</div>
-					<div class="col-md-1 col-sm-0 col-xs-0">
-					</div>
 				</div>	
 			    <div id="viewMatches_form" class="row">
-			    	<div class="col-md-1 col-sm-0 col-xs-0">
-					</div>
-			    	<div class="col-md-10 col-sm-12 col-xs-12">
+			    	<div class="col-md-12 col-sm-12 col-xs-12">
 			    		<div class="scout_div fixed_col_table" id="view_table">
 			    			<!-- <h3 class="scout_div_title view_title">All Matches for This Team </h3> -->
 			    			<table class="viewMatchInTeam">
@@ -507,8 +491,6 @@
 			    			</table>
 			    		</div>
 			    	</div>
-			    	<div class="col-md-1 col-sm-0 col-xs-0">
-					</div>	
 			    </div>		
 			</div>
 		</div>

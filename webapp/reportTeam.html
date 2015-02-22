@@ -116,12 +116,10 @@
 	  	    		<label id="report_text" for="containerGrabber" class="report_radio_check">Container grabber</label><br/>
 	  	    		<input class="report_check" type="checkbox" id="toteHerder"></input>
 	  	    		<label id="report_text" for="toteHerder" class="report_radio_check">Tote herder</label><br/>
-	  	    		<input class="report_check" type="checkbox" id="stepGrabber"></input>
-	  	    		<label id="report_text" for="stepGrabber" class="report_radio_check">Step container grabber</label><br/>
-
-	  	    		<p id="report_text" for="toteBinFlipper" class="report_radio_check">Tote/bin flipper</p>
-	  	    		<input id="report_box_small" type="number" value="0" class="toteBinFlipper"></input><br/>
-
+	  	    		<p id="report_text" for="stepGrabber" class="report_radio_check">Step container grabber</p>
+	  	    		<input id="report_box_small" type="number" value="0" class="stepGrabber"></input><br/>
+	  	    		<input class="report_check" type="checkbox" id="toteBinFlipper"></input>
+	  	    		<label id="report_text" for="toteBinFlipper" class="report_radio_check">Tote/bin flipper</label><br/>
 	  	    		<input class="report_check" type="checkbox" id="retainingCage"></input>
 	  	    		<label id="report_text" for="retainingCage" class="report_radio_check">Retaining cage</label><br/>
 	  	    		<input class="report_check" type="checkbox" id="conveyorBelt"></input>
@@ -592,8 +590,8 @@ if ('addEventListener' in document) {
 					$('#view_arm').html(report.arm.toString())
 					$('#view_containerGrabber').html(report.containerGrabber.toString())
 					$('#view_toteHerder').html(report.toteHerder.toString())
-					$('#view_stepGrabber').html(report.stepGrabber.toString())
-					$('#view_toteBinFlipper').html(report.toteBinFlipper)
+					$('#view_stepGrabber').html(report.stepGrabber)
+					$('#view_toteBinFlipper').html(report.toteBinFlipper.toString())
 					$('#view_retainingCage').html(report.retainingCage.toString())
 					$('#view_conveyorBelt').html(report.conveyorBelt.toString())
 					$('#view_litterGrabber').html(report.litterGrabber.toString())
@@ -663,8 +661,8 @@ if ('addEventListener' in document) {
 					arm : $('#arm').is(':checked'),
 					containerGrabber : $('#containerGrabber').is(':checked'),
 					toteHerder : $('#toteHerder').is(':checked'),
-					stepGrabber : parseInt($('#stepGrabber').val()) || 0,
-					toteBinFlipper : parseInt($('.toteBinFlipper').val()) || 0,
+					stepGrabber : parseInt($('.stepGrabber').val()) || 0,
+					toteBinFlipper : $('#toteBinFlipper').is(':checked'),
 					retainingCage : $('#retainingCage').is(':checked'),
 					conveyorBelt : $('#conveyorBelt').is(':checked'),
 					litterGrabber : $('#litterGrabber').is(':checked'),
