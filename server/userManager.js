@@ -3,15 +3,16 @@
 let fs = require("fs");
 let crypto = require("crypto");
 
-(function getInput() {
+function getInput() {
 	process.stdout.write("> ");
+	process.stdin.setRawMode(false);
 	process.stdin.resume();
 	process.stdin.once("data", function(data) {
 		let input = String(data).trim().split(" ");
 		let cmd = input[0].toLowerCase();
 		let user = input[1];
-		let pass = input[2];
 		let users = JSON.parse(fs.readFileSync("users.json"));
+		let wait = false;
 		if(cmd == "list") {
 			for(let key in users) {
 				console.log(key);
@@ -38,7 +39,8 @@ let crypto = require("crypto");
 				}
 				else {
 					users[user] = {"pass" : "", "tokens" : []};
-					console.log("success");
+					wait = true;
+					changePass(users, user);
 				}
 			}
 		}
@@ -51,10 +53,10 @@ let crypto = require("crypto");
 			}
 		}
 		else if(cmd == "changepass") {
-			if((user && pass) || console.log("usage: changePass username password")) {
+			if(user || console.log("usage: changePass username")) {
 				if(users[user] || console.log("user not found")) {
-					users[user].pass = getHash(pass);
-					console.log("success");
+					wait = true;
+					changePass(users, user);
 				}
 			}
 		}
@@ -67,12 +69,43 @@ let crypto = require("crypto");
 		else {
 			console.log("use help");
 		}
-		fs.writeFile("users.json", JSON.stringify(users));
-		console.log("");
-		getInput();
+		if(!wait) {
+			fs.writeFile("users.json", JSON.stringify(users));
+			console.log("");
+			getInput();
+		}
 	});
-})();
+};
 
 function getHash(data) {
 	return crypto.createHash("md5").update(data).digest("hex");
 }
+
+function changePass(users, user) {
+	process.stdin.setRawMode(true);
+	process.stdin.resume();
+	process.stdout.write("Enter the password:");
+	let pass = "";
+	process.stdin.on("data", function(char) {
+		char = String(char);
+		switch(char) {
+			case "\n":
+			case "\r":
+				users[user].pass = getHash(pass);
+				fs.writeFile("users.json", JSON.stringify(users));
+				console.log("\nsuccess");
+			case "\u0003":
+				console.log();
+				getInput();
+				break;
+			case String.fromCharCode(8):
+				pass = pass.substring(0, pass.length - 1);
+				break;
+			default:
+				pass += char;
+				break;
+		}
+	});
+}
+
+getInput();
