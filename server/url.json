@@ -1,4 +1,4 @@
 {
-	"teams" : "/api/v2/event/2014calb/teams",
+	"teams" : "/api/v2/event/2015calb/teams",
 	"matches" : "/api/v2/event/2014calb/matches"
 }

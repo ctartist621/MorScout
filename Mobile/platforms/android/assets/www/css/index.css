@@ -18,6 +18,22 @@
 	-webkit-border-radius: 0px; /* sharp angles for text boxes in safari (not to be changed) */
 	text-shadow: none;
 }
+*:not(input):not(textarea){
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.add_minus_textbox{
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 html{
 	
@@ -89,6 +105,10 @@ body{
 .main_welcome h3 {
   text-align:center; /* horizontal alignment of small "Welcome to MorScout" text */
   color: Darkorange; /* sets font color of small "Welcome to MorScout" text */
+  max-width: 15em;
+  margin-left: auto;
+  margin-right: auto;
+
 } 
 
 /* END OF WELCOME PAGE STYLES */
@@ -207,8 +227,8 @@ th,td {
 }
 
 .current_match{
-	background-color: DarkOrange; /* background-color of current match row in matches table */
-	color: black; /* text color of current match row */
+	background-color: DarkOrange !important; /* background-color of current match row in matches table */
+	color: black !important; /* text color of current match row */
 	line-height: 6vh; /* height of current match row */
 }
 

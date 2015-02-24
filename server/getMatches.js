@@ -18,7 +18,9 @@ http.request({
 		for(let match of data) {
 			result[match.match_number] = {
 				red : match.alliances.red.teams.map(str => str.substring(3)),
-				blue : match.alliances.blue.teams.map(str => str.substring(3))
+				blue : match.alliances.blue.teams.map(str => str.substring(3)),
+				time : match.time_string,
+				timestamp : match.time
 			};
 		}
 		fs.writeFile("matches.json", JSON.stringify(result));

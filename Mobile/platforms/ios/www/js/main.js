@@ -94,6 +94,7 @@ Array.prototype.last = function() {
 
 $(document).ready(function() {
 	
+	
 	if(navigator.onLine){
 		autoSync();
 	}

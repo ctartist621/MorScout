@@ -133,6 +133,9 @@ background-color: #EE7600; /* color of background of selected link in nav bar */
 .main_welcome h3 {
   text-align:center; /* horizontal alignment of small "Welcome to MorScout" text */
   color: orange; /* sets font color of small "Welcome to MorScout" text */
+  max-width: 15em;
+  margin-left: auto;
+  margin-right: auto;
 } 
 
 /* END OF WELCOME PAGE STYLES */
@@ -228,8 +231,8 @@ th,td {
 }
 
 .current_match{
-	background-color: orange; /* background-color of current match row in matches table */
-	color: black; /* text color of current match row */
+	background-color: orange !important; /* background-color of current match row in matches table */
+	color: black !important; /* text color of current match row */
 	line-height: 6vh; /* height of current match row */
 }
 

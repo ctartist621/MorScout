@@ -52,19 +52,19 @@
 		    <div class="container">
 				<form id="login_form" action="javascript:void(0);" >
 					<div id="username-box">
-						<input type="text" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+						<input type="text" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" autocapitalize="off" autocorrect="off">
 					</div>
 					<div id="password-box">
 						<input type="password" id="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 					</div>
 					<div class="check">
-						<input class="report_check" type="checkbox" id="check_box"></input><label id="report_text" for="check_box">Remember me</label><br/>
+						<input class="report_check" type="checkbox" id="check_box" checked></input><label id="report_text" for="check_box">Remember me</label><br/>
 					</div>
 					<div class="login">
 					   <input class="button" type="submit" id ="login_button" value="Login" >
 					</div>
 				</form>
-                <p id="login_message" style="text-align: center; margin-top: 0em; width: 15em;margin-left:auto;margin-right:auto; font-size: 1.3em;">If you don't have an account, get one by following the instructions at <a style="color: orange;"href="#" onclick="window.open('https://github.com/mortorqrobotics/MorScout/#getting-started', '_system', 'location=yes');">our Github page<a/></p>
+                <p id="login_message" style="text-align: center; margin-top: 0em; width: 95%; max-width: 15em; margin-left:auto;margin-right:auto; font-size: 1.3em;">If you don't have an account, get one by following the instructions <a style="color: orange;" href="help.html" data-transition="none">here<a/></p>
 		    </div>
 		</div>     
     </div> 

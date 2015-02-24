@@ -141,19 +141,20 @@ $(document).ready(function() {
 				tr.appendChild(td9);
 
 				table.appendChild(tr);
-				
-				/*var time = new Date();
+
+				var time = new Date();
 				if(real_match_number_plus_one !== undefined){
 					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < toMilitary(jsonfile[real_match_number_plus_one].time)){
-						$(tr).addClass('current_match');
+						$(tr).children().addClass('current_match');
 					}else{
-						$(tr).removeClass('current_match');
+						$(tr).children().removeClass('current_match');
 					}
 				} else {
 					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < addMinutes(toMilitary(jsonfile[real_match_number].time), 5)){
-						$(tr).addClass('current_match');
+						$(tr).children().addClass('current_match');
 					}
-				}*/
+				}
+				
 		}
 		
 		document.body.appendChild(table);

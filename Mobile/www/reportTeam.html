@@ -84,15 +84,15 @@
 						      <div style="display:inline;" class="out">XCZXCzxcxz</div>
 						  	</div><br/> 
 			  	    		<p id="report_text">Cycle time (sec): </p>
-			  	    		<input id="report_box_small" type="number" class="cycleTime"></input><br/>
+			  	    		<input id="report_box_small" type="number" pattern="[0-9]*" class="cycleTime"></input><br/>
 			  	    		<p id="report_text">Co-op points: </p>
-			  	    		<input id="report_box_small" type="number" class="coopPoints"></input><br/>  
+			  	    		<input id="report_box_small" type="number" pattern="[0-9]*" class="coopPoints"></input><br/>  
 			  	    		<p id="report_text">Speed: </p>
-			  	    		<input id="report_box_small" type="number" class="speed"></input><br/> 
+			  	    		<input id="report_box_small" type="number" pattern="[0-9]*" class="speed"></input><br/> 
 			  	    		<p id="report_text">Max height: </p>
-			  	    		<input id="report_box_small" type="number" class="maxHeight"></input><br/> 
+			  	    		<input id="report_box_small" type="number" pattern="[0-9]*" class="maxHeight"></input><br/> 
 			  	    		<p id="report_text">Field configuration speed (sec): </p>
-			  	    		<input id="report_box_small" type="number" class="configSpeed"></input><br/> 
+			  	    		<input id="report_box_small" type="number" pattern="[0-9]*" class="configSpeed"></input><br/> 
 			  	    		<input class="report_check" type="checkbox" id="bumpers"></input>
 			  	    		<label id="report_text" for="bumpers" class="report_radio_check">Bumpers?</label><br/> 
 			  	    	</div>	
@@ -111,7 +111,7 @@
 			  	    		<input class="report_check" type="checkbox" id="toteHerder"></input>
 			  	    		<label id="report_text" for="toteHerder" class="report_radio_check">Tote herder</label><br/>
 			  	    		<p id="report_text" for="stepGrabber" class="report_radio_check">Step container grabber</p>
-			  	    		<input id="report_box_small" type="number" value="0" class="stepGrabber"></input><br/>
+			  	    		<input id="report_box_small" type="number" pattern="[0-9]*" class="stepGrabber"></input><br/>
 			  	    		<input class="report_check" type="checkbox" id="toteBinFlipper"></input>
 			  	    		<label id="report_text" for="toteBinFlipper" class="report_radio_check">Tote/bin flipper</label><br/>
 			  	    		<input class="report_check" type="checkbox" id="retainingCage"></input>

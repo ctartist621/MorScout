@@ -42,12 +42,13 @@
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         });
     });
     $(document).on('pagebeforeshow', '#matchesPage', function(){ 
-      $(".teams_table").remove();
       if(localStorage.hasSynced == "true"){
           var jsonfile = JSON.parse(localStorage.matches);
           var table = document.createElement('table');
@@ -69,7 +70,7 @@
           
           var th_text1 = document.createTextNode("#");
           var th_text2 = document.createTextNode("Time");
-          var th_text3 = document.createTextNode("Scouted");
+          var th_text3 = document.createTextNode("Progress");
           var th_text4 = document.createTextNode("Red Teams");
           var th_text5 = document.createTextNode("Blue Teams");
           
@@ -123,11 +124,18 @@
 
 
               var text1 = document.createTextNode(real_match_number);
-              // var text2 = document.createTextNode(jsonfile[real_match_number].time);
-              var d = new Date();
-              var text2 = document.createTextNode(d.getHours()+":"+d.getMilliseconds()%60 + " PM");
-              // var text3 = document.createTextNode(jsonfile[real_match_number].scouted);
-              var text3 = document.createTextNode("No");
+              var text2 = document.createTextNode(jsonfile[real_match_number].time);
+              
+              var scouted = 0;
+              var teams = jsonfile[real_match_number].red.concat(jsonfile[real_match_number].blue);
+              for(var i = 0; i < teams.length; i++) {
+                var team = JSON.parse(localStorage.data)[teams[i]];
+                if(team && team[real_match_number]) {
+                  scouted++;
+                }
+              }
+              var text3 = document.createTextNode(scouted == 0 ? "none" : scouted == 6 ? "complete" : scouted + " of 6");
+
               var text4 = document.createTextNode(jsonfile[real_match_number].red[0]);
               var text5 = document.createTextNode(jsonfile[real_match_number].red[1]);
               var text6 = document.createTextNode(jsonfile[real_match_number].red[2]);
@@ -156,7 +164,37 @@
               tr.appendChild(td9);
 
               table.appendChild(tr);
-              
+
+              var currentTime = new Date().getTime();
+
+              if(real_match_number_plus_one !== undefined){
+                if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number_plus_one].timestamp){
+                  $(tr).children().addClass('current_match');
+                }else{
+                  $(tr).children().removeClass('current_match');
+                }
+              }else{
+                if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number].timestamp + 1000*60*6){
+                  $(tr).children().addClass('current_match');
+                }else{
+                  $(tr).children().removeClass('current_match');
+                }
+              }
+
+              /*var currentTime = new Date().getTime();
+              if(real_match_number_plus_one !== undefined){
+                if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number_plus_one].timestamp){
+                  $(tr).addClass('current_match');
+                }else{
+                  $(tr).removeClass('current_match');
+                }
+              }else{
+                if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number].timestamp + 1000*60*6){
+                  $(tr).addClass('current_match');
+                }
+              }*/
+
+
               /*var time = new Date();
               if(real_match_number_plus_one !== undefined){
                 if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < toMilitary(jsonfile[real_match_number_plus_one].time)){
@@ -174,9 +212,9 @@
           $('#matchesPage').append(table);
           
           $('#loadingMatches').hide();
-          $("tr:odd").addClass("odd_row");
-          $("tr:first").addClass("first_row");
           $(table).addClass('matches_table')
+          $('.matches_table').children("tr:first").addClass("first_row");
+          $('.matches_table').children("tr:odd").addClass("odd_row");
           
           $('tr').not(".first_row").addClass('table_hover')
           
@@ -193,7 +231,7 @@
           }
 
           var $rows = $('.matches_table tr');
-          $('#search').keyup(function() {
+          $('#search_m').keyup(function() {
             $('tr').removeClass('odd_row');
               var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
               if(val==""){
@@ -208,7 +246,7 @@
           });
 
         }else{
-          $('#search').hide();
+          $('#search_m').hide();
           $('#loadingMatches').html('Log in first!');
           setTimeout(function(){
             $('.loginLink').trigger('click');
@@ -216,58 +254,34 @@
         };
     });
     $(document).on('pagecreate', '#matchesPage', function(){
-      $(".teams_table").remove(); 
         $( document ).on( "swiperight", "#matchesPage", function( e ) {
           if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         });
-        var $rows = $('.matches_table tr');
-        $('#search').keyup(function() {
-          $('tr').removeClass('odd_row');
-            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-            if(val==""){
-              $("tr:odd").addClass("odd_row");
-            }
-
-            $rows.show().filter(function() {
-                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                return !~text.indexOf(val);
-            }).hide();
-        });
     });
-    $(document).on('pageremove', '#matchesPage', function(){ 
+    $(document).on('pagecontainerbeforehide', '#matchesPage', function(){ 
       $(".matches_table").remove();
     });
-    $(document).on('pagecreate', '#teamsPage', function(){
-    $(".matches_table").remove();      
+
+    $(document).on('pagecreate', '#teamsPage', function(){     
         $( document ).on( "swiperight", "#teamsPage", function( e ) {
           if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         });
-        var $rows = $('.teams_table tr');
-        $('#search').keyup(function() {
-          $('tr').removeClass('odd_row');
-            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-            if(val==""){
-              $("tr:odd").addClass("odd_row");
-            }
-
-            $rows.show().filter(function() {
-                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                return !~text.indexOf(val);
-            }).hide();
-        });
     });
     $(document).on('pagebeforeshow', '#teamsPage', function(){
-      $(".matches_table").remove();
       if(localStorage.hasSynced == "true"){
     
         var jsonfile = JSON.parse(localStorage.teams);
@@ -315,10 +329,9 @@
         $('#teamsPage').append(table);
         
         $('#loadingTeams').hide();
-        $("tr:odd").addClass("odd_row");
-        $("tr:first").addClass("first_row");
         $(table).addClass('teams_table');
-        $("tr:last").attr('id', 'scrollHere');
+        $('.teams_table').children("tr:first").addClass("first_row");
+        $('.teams_table').children("tr:odd").addClass("odd_row");
         
         $('tr').not(".first_row").addClass('table_hover');
         
@@ -329,7 +342,7 @@
         });
 
         var $rows = $('.teams_table tr');
-        $('#search').keyup(function() {
+        $('#search_t').keyup(function() {
           $('tr').removeClass('odd_row');
             var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
             if(val==""){
@@ -340,17 +353,18 @@
                 var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
                 return !~text.indexOf(val);
             }).hide();
+            $(".first_row").show();
         });
 
       } else {
-        $('#search').hide();
+        $('#search_t').hide();
         $('#loadingTeams').html('Log in first!');
           setTimeout(function(){
           $(':mobile-pagecontainer').pagecontainer('change', 'login.html', {transition: "none"});
         }, 1000)
       }
     });
-    $(document).on('pageremove', '#teamsPage', function(){ 
+    $(document).on('pagecontainerbeforehide', '#teamsPage', function(){ 
       $(".teams_table").remove();
     });
     $(document).on('pagecreate', '#syncPage', function(){
@@ -365,6 +379,8 @@
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         });
@@ -416,6 +432,8 @@
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         });
@@ -426,6 +444,8 @@
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         });
@@ -436,6 +456,8 @@
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         });
@@ -468,6 +490,8 @@
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         });
@@ -505,11 +529,11 @@
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         });
-        $(".matches_table").remove();
-        $(".teams_table").remove();
 
         $('#scout_form').hide();
         $('#view_form').hide();
@@ -739,11 +763,11 @@
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
       });
-      $(".matches_table").remove();
-      $(".teams_table").remove();
 
       $('#view_form').hide();
       $('#viewMatches_form').hide(); 
@@ -928,6 +952,8 @@
             if (e.type === "swiperight") {
                 console.log("swipe");
                 $( "#leftPanel" ).panel( "open" );
+                $('input').blur();
+                $('textarea').blur();
             }  
           }        
         }); 
@@ -953,21 +979,6 @@
       if(navigator.onLine){
         autoSync();
       }
-      var $rows = $('tr');
-        $('#search').keyup(function() {
-          console.log("a");
-          $('tr').removeClass('odd_row');
-            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-            if(val==""){
-              $("tr:odd").addClass("odd_row");
-            }
-
-            $rows.show().filter(function() {
-                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                return !~text.indexOf(val);
-            }).hide();
-            $(".first_row").show();
-        });
     });   
     </script>
 
@@ -996,16 +1007,9 @@
     <div data-role="content" class="ui-content" data-enhance="false">
       <div class="main_welcome">
       <div class="container">
-       <div class="row">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
+       <div class="row"> 
          <h1>MorScout</h1>
-         <!-- <h3>Welcome to MorScout!</h3> -->
          <h3>OurScout is MorScout Than YourScout</h3>
-        </div>
-        <div class="col-md-4">
-        </div>
        </div>
       </div>
      </div> 

@@ -67,7 +67,7 @@ $(document).ready(function() {
 	
 		var th_text1 = document.createTextNode("#");
 		var th_text2 = document.createTextNode("Time");
-		var th_text3 = document.createTextNode("Scouted");
+		var th_text3 = document.createTextNode("Progress");
 		var th_text4 = document.createTextNode("Red Teams");
 		var th_text5 = document.createTextNode("Blue Teams");
 		
@@ -118,11 +118,18 @@ $(document).ready(function() {
 				$(td9).addClass('blueTeamHighlight');
 
 				var text1 = document.createTextNode(real_match_number);
-				// var text2 = document.createTextNode(jsonfile[real_match_number].time);
-				var d = new Date();
-				var text2 = document.createTextNode(d.getHours()+":"+d.getMilliseconds()%60 + " PM");
-				// var text3 = document.createTextNode(jsonfile[real_match_number].scouted);
-				var text3 = document.createTextNode("No");
+				var text2 = document.createTextNode(jsonfile[real_match_number].time);
+
+				var scouted = 0;
+				var teams = jsonfile[real_match_number].red.concat(jsonfile[real_match_number].blue);
+				for(var i = 0; i < teams.length; i++) {
+					var team = JSON.parse(localStorage.data)[teams[i]];
+					if(team && team[real_match_number]) {
+						scouted++;
+					}
+				}
+				var text3 = document.createTextNode(scouted == 0 ? "none" : scouted == 6 ? "complete" : scouted + " of 6");
+
 				var text4 = document.createTextNode(jsonfile[real_match_number].red[0]);
 				var text5 = document.createTextNode(jsonfile[real_match_number].red[1]);
 				var text6 = document.createTextNode(jsonfile[real_match_number].red[2]);
@@ -152,16 +159,32 @@ $(document).ready(function() {
 
 				table.appendChild(tr);
 				
+				var currentTime = new Date().getTime();
+
+				if(real_match_number_plus_one !== undefined){
+					if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number_plus_one].timestamp){
+						$(tr).children().addClass('current_match');
+					}else{
+						$(tr).children().removeClass('current_match');
+					}
+				}else{
+					if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number].timestamp + 1000*60*6){
+						$(tr).children().addClass('current_match');
+					}else{
+						$(tr).children().removeClass('current_match');
+					}
+				}
+
 				/*var time = new Date();
 				if(real_match_number_plus_one !== undefined){
 					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < toMilitary(jsonfile[real_match_number_plus_one].time)){
-						$(tr).addClass('current_match');
+						$(tr).children().addClass('current_match');
 					}else{
-						$(tr).removeClass('current_match');
+						$(tr).children().removeClass('current_match');
 					}
 				} else {
 					if(toMilitary(jsonfile[real_match_number].time) <= getMilitary(time) && getMilitary(time) < addMinutes(toMilitary(jsonfile[real_match_number].time), 5)){
-						$(tr).addClass('current_match');
+						$(tr).children().addClass('current_match');
 					}
 				}*/
 		}

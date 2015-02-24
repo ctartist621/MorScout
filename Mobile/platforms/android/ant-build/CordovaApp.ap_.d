@@ -91,7 +91,6 @@
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/fonts/Exo_2/OFL.txt \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/img/MorCircle.png \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/img/MorIcon.png \
-/Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/img/MorStartup.png \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/img/triangle.png \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/js/bootstrap.min.js \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/js/fastclick.js \
@@ -102,9 +101,12 @@
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/js/reportTable.js \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/js/teamsTable.js \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/plugins/org.apache.cordova.statusbar \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser/www \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/plugins/org.apache.cordova.statusbar/www \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/assets/www/plugins/org.apache.cordova.statusbar/www/statusbar.js \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/AndroidManifest.xml \

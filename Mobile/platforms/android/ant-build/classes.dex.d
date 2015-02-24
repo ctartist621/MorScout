@@ -20,6 +20,16 @@
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser.class \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowserDialog.class \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppChromeClient.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen$1.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen$2.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen$3.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen$4.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen$5$1.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen$5.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen$6$1.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen$6.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen$7.class \
+/Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/statusbar/StatusBar$1.class \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/statusbar/StatusBar$2.class \
 /Users/farbodrafezy/desktop/jqmtest/platforms/android/ant-build/classes/org/apache/cordova/statusbar/StatusBar$3.class \
