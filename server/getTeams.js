@@ -3,10 +3,12 @@
 let http = require("http");
 let fs = require("fs");
 
+let teamNum = parseInt(fs.readFileSync("team.txt"));
+
 http.request({
 	host : "www.thebluealliance.com",
 	path : JSON.parse(fs.readFileSync("url.json")).teams,
-	headers : {"X-TBA-App-Id" : "frc1515:MorScout:1"}
+	headers : {"X-TBA-App-Id" : "frc" + (teamNum || 1515) + ":MorScout:1"}
 }, function(res) {
 	let data = "";
 	res.on("data", function(chunk) {

@@ -9,6 +9,7 @@ Make sure that the following files have the following contents:
 * `data.json` - `{}`
 * `users.json` - `{}`
 * `feedback.json` - `[]`
+* `team.txt` - your team number
 
 ### Downloading Team and Match Data
 

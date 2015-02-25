@@ -136,10 +136,18 @@ http.createServer(function(req, res) {
 		                	}
 		                	users[username].tokens.push(token);
 		                	writeJSON("users.json", users);
-			        		sendQS(res, {"code" : 0, "user" : username, "token" : token, "data" : readJSON("data.json"), "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
-			        		log("login:\t" + username + "\t" + timeString());
-			        		userFound = true;
-			        		break;
+					sendQS(res, {
+						"code" : 0,
+						"user" : username,
+						"token" : token,
+						"data" : readJSON("data.json"),
+						"matches" : readJSON("matches.json"),
+						"teams" : readJSON("teams.json"),
+						"team" : parseInt(fs.readFileSync("team.txt"))
+					});
+					log("login:\t" + username + "\t" + timeString());
+					userFound = true;
+					break;
 	                	}
 	                }
 	                if(!userFound) {
@@ -169,7 +177,7 @@ http.createServer(function(req, res) {
 								count++;
 							}
 						}
-						if(count > 0) console.log(count + " entr" + (count == 1 ? "y" : "ies") + " received");
+						if(count > 0) log(count + " entr" + (count == 1 ? "y" : "ies") + " received");
 						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN WRITING");
 						writeJSON("data.json", data);
 						let feedback = parseJSON(post.feedback);
@@ -182,7 +190,13 @@ http.createServer(function(req, res) {
 							}
 							writeJSON("feedback.json", allFeedback);
 						}
-						sendQS(res, {"code" : 0, "data" : data, "matches" : readJSON("matches.json"), "teams" : readJSON("teams.json")});
+						sendQS(res, {
+							"code" : 0,
+							"data" : data,
+							"matches" : readJSON("matches.json"),
+							"teams" : readJSON("teams.json"),
+							"team" : parseInt(fs.readFileSync("team.txt"))
+						});
 						log("sync:\t" + post.user + "\t" + timeString());
 					}
 					else {
