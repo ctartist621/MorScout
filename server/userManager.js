@@ -86,11 +86,12 @@ function changePass(users, user) {
 	process.stdin.resume();
 	process.stdout.write("Enter the password:");
 	let pass = "";
-	process.stdin.on("data", function(char) {
+	let cb = function(char) {
 		char = String(char);
 		switch(char) {
 			case "\n":
 			case "\r":
+				process.stdin.removeListener("data", cb);
 				users[user].pass = getHash(pass);
 				fs.writeFile("users.json", JSON.stringify(users));
 				console.log("\nsuccess");
@@ -105,7 +106,8 @@ function changePass(users, user) {
 				pass += char;
 				break;
 		}
-	});
+	};
+	process.stdin.on("data", cb);
 }
 
 getInput();
