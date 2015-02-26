@@ -178,6 +178,18 @@ http.createServer(function(req, res) {
 							}
 						}
 						if(count > 0) log(count + " entr" + (count == 1 ? "y" : "ies") + " received");
+						var deleted = parseJSON(post.deleted);
+						if(deleted instanceof Array && post.user.toLowerCase() == "admin") {
+							for(let obj of deleted) {
+								let team = obj.team;
+								let match = obj.match;
+								let scout = obj.scout;
+								if(data[team] && data[team][match] && data[team][match][scout]) {
+									data[team][match][scout] = data[team][match][scout].filter(report => report.meta.checksum != obj.checksum);
+								}
+							}
+							if(deleted.length > 0) log(deleted.length + " entr" + (deleted.length == 1 ? "y" : "ies") + " deleted");
+						}
 						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN WRITING");
 						writeJSON("data.json", data);
 						let feedback = parseJSON(post.feedback);
