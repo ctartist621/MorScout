@@ -51,3 +51,8 @@ Just simply navigate to the feedback page from any morscout page and submit your
 $ node --harmony sendFeedback
 ```
 You are good to go!
+
+##Support
+---
+For help do not hesitate to email me at rafezyfarbod@gmail.com
+
