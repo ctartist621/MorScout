@@ -47,6 +47,12 @@
             }  
           }        
         });
+        var msgs = ['Welcome to MorScout!', 'OurScout is MorScout Than YourScout', 'Made With Fifty Shades of Orange'];
+        var rand = Math.floor(Math.random() * msgs.length);
+        if(rand == msgs.length){
+          rand --;
+        }
+        $('#randMsg').html(msgs[rand]);
     });
     $(document).on('pagebeforeshow', '#matchesPage', function(){ 
       if(localStorage.hasSynced == "true"){
@@ -114,23 +120,78 @@
               $(td8).addClass('matchesTableHide');
               $(td9).addClass('matchesTableHide');
               
-              $(td4).addClass('redTeamHighlight');
-              $(td5).addClass('redTeamHighlight');
-              $(td6).addClass('redTeamHighlight');
+              if(localStorage.userTeam) {
+                var allTeams = jsonfile[real_match_number].red.concat(jsonfile[real_match_number].blue);
+                var tds = [td4, td5, td6, td7, td8, td9];
+                for(var i = 0; i < 6; i++) {
+                  if(allTeams[i] == localStorage.userTeam) {
+                    $(tds[i]).addClass("selfTeamHighlight");
+                    break;
+                  }
+                  var ally = false;
+                  var enemy = false;
+                  for(var m in jsonfile) {
+                    if(parseInt(m) > parseInt(real_match_number)) {
+                      var selfRed = ~jsonfile[m].red.indexOf(localStorage.userTeam);
+                      var selfBlue = ~jsonfile[m].blue.indexOf(localStorage.userTeam);
+                      var otherRed = ~jsonfile[m].red.indexOf(allTeams[i]);
+                      var otherBlue = ~jsonfile[m].blue.indexOf(allTeams[i]);
+                      if((selfRed && otherRed) || (selfBlue && otherBlue)) {
+                        ally = true;
+                      }
+                      if((selfRed && otherBlue) || (selfBlue && otherRed)) {
+                        enemy = true;
+                      }
+                    }
+                  }
+                  if(ally && enemy) {
+                    $(tds[i]).addClass("frenemyTeamHighlight");
+                  }
+                  else if(ally) {
+                    $(tds[i]).addClass("allyTeamHighlight");
+                  }
+                  else if(enemy) {
+                    $(tds[i]).addClass("enemyTeamHighlight");
+                  }
+                }
+              }
+              else {
+                $(td4).addClass('redTeamHighlight');
+                $(td5).addClass('redTeamHighlight');
+                $(td6).addClass('redTeamHighlight');
 
-              $(td7).addClass('blueTeamHighlight');
-              $(td8).addClass('blueTeamHighlight');
-              $(td9).addClass('blueTeamHighlight');
+                $(td7).addClass('blueTeamHighlight');
+                $(td8).addClass('blueTeamHighlight');
+                $(td9).addClass('blueTeamHighlight');
+              }
 
 
               var text1 = document.createTextNode(real_match_number);
-              var text2 = document.createTextNode(jsonfile[real_match_number].time);
+
+              
+              var BlueAllianceTime = new Date(jsonfile[real_match_number].timestamp*1000);
+              var Hours = BlueAllianceTime.getHours();
+              var suffix;
+              if(parseInt(Hours) > 12){
+                Hours = (parseInt(Hours) - 12).toString();
+                suffix = "PM";
+              }else if(Hours == "12"){
+                suffix = "PM";
+              }else{
+                suffix = "AM";
+              }
+              var Minutes = BlueAllianceTime.getMinutes();
+              if(parseInt(Minutes) < 10){
+                Minutes = "0" + Minutes;
+              }
+              var text2 = document.createTextNode(Hours+":"+Minutes+" "+suffix);
+              
               
               var scouted = 0;
               var teams = jsonfile[real_match_number].red.concat(jsonfile[real_match_number].blue);
               for(var i = 0; i < teams.length; i++) {
                 var team = JSON.parse(localStorage.data)[teams[i]];
-                if(team && team[real_match_number]) {
+                if(team && team[real_match_number] && Object.keys(team[real_match_number]).length > 0 && team[real_match_number][Object.keys(team[real_match_number])[0]].length > 0) {
                   scouted++;
                 }
               }
@@ -168,16 +229,16 @@
               var currentTime = new Date().getTime();
 
               if(real_match_number_plus_one !== undefined){
-                if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number_plus_one].timestamp){
-                  $(tr).children().addClass('current_match');
+                if((jsonfile[real_match_number].timestamp*1000) <= currentTime && currentTime < (jsonfile[real_match_number_plus_one].timestamp*1000)){
+                  $(tr).children('td:lt(3)').addClass('current_match');
                 }else{
-                  $(tr).children().removeClass('current_match');
+                  $(tr).children('td:lt(3)').removeClass('current_match');
                 }
               }else{
-                if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number].timestamp + 1000*60*6){
-                  $(tr).children().addClass('current_match');
+                if((jsonfile[real_match_number].timestamp*1000) <= currentTime && currentTime < ((jsonfile[real_match_number].timestamp*1000)+(1000*60*6))){
+                  $(tr).children('td:lt(3)').addClass('current_match');
                 }else{
-                  $(tr).children().removeClass('current_match');
+                  $(tr).children('td:lt(3)').removeClass('current_match');
                 }
               }
 
@@ -253,6 +314,14 @@
           }, 1000)
         };
     });
+    $(window).resize(function() {
+      if(window.innerWidth<630){
+        $('.matchesTableHide').hide();
+      }else{
+        $('.matchesTableHide').show();
+      }
+    });
+    
     $(document).on('pagecreate', '#matchesPage', function(){
         $( document ).on( "swiperight", "#matchesPage", function( e ) {
           if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
@@ -534,47 +603,7 @@
             }  
           }        
         });
-
-        $('#scout_form').hide();
-        $('#view_form').hide();
-        $('#report_tabs').hide();
         
-        var viewDataMatch = function() {
-          var data = JSON.parse(localStorage.data);
-          if(data && data[localStorage.team] && data[localStorage.team][localStorage.match]){
-            var report;
-            var match = JSON.parse(localStorage.data)[localStorage.team][localStorage.match];
-            for(var user in match) {
-              if(match[user].length > 0) {
-                report = match[user].last().data;
-                break;
-              }
-            }
-            if(report) {
-              if(report.nearDrivers){
-                $('#view_nearDrivers').html("Drivers")
-              }else{
-                $('#view_nearDrivers').html("Landfill")
-              }
-              $('#view_teleopComments').html(report.teleopComments)
-              $('#view_highestToteAuto').html(report.highestToteAuto)
-              $('#view_grayTotes').html(report.grayTotes)
-              $('#view_containers').html(report.containers)
-              $('#view_containerLitter').html(report.containerLitter)
-              $('#view_landfillLitter').html(report.landfillLitter)
-              $('#view_highestToteTeleop').html(report.highestToteTeleop)
-              $('#view_autoComments').html(report.autoComments)
-              $('#view_robotMoved').html(report.robotMoved.toString())
-              $('#view_toteMoved').html(report.toteMoved.toString())
-              $('#view_containerMoved').html(report.containerMoved.toString())
-              $('#view_toteStacked').html(report.toteStacked.toString())
-              $('#view_landfillContainer').html(report.landfillContainer.toString())
-              $('#view_coopertitionSet').html(report.coopertitionSet.toString())
-              $('#view_coopertitionStack').html(report.coopertitionStack.toString())
-            }
-          }
-        };
-
         
         $('.report_table td').click(function(){
           $('#view_nearDrivers').html("No Info")
@@ -606,25 +635,22 @@
           $('#view_tab').addClass("active");
           $('#scout_tab').removeClass('active');
           $('#scout_form').hide();
-          $('#view_form').show();
+          $('.view_form').show();
           viewDataMatch();
-          if(navigator.onLine){
-            autoSync();
-          } 
+          autoSync();
         });
         $('#scout_tab').click(function(){
           $('#scout_tab').addClass("active");
           $('#view_tab').removeClass('active');
           $('#scout_form').show();
-          $("#view_form").hide();
+          $(".view_form").hide();
           $('#submit_match_report').html('Submit');
           $('#submit_match_report').prop('disabled', false);
           $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
           $('#submit_match_report').addClass('button');
           $('#submit_match_report').removeClass('button_disabled');
-          if(navigator.onLine){
-            autoSync();
-          } 
+          $('#viewContainer').html("");
+          autoSync();
         });
         
         $('#submit_match_report').click(function(){
@@ -633,7 +659,8 @@
             "meta" : {
               "team" : localStorage.team,
               "match" : localStorage.match,
-              "time" : new Date().getTime()
+              "time" : new Date().getTime(),
+              "scout" : localStorage.user || sessionStorage.user
             },
             "data" : {
               autoComments : $('#autoComments').val(),
@@ -667,36 +694,21 @@
           localStorage.data = JSON.stringify(data);
           console.log(localStorage.data);
 
-          if(navigator.onLine){
-            autoSync();
-            $('#submit_match_report').html('Done!');
-            $('#submit_match_report').prop('disabled', true);
-            $('#submit_match_report').removeClass('button_hovered');
-            $('#submit_match_report').removeClass('button');
-            $('#submit_match_report').addClass('button_disabled');
-            $('#submit_match_report').css({"background-color":"black","color":"DarkOrange"});
-            setTimeout(function() {
-              $('#submit_match_report').html('Submit');
-              $('#submit_match_report').prop('disabled', false);
-              $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
-              $('#submit_match_report').addClass('button');
-              $('#submit_match_report').removeClass('button_disabled');
-            }, 1000);
-          } else {
-            $('#submit_match_report').html('Data was saved! Sync when server connection is available.');
-            $('#submit_match_report').prop('disabled', true);
-            $('#submit_match_report').removeClass('button_hovered');
-            $('#submit_match_report').removeClass('button');
-            $('#submit_match_report').addClass('button_disabled');
-            $('#submit_match_report').css({"background-color":"black","color":"DarkOrange"});
-            setTimeout(function() {
-              $('#submit_match_report').html('Submit');
-              $('#submit_match_report').prop('disabled', false);
-              $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
-              $('#submit_match_report').addClass('button');
-              $('#submit_match_report').removeClass('button_disabled');
-            }, 2000);
-          }
+          autoSync();
+          $('#submit_match_report').html('Done!');
+          $('#submit_match_report').prop('disabled', true);
+          $('#submit_match_report').removeClass('button_hovered');
+          $('#submit_match_report').removeClass('button');
+          $('#submit_match_report').addClass('button_disabled');
+          $('#submit_match_report').css({"background-color":"black","color":"DarkOrange"});
+          setTimeout(function() {
+            $('#submit_match_report').html('Submit');
+            $('#submit_match_report').prop('disabled', false);
+            $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
+            $('#submit_match_report').addClass('button');
+            $('#submit_match_report').removeClass('button_disabled');
+          }, 1000);
+          
         });
 
         var grayTotes = 0;
@@ -755,6 +767,298 @@
           }
           $('.landfillLitter').val(landfillLitter);
         });
+
+        // var reports = [];
+        // var data = JSON.parse(localStorage.data);
+        // if(data && data[localStorage.team] && data[localStorage.team][localStorage.match]){
+        //   var match = JSON.parse(localStorage.data)[localStorage.team][localStorage.match];
+        //   for(var user in match) {
+        //     for(var i = 0; i < match[user].length; i++) {
+        //       reports.push(match[user][i]);
+        //     }
+        //   }
+        // }
+
+        function viewDataMatch() {
+          
+          $("#viewContainer").html("");
+
+          var reports = [];
+          var data = JSON.parse(localStorage.data);
+          if(data && data[localStorage.team] && data[localStorage.team][localStorage.match]){
+            var match = JSON.parse(localStorage.data)[localStorage.team][localStorage.match];
+            for(var user in match) {
+              for(var i = 0; i < match[user].length; i++) {
+                reports.push(match[user][i]);
+              }
+            }
+          }
+          if(reports.length > 0){
+            for(var i = 0; i < reports.length; i++) {
+              var report = reports[i];
+
+              viewTableAuto = document.createElement('table');
+
+              viewtr1auto = document.createElement('tr');
+              viewtr1td1auto = document.createElement('td');
+              viewtr1td2auto = document.createElement('td');
+              viewtr1auto.appendChild(viewtr1td1auto);
+              viewtr1auto.appendChild(viewtr1td2auto);
+
+              viewtr2auto = document.createElement('tr');
+              viewtr2td1auto = document.createElement('td');
+              viewtr2td2auto = document.createElement('td');
+              viewtr2auto.appendChild(viewtr2td1auto);
+              viewtr2auto.appendChild(viewtr2td2auto);
+
+              viewtr3auto = document.createElement('tr');
+              viewtr3td1auto = document.createElement('td');
+              viewtr3td2auto = document.createElement('td');
+              viewtr3auto.appendChild(viewtr3td1auto);
+              viewtr3auto.appendChild(viewtr3td2auto);
+
+              viewtr4auto = document.createElement('tr');
+              viewtr4td1auto = document.createElement('td');
+              viewtr4td2auto = document.createElement('td');
+              viewtr4auto.appendChild(viewtr4td1auto);
+              viewtr4auto.appendChild(viewtr4td2auto);
+
+              viewtr5auto = document.createElement('tr');
+              viewtr5td1auto = document.createElement('td');
+              viewtr5td2auto = document.createElement('td');
+              viewtr5auto.appendChild(viewtr5td1auto);
+              viewtr5auto.appendChild(viewtr5td2auto);
+
+              viewtr6auto = document.createElement('tr');
+              viewtr6td1auto = document.createElement('td');
+              viewtr6td2auto = document.createElement('td');
+              viewtr6auto.appendChild(viewtr6td1auto);
+              viewtr6auto.appendChild(viewtr6td2auto);
+
+              viewtr7auto = document.createElement('tr');
+              viewtr7td1auto = document.createElement('td');
+              viewtr7td2auto = document.createElement('td');
+              viewtr7auto.appendChild(viewtr7td1auto);
+              viewtr7auto.appendChild(viewtr7td2auto);
+
+              viewtr8auto = document.createElement('tr');
+              viewtr8td1auto = document.createElement('td');
+              viewtr8td2auto = document.createElement('td');
+              viewtr8auto.appendChild(viewtr8td1auto);
+              viewtr8auto.appendChild(viewtr8td2auto);
+
+              viewtr1autotext = document.createTextNode('Near Drivers');
+              viewtr2autotext = document.createTextNode('Robot moved to auto zone');
+              viewtr3autotext = document.createTextNode('Tote set on auto zone');
+              viewtr4autotext = document.createTextNode('Container set on auto zone');
+              viewtr5autotext = document.createTextNode('Totes stacked on auto zone');
+              viewtr6autotext = document.createTextNode('Highest level tote stacked');
+              viewtr7autotext = document.createTextNode('Can get container from landfill');
+              viewtr8autotext = document.createTextNode('Comments');
+
+              viewtr1td1auto.appendChild(viewtr1autotext);
+              viewtr2td1auto.appendChild(viewtr2autotext);
+              viewtr3td1auto.appendChild(viewtr3autotext);
+              viewtr4td1auto.appendChild(viewtr4autotext);
+              viewtr5td1auto.appendChild(viewtr5autotext);
+              viewtr6td1auto.appendChild(viewtr6autotext);
+              viewtr7td1auto.appendChild(viewtr7autotext);
+              viewtr8td1auto.appendChild(viewtr8autotext);
+
+              viewTableAuto.appendChild(viewtr1auto);
+              viewTableAuto.appendChild(viewtr2auto);
+              viewTableAuto.appendChild(viewtr3auto);
+              viewTableAuto.appendChild(viewtr4auto);
+              viewTableAuto.appendChild(viewtr5auto);
+              viewTableAuto.appendChild(viewtr6auto);
+              viewTableAuto.appendChild(viewtr7auto);
+              viewTableAuto.appendChild(viewtr8auto);
+
+              viewTableTeleop = document.createElement('table');
+
+              viewtr1teleop = document.createElement('tr');
+              viewtr1td1teleop = document.createElement('td');
+              viewtr1td2teleop = document.createElement('td');
+              viewtr1teleop.appendChild(viewtr1td1teleop);
+              viewtr1teleop.appendChild(viewtr1td2teleop);
+
+              viewtr2teleop = document.createElement('tr');
+              viewtr2td1teleop = document.createElement('td');
+              viewtr2td2teleop = document.createElement('td');
+              viewtr2teleop.appendChild(viewtr2td1teleop);
+              viewtr2teleop.appendChild(viewtr2td2teleop);
+
+              viewtr3teleop = document.createElement('tr');
+              viewtr3td1teleop = document.createElement('td');
+              viewtr3td2teleop = document.createElement('td');
+              viewtr3teleop.appendChild(viewtr3td1teleop);
+              viewtr3teleop.appendChild(viewtr3td2teleop);
+
+              viewtr4teleop = document.createElement('tr');
+              viewtr4td1teleop = document.createElement('td');
+              viewtr4td2teleop = document.createElement('td');
+              viewtr4teleop.appendChild(viewtr4td1teleop);
+              viewtr4teleop.appendChild(viewtr4td2teleop);
+
+              viewtr5teleop = document.createElement('tr');
+              viewtr5td1teleop = document.createElement('td');
+              viewtr5td2teleop = document.createElement('td');
+              viewtr5teleop.appendChild(viewtr5td1teleop);
+              viewtr5teleop.appendChild(viewtr5td2teleop);
+
+              viewtr6teleop = document.createElement('tr');
+              viewtr6td1teleop = document.createElement('td');
+              viewtr6td2teleop = document.createElement('td');
+              viewtr6teleop.appendChild(viewtr6td1teleop);
+              viewtr6teleop.appendChild(viewtr6td2teleop);
+
+              viewtr7teleop = document.createElement('tr');
+              viewtr7td1teleop = document.createElement('td');
+              viewtr7td2teleop = document.createElement('td');
+              viewtr7teleop.appendChild(viewtr7td1teleop);
+              viewtr7teleop.appendChild(viewtr7td2teleop);
+
+              viewtr8teleop = document.createElement('tr');
+              viewtr8td1teleop = document.createElement('td');
+              viewtr8td2teleop = document.createElement('td');
+              viewtr8teleop.appendChild(viewtr8td1teleop);
+              viewtr8teleop.appendChild(viewtr8td2teleop);
+
+              viewtr1teleoptext = document.createTextNode('Gray totes scored');
+              viewtr2teleoptext = document.createTextNode('Containers scored');
+              viewtr3teleoptext = document.createTextNode('Litter in containers');
+              viewtr4teleoptext = document.createTextNode('Litter put in landfill');
+              viewtr5teleoptext = document.createTextNode('Highest level tote stacked');
+              viewtr6teleoptext = document.createTextNode('Coopertition set');
+              viewtr7teleoptext = document.createTextNode('Coopertition stack');
+              viewtr8teleoptext = document.createTextNode('Comments');
+
+              viewtr1td1teleop.appendChild(viewtr1teleoptext);
+              viewtr2td1teleop.appendChild(viewtr2teleoptext);
+              viewtr3td1teleop.appendChild(viewtr3teleoptext);
+              viewtr4td1teleop.appendChild(viewtr4teleoptext);
+              viewtr5td1teleop.appendChild(viewtr5teleoptext);
+              viewtr6td1teleop.appendChild(viewtr6teleoptext);
+              viewtr7td1teleop.appendChild(viewtr7teleoptext);
+              viewtr8td1teleop.appendChild(viewtr8teleoptext);
+
+              viewTableTeleop.appendChild(viewtr1teleop);
+              viewTableTeleop.appendChild(viewtr2teleop);
+              viewTableTeleop.appendChild(viewtr3teleop);
+              viewTableTeleop.appendChild(viewtr4teleop);
+              viewTableTeleop.appendChild(viewtr5teleop);
+              viewTableTeleop.appendChild(viewtr6teleop);
+              viewTableTeleop.appendChild(viewtr7teleop);
+              viewTableTeleop.appendChild(viewtr8teleop);
+
+              if(report.nearDrivers){
+                $(viewtr1td2auto).html("Drivers")
+              }else{
+                $(viewtr1td2auto).html("Landfill")
+              }
+              $(viewtr2td2auto).html(report.data.robotMoved.toString());
+              $(viewtr3td2auto).html(report.data.toteMoved.toString());
+              $(viewtr4td2auto).html(report.data.containerMoved.toString());
+              $(viewtr5td2auto).html(report.data.toteStacked.toString());
+              $(viewtr6td2auto).html(report.data.highestToteAuto);
+              $(viewtr7td2auto).html(report.data.landfillContainer.toString());
+              $(viewtr8td2auto).html(report.data.autoComments);
+              $(viewtr1td2teleop).html(report.data.grayTotes);
+              $(viewtr2td2teleop).html(report.data.containers);
+              $(viewtr3td2teleop).html(report.data.containerLitter);
+              $(viewtr4td2teleop).html(report.data.landfillLitter);
+              $(viewtr5td2teleop).html(report.data.highestToteTeleop);
+              $(viewtr6td2teleop).html(report.data.coopertitionSet.toString());
+              $(viewtr7td2teleop).html(report.data.coopertitionStack.toString());
+              $(viewtr8td2teleop).html(report.data.teleopComments);
+
+              $(viewTableAuto).attr('id', 'view_table');
+              $(viewTableTeleop).attr('id', 'view_table');
+
+              scoutRow = document.createElement('div');
+              $(scoutRow).addClass('row');
+              $(scoutRow).addClass('view_form');
+
+              autoColumn = document.createElement('div');
+              $(autoColumn).addClass('col-md-12');
+              $(autoColumn).addClass('col-sm-12');
+              $(autoColumn).addClass('col-xs-12');
+
+              teleopColumn = document.createElement('div');
+              $(teleopColumn).addClass('col-md-12');
+              $(teleopColumn).addClass('col-sm-12');
+              $(teleopColumn).addClass('col-xs-12');
+
+              scoutDiv1 = document.createElement('div');
+              $(scoutDiv1).addClass('scout_div');
+              $(scoutDiv1).addClass('auto_view')
+
+              scoutDiv2 = document.createElement('div');
+              $(scoutDiv2).addClass('scout_div');
+              $(scoutDiv2).addClass('auto_view')
+
+              reportID = document.createElement('div');
+              $(reportID).addClass('reportID');
+              $(reportID).append("Report #" + (i + 1) + " - by " + report.meta.scout);
+              if(localStorage.user == "admin" || sessionStorage.user == "admin"){
+                deleteButton = document.createElement('input');
+                $(deleteButton).attr('type', 'button');
+                $(deleteButton).attr('value', 'Delete');
+                $(deleteButton).addClass('delete');
+                (function() {
+                  var entry = report;
+                  var index = i;
+                  $(deleteButton).click(function() {
+                    if(!confirm("Are you sure you want to delete Report #" + (index + 1) + "?")) return;
+                    if(report.meta.checksum) {
+                      var deleted = JSON.parse(localStorage.deleted || "[]");
+                      deleted.push({
+                        team: entry.meta.team,
+                        match: entry.meta.match,
+                        scout: entry.meta.scout,
+                        checksum: entry.meta.checksum
+                      });
+                      localStorage.deleted = JSON.stringify(deleted);
+                    }
+                    var data = JSON.parse(localStorage.data);
+                    data[report.meta.team][report.meta.match][report.meta.scout].splice(index, 1);
+                    localStorage.data = JSON.stringify(data);
+                    viewDataMatch();
+                    autoSync();
+                  });
+                })();
+                $(reportID).append(deleteButton);
+              }
+
+              $(scoutDiv1).append('<h3 class="scout_div_title view_title">Autonomous</h3>');
+              $(scoutDiv1).append(viewTableAuto);
+              $(scoutDiv2).append('<h3 class="scout_div_title view_title">Teleop</h3>');
+              $(scoutDiv2).append(viewTableTeleop);
+
+              scoutRow.appendChild(reportID);
+              scoutRow.appendChild(autoColumn);
+              autoColumn.appendChild(scoutDiv1);
+              scoutRow.appendChild(teleopColumn);
+              teleopColumn.appendChild(scoutDiv2);
+
+              $('#viewContainer').append(scoutRow);
+        
+            }
+
+          }else{
+              noDataMsg = document.createElement('h1');
+              $(noDataMsg).addClass('noDataMsg');
+              noDataMsgText = document.createTextNode('No Data Yet');
+              noDataMsg.appendChild(noDataMsgText);
+              $('#viewContainer').append(noDataMsg);
+
+          }
+        }
+
+      $('#scout_form').hide();
+      $('.view_form').hide();
+      $('#report_tabs').hide();
+
     });
     $(document).on('pagecreate', '#reportTeamPage', function(){
 
@@ -770,7 +1074,11 @@
       });
 
       $('#view_form').hide();
-      $('#viewMatches_form').hide(); 
+      $('#viewMatches_form').hide();
+      $('.pitDelete').hide()
+      if(localStorage.user == 'admin' || sessionStorage.user == "admin"){
+        $('.pitDelete').show();
+      }  
 
       // if($(window).width() < 710){
         $("#viewMatches_tab").hide();
@@ -839,9 +1147,7 @@
         $('#viewMatches_form').hide();  
         $('#view_form').show();
         viewDataPit();
-        if(navigator.onLine){
-          autoSync();
-        }
+        autoSync();
       });
       $('#scout_tab').click(function(){
         $('#scout_tab').addClass("active");
@@ -853,9 +1159,7 @@
         $('#submit_match_report').html('Submit');
         $('#submit_match_report').prop('disabled', false);
         $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
-        if(navigator.onLine){
-          autoSync();
-        }
+        autoSync();
       }); 
       $('#viewMatches_tab').click(function(){
         $('#viewMatches_tab').addClass("active");
@@ -864,9 +1168,7 @@
         $('#viewMatches_form').show();
         $('#view_form').hide();
         $('#scout_form').hide();
-        if(navigator.onLine){
-          autoSync();
-        }
+        autoSync();
       })
 
       $('#submit_match_report').click(function(){
@@ -913,7 +1215,6 @@
         data[localStorage.pitTeam].pit[user].push(report);
         localStorage.data = JSON.stringify(data);
 
-        if(navigator.onLine){
           autoSync();
           $('#submit_match_report').html('Done!');
           $('#submit_match_report').prop('disabled', true);
@@ -928,21 +1229,6 @@
             $('#submit_match_report').addClass('button');
             $('#submit_match_report').removeClass('button_disabled');
           }, 1000);
-        } else {
-          $('#submit_match_report').html('Data was saved! Sync when server connection is available.');
-          $('#submit_match_report').prop('disabled', true);
-          $('#submit_match_report').removeClass('button_hovered');
-          $('#submit_match_report').removeClass('button');
-          $('#submit_match_report').addClass('button_disabled');
-          $('#submit_match_report').css({"background-color":"black","color":"DarkOrange"});
-          setTimeout(function() {
-            $('#submit_match_report').html('Submit');
-            $('#submit_match_report').prop('disabled', false);
-            $('#submit_match_report').css({"background-color":"DarkOrange","color":"black"});
-            $('#submit_match_report').addClass('button');
-            $('#submit_match_report').removeClass('button_disabled');
-          }, 2000);
-        }
       });
     });
 
@@ -976,13 +1262,19 @@
       });  
 
     $(document).on('pagecreate', '.page', function(){
-      if(navigator.onLine){
-        autoSync();
+      autoSync();
+      if(localStorage.user !== undefined){
+        var userD = document.createTextNode(" " + localStorage.user);
+        $('.nameDisplay').html(userD);
+      } else if (sessionStorage.user !== undefined) {
+        var userD = document.createTextNode(" " + sessionStorage.user);
+        $('.nameDisplay').html(userD);
       }
+
     });   
     </script>
 
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/JQM/jquery.mobile-1.4.5.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <script id="panel-init">
@@ -1009,7 +1301,7 @@
       <div class="container">
        <div class="row"> 
          <h1>MorScout</h1>
-         <h3>OurScout is MorScout Than YourScout</h3>
+         <h3 id="randMsg"></h3>
        </div>
       </div>
      </div> 

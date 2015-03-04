@@ -184,6 +184,12 @@ body{
 	cursor: pointer; /* changes cursor to hand (not to be changed) */
 }
 
+.noDataMsg{
+	font-size: 2.6em;
+	font-family: 'Exo 2', sans-serif;
+	color: DarkOrange;
+}
+
 /* END OF GENERAL STYLES */
 
 /* TABLE STYLES */
@@ -268,6 +274,22 @@ th,td {
 	background-color: #C0C0C0 !important;
 	color: black !important; /* color of text when any row is hovered over */
 	cursor: pointer !important; /* changes cursor to shape of hand when hovering over rows (not to be changed) */
+}
+.frenemyTeamHighlight{
+	background-color: purple;
+	color: #CCCCCC;
+}
+.allyTeamHighlight{
+	background-color: green;
+	color: #CCCCCC;
+}
+.enemyTeamHighlight{
+	background-color: #BB0000;
+	color: #CCCCCC;
+}
+.selfTeamHighlight{
+	background-color: #EE7600;
+	color: black;
 }
 
 /* END OF TABLE STYLES */
@@ -712,6 +734,27 @@ label:before {
 .table_head {
 	white-space: nowrap;
 }
+.delete{
+	background-color: red; 
+	color: white; 
+	padding: 0.2em;
+	display: inline-block;
+	margin-left: .7em;
+}
+.delete:hover{
+	background-color: #B80000; 
+	color: #CCCCCC;
+}
+.reportID{
+	font-family: 'Exo 2', sans-serif;
+	color: orange;
+	margin-bottom: 0em;
+	font-size: 6.5vw;
+	margin-top: 1em;
+}
+.report_bigger{
+	line-height: 1.5;
+}
 /* END OF REPORT SCREEN STYLES */
 
 /* SYNC PAGE STYLES */
@@ -941,6 +984,10 @@ margin-top: 2em; /* distance of grid of settings from top of page */
 	.scout_div{
 		font-size: 2.5vw;
 	}
+	.report_bigger{
+		font-size: 2.5em !important;
+		line-height: 1.5;
+	}
 	label:before{
 		width: 5vw;
 		height: 5vw;
@@ -967,6 +1014,19 @@ margin-top: 2em; /* distance of grid of settings from top of page */
 	.report_radio_check{
 		padding-left:1.3em !important;
 	}
+	#report_box_small{
+		font-size: 1.9em !important;
+	}
+	#report_text{
+		font-size: 2.1em !important;
+		font-weight: bold !important;
+
+	}
+	.add_minus_textbox{
+		font-size: 1.5em !important;
+		height: 1.7em !important;
+	}
+
 }
 
 @media only screen (height: 736px) and (width: 414px) {

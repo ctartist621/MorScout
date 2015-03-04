@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+ <head>
+	<meta name=apple-mobile-web-app-capable content=yes>
+    <meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>Report Match</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="img/MorIcon.png">
+	<link rel="apple-touch-startup-image" href="img/MorStartup.png" media="(device-width: 414px)">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/index.css" type="text/css">
+ </head>
+ 
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="index.html">MorScout</a>
+		   <a class="navbar-brand current_page" href="#">Report</a>
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MorScoutNav" id = "toggle_button">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span> 
+		  </button>
+		</div>
+		<div class="collapse navbar-collapse" id="MorScoutNav">
+		  <ul class="nav navbar-nav">
+			<li><a href="matches.html"title="List of all matches">All Matches</a></li>
+			<li><a href="teams.html"title="List of all teams">Team List</a></li>
+			<li><a href="sync.html"title="Sync with the server" >Sync</a></li>
+			<li><a href="settings.html" title="Configure the settings">Settings</a></li>
+		  </ul>
+		  <ul class="nav navbar-nav navbar-right">
+			<li><a class = "rightlinks" href="help.html" title="Need help?">Help</a></li>
+			<li><a class = "rightlinks" href="feedback.html" title="Give team 1515 your feedback!">Feedback</a></li>
+			<li id="UserDropdown" class="dropdown">
+				<a class = "rightlinks" href="login.html">Log in</a>
+			</li>
+		  </ul>
+		</div>
+	</div>
+</nav>
+
+<div class = "report">
+	<div class="container-fluid">
+		<div id="report_title" class="page_title">
+			<h2>Match </h2>
+			<h2 id="report_match_num"></h2>
+			<h2> - </h2>
+			<h2 id="report_match_time"></h2>
+			<h2 id="report_instruction">Choose a team to scout or view</h2>
+		</div>
+		<div class="row">
+			<div class = "col-md-12">
+				<table class="report_table">
+					<tr>
+						<th id="rh">Red Teams</th>
+						<th id="bh">Blue Teams</th>
+					</tr>
+					<tr>
+						<td id="r1"></td>
+						<td id="b1"></td>
+					</tr>
+					<tr>
+						<td id="r2"></td>
+						<td id="b2"></td>
+					</tr>
+					<tr>
+						<td id="r3"></td>
+						<td id="b3"></td>
+					</tr>
+				</table>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>	
+			<div class="col-md-10 col-sm-12 col-xs-12">
+				<ul id="report_tabs" class="nav nav-tabs">
+				  <li id="scout_tab" class="active"><a href="javascript: void(0);">Scout</a></li>
+				  <li id="view_tab"><a href="javascript: void(0);">View</a></li>
+				</ul>	
+			</div>
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>
+		</div>			
+		<div id="scout_form" class="row">
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>	
+			<div class="col-md-5 col-sm-6 col-xs-12">
+	  	    	<div class="scout_div">
+	  	    		<h3 class="scout_div_title">Autonomous</h3>
+
+	  	    		<div class="radio">
+		  	    		<input class="report_check" type="radio" name="auto" id="nearDrivers"></input>
+		  	    		<label id="report_text" for="nearDrivers" class="report_radio_check">Started near drivers</label><br/>
+						<input class="report_check" type="radio" name="auto" id="radio12"></input>
+						<label id="report_text" for="radio12" class="report_radio_check">Started near landfill</label><br/>
+					</div>	
+
+	  	    		<input class="report_check" type="checkbox" id="robotMoved"></input>
+	  	    		<label id="report_text" for="robotMoved" class="report_radio_check">Robot moves to auto zone?</label><br/>
+
+					<input class="report_check" type="checkbox" id="toteMoved"></input>
+					<label id="report_text" for="toteMoved" class="report_radio_check">Tote moved to auto zone?</label><br/>
+
+					<input class="report_check" type="checkbox" id="containerMoved"></input>
+					<label id="report_text" for="containerMoved" class="report_radio_check">Container set on auto zone?</label><br/>
+
+					<input class="report_check" type="checkbox" id="toteStacked"></input>
+					<label id="report_text" for="toteStacked" class="report_radio_check">Single stacked tote set?</label><br/>
+
+	  	    		<p id="report_text">Highest level tote stacked: </p>
+	  	    		<input id="report_box_small" class="highestToteAuto" type="number"></input><br/>
+
+	  	    		<textarea id="autoComments" class="report_area" placeholder="comments"></textarea> 
+	  	    	</div>	
+			</div>
+			<div class="col-md-5 col-sm-6 col-xs-12">
+				<div class="scout_div">
+				    <h3 class="scout_div_title">Teleop</h3>  
+
+					<p id="report_text">Gray tote scored</p>
+	  	    		<input type="button" id="grayTotesMinus" class="button add_minus_button" value="-"></input>
+	  	    		<input class="grayTotes" id="report_box_small" type="number" value="0"></input>
+	  	    		<input type="button" id="grayTotesPlus" class="button add_minus_button" value="+"></input><br/> 
+
+	  	    		<p id="report_text">Container scored</p>
+	  	    		<input type="button" id="containersMinus" class="button add_minus_button" value="-"></input>
+	  	    		<input class="containers" id="report_box_small" type="number" value="0"></input>
+	  	    		<input type="button" id="containersPlus" class="button add_minus_button" value="+"></input><br/> 
+
+	  	    		<p id="report_text">Litter in container</p>
+	  	    		<input type="button" id="containerLitterMinus" class="button add_minus_button" value="-"></input>
+	  	    		<input class="containerLitter" id="report_box_small" type="number" value="0"></input>
+	  	    		<input type="button" id="containerLitterPlus" class="button add_minus_button" value="+"></input><br/> 
+
+	  	    		<p id="report_text">Litter put in landfill</p>
+	  	    		<input type="button" id="landfillLitterMinus" class="button add_minus_button" value="-"></input
+	  	    		><input class="landfillLitter" id="report_box_small" type="number" value="0"></input>
+	  	    		<input type="button" id="landfillLitterPlus" class="button add_minus_button" value="+"></input><br/>
+
+	  	    		<p id="report_text">Highest level tote stacked: </p>
+	  	    		<input id="report_box_small" type="number" class="highestToteTeleop"></input><br/>
+
+	  	    		<input class="report_check" type="checkbox" id="landfillContainer"></input>
+	  	    		<label id="report_text" for="landfillContainer" class="report_radio_check">Gets container from landfill?</label><br/> 
+	  	    		<div class="radio">
+		  	    		<input class="report_check" type="radio" id="coopertitionSet" name="coopertition"></input>
+		  	    		<label id="report_text" for="coopertitionSet" class="report_radio_check">Coopertition set</label><br/>
+						<input class="report_check" type="radio" id="coopertitionStack" name="coopertition"></input>
+						<label id="report_text" for="coopertitionStack" class="report_radio_check">Coopertition stack</label><br/>
+					</div>
+					<textarea id="teleopComments" class="report_area" placeholder="comments"></textarea> 
+				</div>
+				<div class="submit_match">
+					<button id="submit_match_report" class="button">Submit</button>
+				</div>	
+			</div>
+			<div class="col-md-1 col-sm-0 col-xs-0">
+			</div>		
+		</div>
+		<div id="viewContainer"></div>	
+	</div>
+</div>
+	
+<!-- JAVASCRIPT -->		
+	
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>	
+<script type='application/javascript' src='js/fastclick.js'></script>	
+<script type="text/javascript" src="js/links.js"></script>	
+
+<script src="js/reportTable.js"></script>	
+<script src="js/main.js" type="text/javascript"></script>
+
+<script>
+if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
+}
+</script>
+
+<script>
+
+	$(document).ready(function() {
+
+
+		$('.report_table td').bind('touchstart',function(){
+			$(this).addClass('button_hovered_report')
+		});
+		$('.report_table td').bind('touchend',function(){
+			$(this).removeClass('button_hovered_report')
+		});
+		$('.report_table td').hover(function(){
+			$(this).toggleClass('button_hovered_report')
+		});
+		$('.report_table td').click(function(){
+			$('#view_nearDrivers').html("No Info")
+			$('#view_teleopComments').html("No Info")
+			$('#view_highestToteAuto').html("No Info")
+			$('#view_grayTotes').html("No Info")
+			$('#view_containers').html("No Info")
+			$('#view_containerLitter').html("No Info")
+			$('#view_landfillLitter').html("No Info")
+			$('#view_highestToteTeleop').html("No Info")
+			$('#view_autoComments').html("No Info")
+			$('#view_robotMoved').html("No Info")
+			$('#view_toteMoved').html("No Info")
+			$('#view_containerMoved').html("No Info")
+			$('#view_toteStacked').html("No Info")
+			$('#view_landfillContainer').html("No Info")
+			$('#view_coopertitionSet').html("No Info")
+			$('#view_coopertitionStack').html("No Info")
+			localStorage.removeItem('team');
+			localStorage.team = $(this).text();
+			$('td').removeClass('button_selected_report');
+ 			$(this).addClass('button_selected_report');
+ 			$('#scout_form').fadeIn(300);
+			$('#report_tabs').fadeIn(300);
+			$('#scout_tab').trigger("click");
+			// location = "reportTeam.html?" + getQS({"team" : $(this).text()});
+		});
+		$('#view_tab').click(function(){
+			$('#view_tab').addClass("active");
+			$('#scout_tab').removeClass('active');
+			$('#scout_form').hide();
+			$('.view_form').show();
+			viewDataMatch();
+			if(navigator.onLine){
+				autoSync();
+			}	
+		});
+		$('#scout_tab').click(function(){
+			$('#scout_tab').addClass("active");
+			$('#view_tab').removeClass('active');
+			$('#scout_form').show();
+			$(".view_form").hide();
+			$('#submit_match_report').html('Submit');
+			$('#submit_match_report').prop('disabled', false);
+			$('#submit_match_report').css({"background-color":"orange","color":"black"});
+			$('#submit_match_report').addClass('button');
+			$('#submit_match_report').removeClass('button_disabled');
+			$('#viewContainer').html('');
+			if(navigator.onLine){
+				autoSync();
+			}	
+		});
+		
+		$('#submit_match_report').click(function(){
+
+			var report = {
+				"meta" : {
+					"team" : localStorage.team,
+					"match" : localStorage.match,
+					"time" : new Date().getTime(),
+					"scout" : localStorage.user || sessionStorage.user
+				},
+				"data" : {
+					autoComments : $('#autoComments').val(),
+					teleopComments : $('#teleopComments').val(),
+					highestToteAuto : parseInt($('.highestToteAuto').val()) || 0,
+					grayTotes : parseInt($('.grayTotes').val()) || 0,
+					containers : parseInt($('.containers').val()) || 0,
+					containerLitter : parseInt($('.containerLitter').val()) || 0,
+					landfillLitter : parseInt($('.landfillLitter').val()) || 0,
+					highestToteTeleop : parseInt($('.highestToteTeleop').val()) || 0,
+					nearDrivers : $('#nearDrivers').is(':checked'),
+					robotMoved : $('#robotMoved').is(':checked'),
+					toteMoved : $('#toteMoved').is(':checked'),
+					containerMoved : $('#containerMoved').is(':checked'),
+					toteStacked : $('#toteStacked').is(':checked'),
+					landfillContainer : $('#landfillContainer').is(':checked'),
+					coopertitionSet : $('#coopertitionSet').is(':checked'),
+					coopertitionStack : $('#coopertitionStack').is(':checked')
+				}
+			};
+
+			var arr = parseJSON(localStorage.unSynced) || [];
+			arr.push(report);
+			localStorage.unSynced = JSON.stringify(arr);
+
+			var data = JSON.parse(localStorage.data);
+			if(!data[localStorage.team]) data[localStorage.team] = {};
+			if(!data[localStorage.team][localStorage.match]) data[localStorage.team][localStorage.match] = {};
+			if(!data[localStorage.team][localStorage.match][localStorage.user]) data[localStorage.team][localStorage.match][localStorage.user] = [];
+			data[localStorage.team][localStorage.match][localStorage.user].push(report);
+			localStorage.data = JSON.stringify(data);
+
+			if(navigator.onLine){
+				autoSync();
+				$('#submit_match_report').html('Done!');
+				$('#submit_match_report').prop('disabled', true);
+				$('#submit_match_report').removeClass('button_hovered');
+				$('#submit_match_report').removeClass('button');
+				$('#submit_match_report').addClass('button_disabled');
+				$('#submit_match_report').css({"background-color":"black","color":"orange"});
+				setTimeout(function() {
+					$('#submit_match_report').html('Submit');
+					$('#submit_match_report').prop('disabled', false);
+					$('#submit_match_report').css({"background-color":"orange","color":"black"});
+					$('#submit_match_report').addClass('button');
+					$('#submit_match_report').removeClass('button_disabled');
+				}, 1000);
+			} else {
+				$('#submit_match_report').html('Data was saved! Sync when server connection is available.');
+				$('#submit_match_report').prop('disabled', true);
+				$('#submit_match_report').removeClass('button_hovered');
+				$('#submit_match_report').removeClass('button');
+				$('#submit_match_report').addClass('button_disabled');
+				$('#submit_match_report').css({"background-color":"black","color":"orange"});
+				setTimeout(function() {
+					$('#submit_match_report').html('Submit');
+					$('#submit_match_report').prop('disabled', false);
+					$('#submit_match_report').css({"background-color":"orange","color":"black"});
+					$('#submit_match_report').addClass('button');
+					$('#submit_match_report').removeClass('button_disabled');
+				}, 2000);
+			}
+		});
+
+		var grayTotes = 0;
+		var containers = 0;
+		var containerLitter = 0;
+		var landfillLitter = 0;
+
+		$('#grayTotesPlus').click(function(){
+			grayTotes++;
+			$('.grayTotes').val(grayTotes);
+		});
+		$('#grayTotesMinus').click(function(){
+			grayTotes--;
+			if(grayTotes<0){
+				grayTotes=0;
+			}
+			$('.grayTotes').val(grayTotes);
+		});
+		$('#containersPlus').click(function(){
+			containers++;
+			$('.containers').val(containers);
+		});
+		$('#containersMinus').click(function(){
+			containers--;
+			if(containers<0){
+				containers=0;
+			}
+			if(containerLitter>containers){
+				containerLitter=containers;
+			}
+			$('.containers').val(containers);
+			$('.containerLitter').val(containerLitter);
+		});
+		$('#containerLitterPlus').click(function(){
+			containerLitter++;
+			if(containerLitter>containers){
+				containerLitter--;
+			}
+			$('.containerLitter').val(containerLitter);
+		});
+		$('#containerLitterMinus').click(function(){
+			containerLitter--;
+			if(containerLitter<0){
+				containerLitter=0;
+			}
+			$('.containerLitter').val(containerLitter);
+		});
+		$('#landfillLitterPlus').click(function(){
+			landfillLitter++;
+			$('.landfillLitter').val(landfillLitter);
+		});
+		$('#landfillLitterMinus').click(function(){
+			landfillLitter--;
+			if(landfillLitter<0){
+				landfillLitter=0;
+			}
+			$('.landfillLitter').val(landfillLitter);
+		});
+
+
+		function viewDataMatch() {
+
+			$("#viewContainer").html("");
+		
+			var reports = [];
+			var data = JSON.parse(localStorage.data);
+			if(data && data[localStorage.team] && data[localStorage.team][localStorage.match]){
+				var match = JSON.parse(localStorage.data)[localStorage.team][localStorage.match];
+				for(var user in match) {
+					for(var i = 0; i < match[user].length; i++) {
+						reports.push(match[user][i]);
+					}
+				}
+			}
+			if(reports.length > 0){
+				for(var i = 0; i < reports.length; i++) {
+					var report = reports[i];
+
+					viewTableAuto = document.createElement('table');
+
+					viewtr1auto = document.createElement('tr');
+					viewtr1td1auto = document.createElement('td');
+					viewtr1td2auto = document.createElement('td');
+					viewtr1auto.appendChild(viewtr1td1auto);
+					viewtr1auto.appendChild(viewtr1td2auto);
+
+					viewtr2auto = document.createElement('tr');
+					viewtr2td1auto = document.createElement('td');
+					viewtr2td2auto = document.createElement('td');
+					viewtr2auto.appendChild(viewtr2td1auto);
+					viewtr2auto.appendChild(viewtr2td2auto);
+
+					viewtr3auto = document.createElement('tr');
+					viewtr3td1auto = document.createElement('td');
+					viewtr3td2auto = document.createElement('td');
+					viewtr3auto.appendChild(viewtr3td1auto);
+					viewtr3auto.appendChild(viewtr3td2auto);
+
+					viewtr4auto = document.createElement('tr');
+					viewtr4td1auto = document.createElement('td');
+					viewtr4td2auto = document.createElement('td');
+					viewtr4auto.appendChild(viewtr4td1auto);
+					viewtr4auto.appendChild(viewtr4td2auto);
+
+					viewtr5auto = document.createElement('tr');
+					viewtr5td1auto = document.createElement('td');
+					viewtr5td2auto = document.createElement('td');
+					viewtr5auto.appendChild(viewtr5td1auto);
+					viewtr5auto.appendChild(viewtr5td2auto);
+
+					viewtr6auto = document.createElement('tr');
+					viewtr6td1auto = document.createElement('td');
+					viewtr6td2auto = document.createElement('td');
+					viewtr6auto.appendChild(viewtr6td1auto);
+					viewtr6auto.appendChild(viewtr6td2auto);
+
+					viewtr7auto = document.createElement('tr');
+					viewtr7td1auto = document.createElement('td');
+					viewtr7td2auto = document.createElement('td');
+					viewtr7auto.appendChild(viewtr7td1auto);
+					viewtr7auto.appendChild(viewtr7td2auto);
+
+					viewtr8auto = document.createElement('tr');
+					viewtr8td1auto = document.createElement('td');
+					viewtr8td2auto = document.createElement('td');
+					viewtr8auto.appendChild(viewtr8td1auto);
+					viewtr8auto.appendChild(viewtr8td2auto);
+
+					viewtr1autotext = document.createTextNode('Near Drivers');
+					viewtr2autotext = document.createTextNode('Robot moved to auto zone');
+					viewtr3autotext = document.createTextNode('Tote set on auto zone');
+					viewtr4autotext = document.createTextNode('Container set on auto zone');
+					viewtr5autotext = document.createTextNode('Totes stacked on auto zone');
+					viewtr6autotext = document.createTextNode('Highest level tote stacked');
+					viewtr7autotext = document.createTextNode('Can get container from landfill');
+					viewtr8autotext = document.createTextNode('Comments');
+
+					viewtr1td1auto.appendChild(viewtr1autotext);
+					viewtr2td1auto.appendChild(viewtr2autotext);
+					viewtr3td1auto.appendChild(viewtr3autotext);
+					viewtr4td1auto.appendChild(viewtr4autotext);
+					viewtr5td1auto.appendChild(viewtr5autotext);
+					viewtr6td1auto.appendChild(viewtr6autotext);
+					viewtr7td1auto.appendChild(viewtr7autotext);
+					viewtr8td1auto.appendChild(viewtr8autotext);
+
+					viewTableAuto.appendChild(viewtr1auto);
+					viewTableAuto.appendChild(viewtr2auto);
+					viewTableAuto.appendChild(viewtr3auto);
+					viewTableAuto.appendChild(viewtr4auto);
+					viewTableAuto.appendChild(viewtr5auto);
+					viewTableAuto.appendChild(viewtr6auto);
+					viewTableAuto.appendChild(viewtr7auto);
+					viewTableAuto.appendChild(viewtr8auto);
+
+					viewTableTeleop = document.createElement('table');
+
+					viewtr1teleop = document.createElement('tr');
+					viewtr1td1teleop = document.createElement('td');
+					viewtr1td2teleop = document.createElement('td');
+					viewtr1teleop.appendChild(viewtr1td1teleop);
+					viewtr1teleop.appendChild(viewtr1td2teleop);
+
+					viewtr2teleop = document.createElement('tr');
+					viewtr2td1teleop = document.createElement('td');
+					viewtr2td2teleop = document.createElement('td');
+					viewtr2teleop.appendChild(viewtr2td1teleop);
+					viewtr2teleop.appendChild(viewtr2td2teleop);
+
+					viewtr3teleop = document.createElement('tr');
+					viewtr3td1teleop = document.createElement('td');
+					viewtr3td2teleop = document.createElement('td');
+					viewtr3teleop.appendChild(viewtr3td1teleop);
+					viewtr3teleop.appendChild(viewtr3td2teleop);
+
+					viewtr4teleop = document.createElement('tr');
+					viewtr4td1teleop = document.createElement('td');
+					viewtr4td2teleop = document.createElement('td');
+					viewtr4teleop.appendChild(viewtr4td1teleop);
+					viewtr4teleop.appendChild(viewtr4td2teleop);
+
+					viewtr5teleop = document.createElement('tr');
+					viewtr5td1teleop = document.createElement('td');
+					viewtr5td2teleop = document.createElement('td');
+					viewtr5teleop.appendChild(viewtr5td1teleop);
+					viewtr5teleop.appendChild(viewtr5td2teleop);
+
+					viewtr6teleop = document.createElement('tr');
+					viewtr6td1teleop = document.createElement('td');
+					viewtr6td2teleop = document.createElement('td');
+					viewtr6teleop.appendChild(viewtr6td1teleop);
+					viewtr6teleop.appendChild(viewtr6td2teleop);
+
+					viewtr7teleop = document.createElement('tr');
+					viewtr7td1teleop = document.createElement('td');
+					viewtr7td2teleop = document.createElement('td');
+					viewtr7teleop.appendChild(viewtr7td1teleop);
+					viewtr7teleop.appendChild(viewtr7td2teleop);
+
+					viewtr8teleop = document.createElement('tr');
+					viewtr8td1teleop = document.createElement('td');
+					viewtr8td2teleop = document.createElement('td');
+					viewtr8teleop.appendChild(viewtr8td1teleop);
+					viewtr8teleop.appendChild(viewtr8td2teleop);
+
+					viewtr1teleoptext = document.createTextNode('Gray totes scored');
+					viewtr2teleoptext = document.createTextNode('Containers scored');
+					viewtr3teleoptext = document.createTextNode('Litter in containers');
+					viewtr4teleoptext = document.createTextNode('Litter put in landfill');
+					viewtr5teleoptext = document.createTextNode('Highest level tote stacked');
+					viewtr6teleoptext = document.createTextNode('Coopertition set');
+					viewtr7teleoptext = document.createTextNode('Coopertition stack');
+					viewtr8teleoptext = document.createTextNode('Comments');
+
+					viewtr1td1teleop.appendChild(viewtr1teleoptext);
+					viewtr2td1teleop.appendChild(viewtr2teleoptext);
+					viewtr3td1teleop.appendChild(viewtr3teleoptext);
+					viewtr4td1teleop.appendChild(viewtr4teleoptext);
+					viewtr5td1teleop.appendChild(viewtr5teleoptext);
+					viewtr6td1teleop.appendChild(viewtr6teleoptext);
+					viewtr7td1teleop.appendChild(viewtr7teleoptext);
+					viewtr8td1teleop.appendChild(viewtr8teleoptext);
+
+					viewTableTeleop.appendChild(viewtr1teleop);
+					viewTableTeleop.appendChild(viewtr2teleop);
+					viewTableTeleop.appendChild(viewtr3teleop);
+					viewTableTeleop.appendChild(viewtr4teleop);
+					viewTableTeleop.appendChild(viewtr5teleop);
+					viewTableTeleop.appendChild(viewtr6teleop);
+					viewTableTeleop.appendChild(viewtr7teleop);
+					viewTableTeleop.appendChild(viewtr8teleop);
+
+					if(report.nearDrivers){
+						$(viewtr1td2auto).html("Drivers")
+					}else{
+						$(viewtr1td2auto).html("Landfill")
+					}
+					$(viewtr2td2auto).html(report.data.robotMoved.toString());
+					$(viewtr3td2auto).html(report.data.toteMoved.toString());
+					$(viewtr4td2auto).html(report.data.containerMoved.toString());
+					$(viewtr5td2auto).html(report.data.toteStacked.toString());
+					$(viewtr6td2auto).html(report.data.highestToteAuto);
+					$(viewtr7td2auto).html(report.data.landfillContainer.toString());
+					$(viewtr8td2auto).html(report.data.autoComments);
+					$(viewtr1td2teleop).html(report.data.grayTotes);
+					$(viewtr2td2teleop).html(report.data.containers);
+					$(viewtr3td2teleop).html(report.data.containerLitter);
+					$(viewtr4td2teleop).html(report.data.landfillLitter);
+					$(viewtr5td2teleop).html(report.data.highestToteTeleop);
+					$(viewtr6td2teleop).html(report.data.coopertitionSet.toString());
+					$(viewtr7td2teleop).html(report.data.coopertitionStack.toString());
+					$(viewtr8td2teleop).html(report.data.teleopComments);
+
+					$(viewTableAuto).attr('id', 'view_table');
+					$(viewTableTeleop).attr('id', 'view_table');
+
+					scoutRow = document.createElement('div');
+					$(scoutRow).addClass('row');
+					$(scoutRow).addClass('view_form');
+
+					sideColumnLeft = document.createElement('div');
+					$(sideColumnLeft).addClass('col-md-1');
+					$(sideColumnLeft).addClass('col-sm-0');
+					$(sideColumnLeft).addClass('col-xs-0');
+
+					autoColumn = document.createElement('div');
+					$(autoColumn).addClass('col-md-5');
+					$(autoColumn).addClass('col-sm-6');
+					$(autoColumn).addClass('col-xs-12');
+
+					teleopColumn = document.createElement('div');
+					$(teleopColumn).addClass('col-md-5');
+					$(teleopColumn).addClass('col-sm-6');
+					$(teleopColumn).addClass('col-xs-12');
+
+					sideColumnRight = document.createElement('div');
+					$(sideColumnRight).addClass('col-md-1');
+					$(sideColumnRight).addClass('col-sm-0');
+					$(sideColumnRight).addClass('col-xs-0');
+
+					scoutDiv1 = document.createElement('div');
+					$(scoutDiv1).addClass('scout_div');
+					$(scoutDiv1).addClass('auto_view')
+
+					scoutDiv2 = document.createElement('div');
+					$(scoutDiv2).addClass('scout_div');
+					$(scoutDiv2).addClass('auto_view')
+
+					reportID = document.createElement('div');
+					$(reportID).addClass('reportID');
+					$(reportID).append("Report #" + (i + 1) + " - by " + report.meta.scout);
+					if(localStorage.user == "admin" || sessionStorage.user == "admin"){
+						deleteButton = document.createElement('input');
+						$(deleteButton).attr('type', 'button');
+						$(deleteButton).attr('value', 'Delete');
+						$(deleteButton).addClass('delete');
+						(function() {
+							var entry = report;
+							var index = i;
+							$(deleteButton).click(function() {
+								if(!confirm("Are you sure you want to delete Report #" + (index + 1) + "?")) return;
+								if(report.meta.checksum) {
+									var deleted = JSON.parse(localStorage.deleted || "[]");
+									deleted.push({
+										team: entry.meta.team,
+										match: entry.meta.match,
+										scout: entry.meta.scout,
+										checksum: entry.meta.checksum
+									});
+									localStorage.deleted = JSON.stringify(deleted);
+								}
+								var data = JSON.parse(localStorage.data);
+								data[report.meta.team][report.meta.match][report.meta.scout].splice(index, 1);
+								localStorage.data = JSON.stringify(data);
+								viewDataMatch();
+								autoSync();
+							});
+						})();
+						$(reportID).append(deleteButton);
+					}
+
+					$(scoutDiv1).append('<h3 class="scout_div_title view_title">Autonomous</h3>');
+					$(scoutDiv1).append(viewTableAuto);
+					$(scoutDiv2).append('<h3 class="scout_div_title view_title">Teleop</h3>');
+					$(scoutDiv2).append(viewTableTeleop);
+
+					scoutRow.appendChild(reportID);
+					scoutRow.appendChild(sideColumnLeft);
+					scoutRow.appendChild(autoColumn);
+					autoColumn.appendChild(scoutDiv1);
+					scoutRow.appendChild(teleopColumn);
+					teleopColumn.appendChild(scoutDiv2);
+					scoutRow.appendChild(sideColumnRight);
+
+					$('#viewContainer').append(scoutRow);
+				}
+			}else{
+			  noDataMsg = document.createElement('h1');
+              $(noDataMsg).addClass('noDataMsg');
+              noDataMsgText = document.createTextNode('No Data Yet');
+              noDataMsg.appendChild(noDataMsgText);
+              $('#viewContainer').append(noDataMsg);
+
+			}
+		}
+
+		$('#scout_form').hide();
+		$('.view_form').hide();
+		$('#report_tabs').hide();
+
+	});
+</script>
+
+</body>
+</html>

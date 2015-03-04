@@ -646,7 +646,8 @@ if ('addEventListener' in document) {
 				"meta" : {
 					"team" : localStorage.pitTeam,
 					"match" : "pit",
-					"time" : new Date().getTime()
+					"time" : new Date().getTime(),
+					"scout" : localStorage.user || sessionStorage.user
 				},
 				"data" : {
 					driveTrain : $('#driveTrain').val(),

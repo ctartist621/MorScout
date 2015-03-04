@@ -43,12 +43,21 @@ function ajax(url, get, post, cb, err) {
 	xhr.send(getQS(post));
 }
 function sync(){
-	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {"user": localStorage.user || sessionStorage.user, "token": localStorage.token || sessionStorage.token, "data": localStorage.unSynced || "[]"}, function(result){
+	ajax("http://" + localStorage.ip + ":" + localStorage.port + "/sync", {}, {
+		"user": localStorage.user || sessionStorage.user,
+		"token": localStorage.token || sessionStorage.token,
+		"data": localStorage.unSynced || "[]",
+		"feedback" : localStorage.feedback || "[]",
+		"deleted" : localStorage.deleted || "[]"
+	}, function(result){
 		if(result.code == 0){
 			localStorage.data = result.data;
 			localStorage.matches = result.matches;
 			localStorage.teams = result.teams;
+			localStorage.userTeam = result.team;
 			localStorage.unSynced = "[]";
+			localStorage.feedback = "[]";
+			localStorage.deleted = "[]";
 			$('#loadingSync').html("Done!");
 			console.log("synced");
 			localStorage.hasSynced = true;
@@ -69,13 +78,17 @@ function autoSync(){
 		"user": localStorage.user || sessionStorage.user,
 		"token": localStorage.token || sessionStorage.token,
 		"data": localStorage.unSynced || "[]",
-		"feedback" : localStorage.feedback || "[]"
+		"feedback" : localStorage.feedback || "[]",
+		"deleted" : localStorage.deleted || "[]"
 	}, function(result){
 		if(result.code == 0){
 			localStorage.data = result.data;
 			localStorage.matches = result.matches;
 			localStorage.teams = result.teams;
+			localStorage.userTeam = result.team;
 			localStorage.unSynced = "[]";
+			localStorage.feedback = "[]";
+			localStorage.deleted = "[]";
 			console.log("synced");
 			localStorage.hasSynced = true;
 		}else if(result.code == 1){

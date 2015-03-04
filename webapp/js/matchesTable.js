@@ -109,22 +109,76 @@ $(document).ready(function() {
 				$(td8).addClass('matchesTableHide');
 				$(td9).addClass('matchesTableHide');
 
-				$(td4).addClass('redTeamHighlight');
-				$(td5).addClass('redTeamHighlight');
-				$(td6).addClass('redTeamHighlight');
+				if(localStorage.userTeam) {
+					var allTeams = jsonfile[real_match_number].red.concat(jsonfile[real_match_number].blue);
+					var tds = [td4, td5, td6, td7, td8, td9];
+					for(var i = 0; i < 6; i++) {
+						if(allTeams[i] == localStorage.userTeam) {
+							$(tds[i]).addClass("selfTeamHighlight");
+							break;
+						}
+						var ally = false;
+						var enemy = false;
+						for(var m in jsonfile) {
+							if(parseInt(m) > parseInt(real_match_number)) {
+								var selfRed = ~jsonfile[m].red.indexOf(localStorage.userTeam);
+								var selfBlue = ~jsonfile[m].blue.indexOf(localStorage.userTeam);
+								var otherRed = ~jsonfile[m].red.indexOf(allTeams[i]);
+								var otherBlue = ~jsonfile[m].blue.indexOf(allTeams[i]);
+								if((selfRed && otherRed) || (selfBlue && otherBlue)) {
+									ally = true;
+								}
+								if((selfRed && otherBlue) || (selfBlue && otherRed)) {
+									enemy = true;
+								}
+							}
+						}
+						if(ally && enemy) {
+							$(tds[i]).addClass("frenemyTeamHighlight");
+						}
+						else if(ally) {
+							$(tds[i]).addClass("allyTeamHighlight");
+						}
+						else if(enemy) {
+							$(tds[i]).addClass("enemyTeamHighlight");
+						}
+					}
+				}
+				else {
+					$(td4).addClass('redTeamHighlight');
+					$(td5).addClass('redTeamHighlight');
+					$(td6).addClass('redTeamHighlight');
 
-				$(td7).addClass('blueTeamHighlight');
-				$(td8).addClass('blueTeamHighlight');
-				$(td9).addClass('blueTeamHighlight');
+					$(td7).addClass('blueTeamHighlight');
+					$(td8).addClass('blueTeamHighlight');
+					$(td9).addClass('blueTeamHighlight');
+				}
 
 				var text1 = document.createTextNode(real_match_number);
-				var text2 = document.createTextNode(jsonfile[real_match_number].time);
+
+                var BlueAllianceTime = new Date(jsonfile[real_match_number].timestamp*1000);
+                var Hours = BlueAllianceTime.getHours();
+                var suffix;
+                if(parseInt(Hours) > 12){
+                  Hours = (parseInt(Hours) - 12).toString();
+                  suffix = "PM";
+                }else if(Hours == "12"){
+                  suffix = "PM";
+                }else{
+                  suffix = "AM";
+                }
+                var Minutes = BlueAllianceTime.getMinutes();
+                if(parseInt(Minutes) < 10){
+                  Minutes = "0" + Minutes;
+                }
+                var text2 = document.createTextNode(Hours+":"+Minutes+" "+suffix);
+	            
 
 				var scouted = 0;
 				var teams = jsonfile[real_match_number].red.concat(jsonfile[real_match_number].blue);
 				for(var i = 0; i < teams.length; i++) {
 					var team = JSON.parse(localStorage.data)[teams[i]];
-					if(team && team[real_match_number]) {
+					if(team && team[real_match_number] && Object.keys(team[real_match_number]).length > 0 && team[real_match_number][Object.keys(team[real_match_number])[0]].length > 0) {
 						scouted++;
 					}
 				}
@@ -162,16 +216,16 @@ $(document).ready(function() {
 				var currentTime = new Date().getTime();
 
 				if(real_match_number_plus_one !== undefined){
-					if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number_plus_one].timestamp){
-						$(tr).children().addClass('current_match');
+					if(jsonfile[real_match_number].timestamp*1000 <= currentTime && currentTime < jsonfile[real_match_number_plus_one].timestamp*1000){
+						$(tr).children('td:lt(3)').addClass('current_match');
 					}else{
-						$(tr).children().removeClass('current_match');
+						$(tr).children('td:lt(3)').removeClass('current_match');
 					}
 				}else{
-					if(jsonfile[real_match_number].timestamp <= currentTime && currentTime < jsonfile[real_match_number].timestamp + 1000*60*6){
-						$(tr).children().addClass('current_match');
+					if(jsonfile[real_match_number].timestamp*1000 <= currentTime && currentTime < jsonfile[real_match_number].timestamp*1000 + 1000*60*6){
+						$(tr).children('td:lt(3)').addClass('current_match');
 					}else{
-						$(tr).children().removeClass('current_match');
+						$(tr).children('td:lt(3)').removeClass('current_match');
 					}
 				}
 
