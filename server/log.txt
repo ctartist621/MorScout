@@ -1,0 +1,342 @@
+login:	admin	04:57:24
+sync:	admin	04:57:24
+sync:	admin	04:57:30
+sync:	admin	04:57:33
+sync:	admin	04:57:36
+sync:	admin	04:57:39
+sync:	admin	04:57:40
+sync:	admin	04:57:40
+sync:	admin	04:57:43
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	04:57:43
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	04:57:43
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	04:57:43
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	04:57:43
+sync:	admin	04:58:28
+sync:	admin	04:58:30
+sync:	admin	04:58:34
+sync:	admin	04:58:38
+sync:	admin	04:58:41
+sync:	admin	04:58:44
+sync:	admin	04:58:47
+sync:	admin	04:58:47
+sync:	admin	04:58:53
+sync:	admin	04:58:56
+sync:	admin	04:58:59
+sync:	admin	04:58:59
+sync:	admin	04:59:02
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	04:59:02
+login:	admin	05:01:54
+sync:	admin	05:01:54
+sync:	admin	05:01:54
+sync:	admin	05:01:54
+sync:	admin	05:01:57
+sync:	admin	05:02:00
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:00
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:01
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:01
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:01
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:01
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:01
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:01
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:03
+sync:	admin	05:02:23
+sync:	admin	05:02:23
+sync:	admin	05:02:26
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:26
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:26
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:26
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:26
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:27
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:27
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	05:02:27
+login:	admin	05:03:48
+sync:	admin	05:03:48
+sync:	admin	05:03:52
+sync:	admin	05:03:53
+sync:	admin	05:03:54
+sync:	admin	05:03:54
+sync:	admin	05:03:54
+sync:	admin	05:03:54
+sync:	admin	05:03:54
+sync:	admin	05:03:54
+sync:	admin	05:03:54
+sync:	admin	05:03:54
+sync:	admin	05:03:55
+sync:	admin	05:03:55
+sync:	admin	05:03:55
+sync:	admin	05:03:55
+sync:	admin	05:03:55
+sync:	admin	05:03:55
+sync:	admin	05:03:55
+sync:	admin	05:03:55
+sync:	admin	05:03:57
+sync:	admin	05:03:57
+sync:	admin	05:03:57
+sync:	admin	05:03:57
+sync:	admin	05:03:58
+sync:	admin	05:04:07
+sync:	admin	05:04:07
+sync:	admin	05:04:07
+sync:	admin	05:04:07
+sync:	admin	05:04:07
+sync:	admin	05:04:07
+sync:	admin	05:04:08
+sync:	admin	05:04:08
+sync:	admin	05:04:08
+sync:	admin	05:04:08
+sync:	admin	05:04:08
+sync:	admin	05:04:08
+sync:	admin	05:04:09
+sync:	admin	05:10:13
+login:	admin	06:43:41
+sync:	admin	06:43:42
+sync:	admin	06:43:42
+sync:	admin	06:43:43
+sync:	admin	06:43:46
+sync:	admin	06:43:48
+sync:	admin	06:43:48
+sync:	admin	06:43:51
+sync:	admin	06:43:52
+sync:	admin	06:43:52
+sync:	admin	06:43:52
+sync:	admin	06:43:53
+sync:	admin	06:43:53
+sync:	admin	06:43:54
+sync:	admin	06:43:56
+sync:	admin	06:43:56
+sync:	admin	06:43:57
+sync:	admin	06:43:57
+sync:	admin	06:43:58
+sync:	admin	06:43:58
+sync:	admin	06:43:58
+sync:	admin	06:43:58
+sync:	admin	06:43:59
+sync:	admin	06:43:59
+sync:	admin	06:43:59
+sync:	admin	06:44:02
+sync:	admin	06:44:02
+sync:	admin	06:44:02
+sync:	admin	06:44:03
+sync:	admin	06:44:03
+sync:	admin	06:44:03
+sync:	admin	06:44:03
+sync:	admin	06:44:03
+sync:	admin	06:44:04
+sync:	admin	06:44:04
+sync:	admin	06:44:04
+sync:	admin	06:44:04
+sync:	admin	06:44:06
+sync:	admin	06:44:06
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:06
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:07
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:07
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:08
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:08
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:08
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:08
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:08
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:08
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:11
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:11
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:12
+DATA UNDEFINED WHEN READING
+DATA UNDEFINED WHEN WRITING
+sync:	admin	06:44:12
+sync:	admin	06:55:00
+sync:	admin	06:55:02
+sync:	admin	06:55:06
+sync:	admin	06:55:07
+sync:	admin	06:55:08
+sync:	admin	06:55:09
+sync:	admin	06:55:09
+sync:	admin	06:55:10
+sync:	admin	06:55:10
+sync:	admin	06:55:10
+sync:	admin	06:55:11
+sync:	admin	06:55:11
+sync:	admin	06:55:11
+sync:	admin	06:55:11
+sync:	admin	06:55:11
+sync:	admin	06:55:11
+sync:	admin	06:55:11
+sync:	admin	06:55:11
+sync:	admin	06:55:12
+sync:	admin	06:55:14
+sync:	admin	06:55:14
+sync:	admin	06:55:15
+sync:	admin	06:55:15
+sync:	admin	06:55:16
+sync:	admin	06:55:17
+sync:	admin	06:55:17
+sync:	admin	06:55:17
+sync:	admin	06:55:17
+sync:	admin	06:55:17
+sync:	admin	06:55:17
+sync:	admin	06:55:18
+sync:	admin	06:55:18
+sync:	admin	06:55:18
+sync:	admin	06:55:18
+sync:	admin	06:55:18
+sync:	admin	06:55:19
+sync:	admin	06:55:19
+sync:	admin	06:55:19
+sync:	admin	06:55:19
+sync:	admin	06:55:19
+sync:	admin	06:55:19
+sync:	admin	06:55:20
+sync:	admin	06:55:20
+sync:	admin	06:55:24
+sync:	admin	06:55:24
+sync:	admin	06:55:26
+sync:	admin	06:55:27
+sync:	admin	06:55:28
+sync:	admin	06:56:02
+sync:	admin	06:56:02
+sync:	admin	06:56:03
+sync:	admin	06:56:04
+sync:	admin	06:56:04
+sync:	admin	06:56:05
+sync:	admin	06:56:06
+sync:	admin	06:56:06
+sync:	admin	06:56:07
+sync:	admin	06:56:07
+sync:	admin	06:56:08
+sync:	admin	06:56:08
+sync:	admin	06:56:08
+sync:	admin	06:56:08
+sync:	admin	06:56:08
+sync:	admin	06:56:08
+sync:	admin	06:56:09
+sync:	admin	06:56:09
+sync:	admin	06:56:29
+sync:	admin	06:56:29
+logout:	admin	06:56:32
+login:	admin	06:56:49
+sync:	admin	06:56:49
+sync:	admin	06:56:49
+sync:	admin	06:56:49
+sync:	admin	06:56:51
+sync:	admin	06:56:56
+login:	admin	06:57:27
+sync:	admin	06:57:27
+sync:	admin	06:57:27
+sync:	admin	06:57:27
+sync:	admin	06:59:51
+sync:	admin	06:59:51
+sync:	admin	07:00:04
+sync:	admin	07:00:04
+logout:	admin	07:00:16
+login:	admin	07:00:21
+sync:	admin	07:00:21
+sync:	admin	07:00:21
+sync:	admin	07:01:24
+logout:	admin	07:01:27
+login:	admin	07:01:36
+sync:	admin	07:01:36
+sync:	admin	07:01:41
+sync:	admin	07:01:46
+sync:	admin	07:01:47
+sync:	admin	07:01:48
+sync:	admin	07:01:51
+sync:	admin	07:01:54
+sync:	admin	07:01:56
+sync:	admin	07:02:17
+sync:	admin	07:02:25
+login:	admin	07:05:39
+sync:	admin	07:05:39
+sync:	admin	07:05:42
+sync:	admin	07:05:44
+logout:	admin	07:05:58
+login:	admin	07:06:04
+sync:	admin	07:06:04
+sync:	admin	07:06:23
+sync:	admin	07:06:27
+sync:	admin	07:06:29
+sync:	admin	07:06:31
+login:	admin	07:10:07
+sync:	admin	07:10:07
+sync:	admin	07:10:11
+sync:	admin	07:10:12
+sync:	admin	07:10:24
+sync:	admin	07:10:26
+sync:	admin	07:10:28
+sync:	admin	07:10:30
+sync:	admin	07:10:31
+sync:	admin	07:10:32
+sync:	admin	07:10:48
+login:	admin	07:29:06
+sync:	admin	07:29:06
+sync:	admin	07:29:08
+sync:	admin	07:29:13
+sync:	admin	07:29:17
+sync:	admin	07:29:20
+sync:	admin	07:29:23
+sync:	admin	07:29:25
+sync:	admin	07:29:28
+sync:	admin	07:29:29
+sync:	admin	07:29:32
+sync:	admin	07:29:33
