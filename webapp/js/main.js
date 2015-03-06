@@ -106,9 +106,7 @@ Array.prototype.last = function() {
 };
 
 $(document).ready(function() {
-	if(navigator.onLine){
-		autoSync();
-	}	
+	autoSync();
 	if($(window).width()<768){
 		$('.current_page').show();
 	}else{
@@ -120,21 +118,24 @@ $(document).ready(function() {
 		document.getElementById("UserDropdown").innerHTML = '<a id = "nameD" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="#" id="view_prof">View Profile</a></li><li><a href="#" id="logout">Log Out</a></li></ul>'
 		document.getElementById('nameD').appendChild(userD);
 		document.getElementById("logout").onclick = function() {
-			ajax("http://" + localStorage.ip + ":" + localStorage.port + "/logout", {}, {"user" : localStorage.user, "token" : localStorage.token}, function(result) {
-				if(result.code == 0) {
+			if(!ajax("http://" + localStorage.ip + ":" + localStorage.port + "/logout", {}, {"user" : localStorage.user, "token" : localStorage.token}, function(result) {
+				if(result.code == 0 || result.code == 1) {
 					localStorage.removeItem('user');
 					localStorage.removeItem('token');
 					localStorage.hasLoggedIn = false;
 					location = "index.html";
-				}
-				else if(result.code == 1) {
-					alert("invalid token");
+					return true;
 				}
 				else {
 					alert("oops");
 				}
-			});
-			return false;		
+			})){
+				localStorage.removeItem('user');
+				localStorage.removeItem('token');
+				localStorage.hasLoggedIn = false;
+				location = "index.html";
+				return false;
+			}	
 		}
 		document.getElementById("view_prof").onclick = function() {
 			alert("Hello and have a good day, " + localStorage.user + "\nToken: " + localStorage.token + "\nLogged in indefinitely.\nIP: " + localStorage.ip+":"+localStorage.port);
@@ -146,21 +147,24 @@ $(document).ready(function() {
 		document.getElementById('nameD').appendChild(userD);
 		document.getElementById("logout").onclick = function() {
 			
-			ajax("http://" + localStorage.ip + ":" + localStorage.port + "/logout", {}, {"user" : sessionStorage.user, "token" : sessionStorage.token}, function(result) {
-				if(result.code == 0) {
+			if(!ajax("http://" + localStorage.ip + ":" + localStorage.port + "/logout", {}, {"user" : sessionStorage.user, "token" : sessionStorage.token}, function(result) {
+				if(result.code == 0 || result.code == 1) {
 					sessionStorage.removeItem('user');
 					sessionStorage.removeItem('token');
 					localStorage.hasLoggedIn = false;
 					location = "index.html";
-				}
-				else if(result.code == 1) {
-					alert("invalid token");
+					return true;
 				}
 				else {
 					alert("oops");
 				}
-			});
-			return false;
+			})){
+				sessionStorage.removeItem('user');
+				sessionStorage.removeItem('token');
+				localStorage.hasLoggedIn = false;
+				location = "index.html";
+				return false;
+			}	
 			
 		}
 		document.getElementById("view_prof").onclick = function() {

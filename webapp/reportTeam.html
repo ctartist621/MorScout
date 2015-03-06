@@ -610,9 +610,6 @@ if ('addEventListener' in document) {
 			$('#viewMatches_form').hide();  
 			$('#view_form').show();
 			viewDataPit();
-			if(navigator.onLine){
-				autoSync();
-			}
 		});
 		$('#scout_tab').click(function(){
 			$('#scout_tab').addClass("active");
@@ -624,9 +621,6 @@ if ('addEventListener' in document) {
 			$('#submit_match_report').html('Submit');
 			$('#submit_match_report').prop('disabled', false);
 			$('#submit_match_report').css({"background-color":"orange","color":"black"});
-			if(navigator.onLine){
-				autoSync();
-			}
 		});	
 		$('#viewMatches_tab').click(function(){
 			$('#viewMatches_tab').addClass("active");
@@ -635,9 +629,6 @@ if ('addEventListener' in document) {
 			$('#viewMatches_form').show();
 			$('#view_form').hide();
 			$('#scout_form').hide();
-			if(navigator.onLine){
-				autoSync();
-			}
 		})
 
 		$('#submit_match_report').click(function(){
@@ -685,7 +676,6 @@ if ('addEventListener' in document) {
 			data[localStorage.pitTeam].pit[user].push(report);
 			localStorage.data = JSON.stringify(data);
 
-			if(navigator.onLine){
 				autoSync();
 				$('#submit_match_report').html('Done!');
 				$('#submit_match_report').prop('disabled', true);
@@ -700,21 +690,7 @@ if ('addEventListener' in document) {
 					$('#submit_match_report').addClass('button');
 					$('#submit_match_report').removeClass('button_disabled');
 				}, 1000);
-			} else {
-				$('#submit_match_report').html('Data was saved! Sync when server connection is available.');
-				$('#submit_match_report').prop('disabled', true);
-				$('#submit_match_report').removeClass('button_hovered');
-				$('#submit_match_report').removeClass('button');
-				$('#submit_match_report').addClass('button_disabled');
-				$('#submit_match_report').css({"background-color":"black","color":"orange"});
-				setTimeout(function() {
-					$('#submit_match_report').html('Submit');
-					$('#submit_match_report').prop('disabled', false);
-					$('#submit_match_report').css({"background-color":"orange","color":"black"});
-					$('#submit_match_report').addClass('button');
-					$('#submit_match_report').removeClass('button_disabled');
-				}, 2000);
-			}
+			
 		});
 	});
 </script>
