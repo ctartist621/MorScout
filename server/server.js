@@ -113,7 +113,7 @@ function log(line) {
 	fs.appendFile("log.txt", line + "\n");
 }
 
-let lastSync = new Date().getTime();
+let lastSync = 0:
 
 http.createServer(function(req, res) {
 	res.writeHead(200, {"Access-Control-Allow-Headers" : "Content-Type", "Access-Control-Allow-Origin" : "*"});
@@ -138,18 +138,18 @@ http.createServer(function(req, res) {
 		                	}
 		                	users[username].tokens.push(token);
 		                	writeJSON("users.json", users);
-					sendQS(res, {
-						"code" : 0,
-						"user" : username,
-						"token" : token,
-						"data" : readJSON("data.json"),
-						"matches" : readJSON("matches.json"),
-						"teams" : readJSON("teams.json"),
-						"team" : parseInt(fs.readFileSync("team.txt"))
-					});
-					log("login:\t" + username + "\t" + timeString());
-					userFound = true;
-					break;
+							sendQS(res, {
+								"code" : 0,
+								"user" : username,
+								"token" : token,
+								"data" : readJSON("data.json"),
+								"matches" : readJSON("matches.json"),
+								"teams" : readJSON("teams.json"),
+								"team" : parseInt(fs.readFileSync("team.txt"))
+							});
+							log("login:\t" + username + "\t" + timeString());
+							userFound = true;
+							break;
 	                	}
 	                }
 	                if(!userFound) {
@@ -167,21 +167,23 @@ http.createServer(function(req, res) {
 					sendQS(res, {"code" : 0});
 					log("logout:\t" + post.user +"\t" + timeString());
 				}
-				else if(path == "/sync" && lastSync + 1000 < new Date().getTime()) {
-                    lastSync = new Date().getTime();
-					let entries = parseJSON(post.data);
-					if(entries instanceof Array) {
+				else if(path == "/sync") {
+					if(lastSync + 1000 < Date.now()) {
+                    	lastSync = Date.now();
+						let entries = parseJSON(post.data);
 						let data = readJSON("data.json");
 						if(typeof(data) == "undefined") log("DATA UNDEFINED WHEN READING");
-						let count = 0;
-						for(let entry of entries) {
-							if(validEntry(entry)) {
-								data = addEntry(entry, post.user, data);
-								count++;
+						if(entries instanceof Array) {
+							let count = 0;
+							for(let entry of entries) {
+								if(validEntry(entry)) {
+									data = addEntry(entry, post.user, data);
+									count++;
+								}
 							}
+							if(count > 0) log(count + " entr" + (count == 1 ? "y" : "ies") + " received");
 						}
-						if(count > 0) log(count + " entr" + (count == 1 ? "y" : "ies") + " received");
-						var deleted = parseJSON(post.deleted);
+						let deleted = parseJSON(post.deleted);
 						if(deleted instanceof Array && post.user.toLowerCase() == "admin") {
 							for(let obj of deleted) {
 								let team = obj.team;
