@@ -43,6 +43,12 @@ $ node --harmony server
 ---
 Each team will be running their own server, so it is completely customizable. You can set your regional by going to the "url.json" file in the server folder and changing two instances of "2014calb" to the desired year and event code. Your event code can be found at https://docs.google.com/spreadsheet/ccc?key=0ApRO2Yzh2z01dExFZEdieV9WdTJsZ25HSWI3VUxsWGc#gid=0.
 
+Everytime you change the url to the regional or feel like the information on blue alliance has been updated please run the following commands when you are in the server folder from the terminal:
+```sh
+$ node --harmony getMatches
+$ node --harmony getTeams
+```
+
 ##How to Send Feedback to Team 1515
 ---
 Sending feedback is simple! Because MorScout is still in beta we rely on your feedback to make the best scouting app ever!
