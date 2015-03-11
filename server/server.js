@@ -113,7 +113,7 @@ function log(line) {
 	fs.appendFile("log.txt", line + "\n");
 }
 
-let lastSync = 0:
+let lastSync = 0;
 
 http.createServer(function(req, res) {
 	res.writeHead(200, {"Access-Control-Allow-Headers" : "Content-Type", "Access-Control-Allow-Origin" : "*"});

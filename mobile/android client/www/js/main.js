@@ -107,10 +107,7 @@ Array.prototype.last = function() {
 
 $(document).ready(function() {
 	
-	
-	if(navigator.onLine){
-		autoSync();
-	}
+	autoSync();
 
 	$('.panelLink').click(function(){
 		$("[data-role=panel]").panel("close");
