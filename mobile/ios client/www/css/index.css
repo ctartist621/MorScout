@@ -10,6 +10,10 @@
 .hidden  {
     display: none; /* hides elements under class "hidden" (not to be changed)  */
 }
+/*.disable-hover,
+.disable-hover * {
+  pointer-events: none !important;
+}*/
 
 *{
 	margin: 0em; /* removes default margins of HTML elements (not to be changed) */
@@ -270,7 +274,7 @@ th,td {
 	background-color: #001962;
 	color: #CCCCCC;
 }
-.hoverable_row:hover > td{
+.hoverable_row-hover > td{
 	background-color: #C0C0C0 !important;
 	color: black !important; /* color of text when any row is hovered over */
 	cursor: pointer !important; /* changes cursor to shape of hand when hovering over rows (not to be changed) */

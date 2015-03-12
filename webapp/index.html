@@ -16,7 +16,39 @@
   	<link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/addtohomescreen.css">
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>	
+    <script type="text/javascript">
+    //   var nw = require('nw.gui');
+
+    //   // Window menu
+    //   var windowMenu = new nw.Menu({
+    //       type: 'menubar'
+    //   });
+
+    //   // Help menu
+    //   var helpMenu = new nw.Menu();
+
+    //   // Add to window menu
+    //   windowMenu.append(new nw.MenuItem({
+    //       label: 'Help',
+    //       submenu: helpMenu
+    //   }));
+
+    //   // About sub-entry
+    //   helpMenu.append(new nw.MenuItem({
+    //       label: 'about',
+    //       click: function(){
+    //           alert('I made this!');
+    //       }
+    //   }));
+
+    //   // Assign to window
+    //   nw.Window.get().menu = windowMenu;
+      var gui = require('nw.gui');
+      gui.Window.get().menu = new gui.Menu({ type: 'menubar' });
+      var mb = new gui.Menu({type:"menubar"});
+      mb.createMacBuiltin("MorScout");
+      gui.Window.get().menu = mb;
+     </script>
   </head>
 
 <body>
